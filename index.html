@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IRKEEDIA — Digital Craft Studio</title>
+  <meta name="description" content="Studio de création digitale — Web Design, Apps Natives, IA & Développement Sur Mesure" />
+  <meta name="theme-color" content="#050505" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- SVG Filters -->
+  <svg style="position:absolute;width:0;height:0;pointer-events:none">
+    <defs>
+      <filter id="noiseFilter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+      </filter>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Grain -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" aria-hidden="true">
+    <span class="cursor-text">View</span>
+  </div>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-bg preloader-bg-top"></div>
+    <div class="preloader-bg preloader-bg-bottom"></div>
+    <div class="preloader-center">
+      <div class="preloader-logo-wrap">
+        <span class="preloader-logo-text">IRKEEDIA</span>
+      </div>
+      <div class="preloader-count">
+        <span class="preloader-counter">0</span>
+        <span class="preloader-percent">%</span>
+      </div>
+      <div class="preloader-line">
+        <div class="preloader-line-inner"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo magnetic">
+      <span class="logo-mark">◈</span>
+      <span class="logo-text">IRKEEDIA</span>
+    </a>
+    <div class="nav-center">
+      <span class="nav-status"><span class="status-dot"></span><span data-i18n="nav.status">Disponible pour nouveaux projets</span></span>
+    </div>
+    <div class="lang-toggle magnetic" id="lang-toggle" role="button" tabindex="0" aria-label="Switch language">
+      <span class="lang-option lang-option--active" data-lang="fr">FR</span>
+      <span class="lang-sep">/</span>
+      <span class="lang-option" data-lang="en">EN</span>
+    </div>
+    <div class="nav-toggle magnetic" id="menu-toggle" role="button" tabindex="0" aria-label="Menu">
+      <span class="toggle-label">Menu</span>
+      <div class="toggle-lines">
+        <div class="toggle-line"></div>
+        <div class="toggle-line"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ MENU OVERLAY ============ -->
+  <div class="menu-overlay" id="menu-overlay">
+    <div class="menu-bg"></div>
+    <div class="menu-content">
+      <div class="menu-grid">
+        <div class="menu-links">
+          <div class="menu-link-wrap">
+            <a href="#hero" class="menu-link" data-page="home">
+              <span class="menu-link-num">01</span>
+              <span class="menu-link-text" data-i18n="menu.home">Accueil</span>
+              <span class="menu-link-arrow">↗</span>
+            </a>
+          </div>
+          <div class="menu-link-wrap">
+            <a href="#services" class="menu-link" data-page="services">
+              <span class="menu-link-num">02</span>
+              <span class="menu-link-text" data-i18n="menu.services">Services</span>
+              <span class="menu-link-arrow">↗</span>
+            </a>
+          </div>
+          <div class="menu-link-wrap">
+            <a href="#work" class="menu-link" data-page="work">
+              <span class="menu-link-num">03</span>
+              <span class="menu-link-text" data-i18n="menu.work">Projets</span>
+              <span class="menu-link-arrow">↗</span>
+            </a>
+          </div>
+          <div class="menu-link-wrap">
+            <a href="#process" class="menu-link" data-page="process">
+              <span class="menu-link-num">04</span>
+              <span class="menu-link-text" data-i18n="menu.process">Processus</span>
+              <span class="menu-link-arrow">↗</span>
+            </a>
+          </div>
+          <div class="menu-link-wrap">
+            <a href="#about" class="menu-link" data-page="about">
+              <span class="menu-link-num">05</span>
+              <span class="menu-link-text" data-i18n="menu.about">À propos</span>
+              <span class="menu-link-arrow">↗</span>
+            </a>
+          </div>
+          <div class="menu-link-wrap">
+            <a href="#contact" class="menu-link" data-page="contact">
+              <span class="menu-link-num">06</span>
+              <span class="menu-link-text" data-i18n="menu.contact">Contact</span>
+              <span class="menu-link-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+        <div class="menu-right">
+          <div class="menu-info-block">
+            <span class="menu-info-label" data-i18n="menu.socials">Réseaux</span>
+            <div class="menu-socials-col">
+              <a href="#" class="menu-social-link magnetic">Instagram</a>
+              <a href="#" class="menu-social-link magnetic">LinkedIn</a>
+              <a href="#" class="menu-social-link magnetic">Behance</a>
+              <a href="#" class="menu-social-link magnetic">Dribbble</a>
+            </div>
+          </div>
+          <div class="menu-info-block">
+            <span class="menu-info-label" data-i18n="menu.contactLabel">Contact</span>
+            <a href="mailto:hello@irkeedia.com" class="menu-info-email magnetic">hello@irkeedia.com</a>
+          </div>
+          <div class="menu-info-block">
+            <span class="menu-info-label" data-i18n="menu.locationLabel">Localisation</span>
+            <span class="menu-info-value" data-i18n="menu.location">France — Disponible dans le monde entier</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MAIN ============ -->
+  <main id="smooth-content">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+      <div class="hero-canvas" id="hero-canvas"></div>
+      <div class="hero-gradient-orb hero-gradient-orb--1"></div>
+      <div class="hero-gradient-orb hero-gradient-orb--2"></div>
+      <div class="hero-gradient-orb hero-gradient-orb--3"></div>
+      <div class="hero-content">
+        <div class="hero-tag">
+          <div class="reveal-wrap">
+            <span class="reveal-inner"><span class="status-dot"></span><span data-i18n="hero.tag">Studio de Création Digitale — 2026</span></span>
+          </div>
+        </div>
+        <div class="hero-title">
+          <h1 data-split data-i18n-html="hero.title">
+            <span class="hero-line">Nous créons</span>
+            <span class="hero-line">des <span class="text-stroke">expériences</span></span>
+            <span class="hero-line">digitales qui <span class="text-accent">comptent</span></span>
+          </h1>
+        </div>
+        <div class="hero-bottom">
+          <div class="hero-desc">
+            <p class="reveal-up" data-i18n="hero.desc">Sites immersifs · Applications natives · Solutions IA sur mesure. Chaque pixel est intentionnel.</p>
+          </div>
+          <div class="hero-cta reveal-up">
+            <a href="#contact" class="btn-liquid magnetic">
+              <span class="btn-liquid-fill"></span>
+              <span class="btn-liquid-text" data-i18n="hero.cta">Démarrer un projet</span>
+              <span class="btn-liquid-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-scroll-indicator">
+        <div class="scroll-line">
+          <div class="scroll-line-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MARQUEE STRIP ===== -->
+    <section class="marquee-strip">
+      <div class="marquee" data-direction="left" data-speed="1.2">
+        <div class="marquee-inner">
+          <span class="marquee-item" data-i18n="marquee1.1">WEB DESIGN</span>
+          <span class="marquee-dot"></span>
+          <span class="marquee-item" data-i18n="marquee1.2">APPS NATIVES</span>
+          <span class="marquee-dot"></span>
+          <span class="marquee-item" data-i18n="marquee1.3">INTELLIGENCE ARTIFICIELLE</span>
+          <span class="marquee-dot"></span>
+          <span class="marquee-item" data-i18n="marquee1.4">DÉVELOPPEMENT CUSTOM</span>
+          <span class="marquee-dot"></span>
+          <span class="marquee-item" data-i18n="marquee1.5">UX / UI DESIGN</span>
+          <span class="marquee-dot"></span>
+          <span class="marquee-item" data-i18n="marquee1.6">ROBOTIQUE & FIRMWARE</span>
+          <span class="marquee-dot"></span>
+          <span class="marquee-item" data-i18n="marquee1.7">BASES DE DONNÉES</span>
+          <span class="marquee-dot"></span>
+          <span class="marquee-item" data-i18n="marquee1.8">IA LOCALE</span>
+          <span class="marquee-dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section class="services" id="services">
+      <div class="container">
+        <div class="section-intro section-intro--center">
+          <span class="section-tag" data-i18n="services.tag">(01) — Services</span>
+          <h2 data-split class="section-title" data-i18n="services.title">Nos expertises</h2>
+          <p class="section-desc reveal-up" style="max-width:520px; margin: 1.5rem auto 0;" data-i18n="services.desc">De la conception à la livraison, des solutions taillées pour impressionner et performer.</p>
+        </div>
+      </div>
+
+      <div class="services-3d">
+        <!-- Card 1 — Web Design -->
+        <div class="s3d-card" data-service-idx="0">
+          <div class="s3d-card-inner">
+            <div class="s3d-card-glow"></div>
+            <div class="s3d-card-content">
+              <div class="s3d-card-head">
+                <span class="s3d-num">01</span>
+                <div class="s3d-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <rect x="4" y="6" width="40" height="28" rx="3"/>
+                    <line x1="4" y1="12" x2="44" y2="12"/>
+                    <circle cx="8" cy="9" r="1" fill="currentColor"/><circle cx="12" cy="9" r="1" fill="currentColor"/><circle cx="16" cy="9" r="1" fill="currentColor"/>
+                    <line x1="18" y1="40" x2="30" y2="40"/><line x1="24" y1="34" x2="24" y2="40"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="s3d-title" data-i18n-html="s1.title">Web Design<br/>& Développement</h3>
+              <p class="s3d-desc" data-i18n="s1.desc">Sites web immersifs, sur mesure. UI/UX premium, animations GSAP/WebGL, performances optimales. Chaque pixel est intentionnel.</p>
+              <div class="s3d-stack">
+                <span>React</span><span>Next.js</span><span>GSAP</span><span>Three.js</span><span>Tailwind</span>
+              </div>
+              <a href="#" class="btn-liquid magnetic">
+                <span class="btn-liquid-fill"></span>
+                <span class="btn-liquid-text" data-i18n="services.explore">Explorer</span>
+                <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+              </a>
+            </div>
+            <div class="s3d-card-visual">
+              <div class="s3d-visual-bg" style="background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #1a73e8 100%)"></div>
+              <div class="s3d-visual-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 — Apps Natives -->
+        <div class="s3d-card" data-service-idx="1">
+          <div class="s3d-card-inner">
+            <div class="s3d-card-glow"></div>
+            <div class="s3d-card-content">
+              <div class="s3d-card-head">
+                <span class="s3d-num">02</span>
+                <div class="s3d-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <rect x="12" y="2" width="24" height="44" rx="5"/>
+                    <line x1="20" y1="6" x2="28" y2="6"/>
+                    <circle cx="24" cy="40" r="2"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="s3d-title" data-i18n-html="s2.title">Applications<br/>Natives Android</h3>
+              <p class="s3d-desc" data-i18n="s2.desc">Apps performantes et intuitives. De la conception au déploiement Play Store, architecture moderne, zéro compromis sur l'expérience.</p>
+              <div class="s3d-stack">
+                <span>Kotlin</span><span>Jetpack Compose</span><span>Firebase</span><span>Material 3</span>
+              </div>
+              <a href="#" class="btn-liquid magnetic">
+                <span class="btn-liquid-fill"></span>
+                <span class="btn-liquid-text" data-i18n="services.explore">Explorer</span>
+                <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+              </a>
+            </div>
+            <div class="s3d-card-visual">
+              <div class="s3d-visual-bg" style="background: linear-gradient(135deg, #0a1a0a 0%, #1a4a1a 40%, #c8ff00 100%)"></div>
+              <div class="s3d-visual-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 — IA & Automatisation -->
+        <div class="s3d-card" data-service-idx="2">
+          <div class="s3d-card-inner">
+            <div class="s3d-card-glow"></div>
+            <div class="s3d-card-content">
+              <div class="s3d-card-head">
+                <span class="s3d-num">03</span>
+                <div class="s3d-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <circle cx="24" cy="24" r="16"/>
+                    <circle cx="24" cy="24" r="6"/>
+                    <path d="M24 4v8M24 36v8M4 24h8M36 24h8"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="s3d-title" data-i18n-html="s3.title">IA &<br/>Automatisation</h3>
+              <p class="s3d-desc" data-i18n="s3.desc">Chatbots intelligents, automatisation de processus, analyse prédictive. L'IA au service de votre croissance, intégrée nativement.</p>
+              <div class="s3d-stack">
+                <span>OpenAI</span><span>LangChain</span><span>Python</span><span>RAG</span><span>Vector DB</span>
+              </div>
+              <a href="#" class="btn-liquid magnetic">
+                <span class="btn-liquid-fill"></span>
+                <span class="btn-liquid-text" data-i18n="services.explore">Explorer</span>
+                <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+              </a>
+            </div>
+            <div class="s3d-card-visual">
+              <div class="s3d-visual-bg" style="background: linear-gradient(135deg, #1a0a2e 0%, #6b21a8 50%, #c084fc 100%)"></div>
+              <div class="s3d-visual-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 — Développement Sur Mesure -->
+        <div class="s3d-card" data-service-idx="3">
+          <div class="s3d-card-inner">
+            <div class="s3d-card-glow"></div>
+            <div class="s3d-card-content">
+              <div class="s3d-card-head">
+                <span class="s3d-num">04</span>
+                <div class="s3d-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M16 6l-4 36"/><path d="M32 6l4 36"/><path d="M6 16h36"/><path d="M6 32h36"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="s3d-title" data-i18n-html="s4.title">Développement<br/>Sur Mesure</h3>
+              <p class="s3d-desc" data-i18n="s4.desc">APIs robustes, architectures scalables, features complexes. Code propre, performant, maintenable. Du backend au DevOps.</p>
+              <div class="s3d-stack">
+                <span>Node.js</span><span>PostgreSQL</span><span>Docker</span><span>AWS</span><span>GraphQL</span>
+              </div>
+              <a href="#" class="btn-liquid magnetic">
+                <span class="btn-liquid-fill"></span>
+                <span class="btn-liquid-text" data-i18n="services.explore">Explorer</span>
+                <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+              </a>
+            </div>
+            <div class="s3d-card-visual">
+              <div class="s3d-visual-bg" style="background: linear-gradient(135deg, #0a0a0a 0%, #1c1c1c 40%, #c8ff00 100%)"></div>
+              <div class="s3d-visual-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 — Bases de Données Custom -->
+        <div class="s3d-card" data-service-idx="4">
+          <div class="s3d-card-inner">
+            <div class="s3d-card-glow"></div>
+            <div class="s3d-card-content">
+              <div class="s3d-card-head">
+                <span class="s3d-num">05</span>
+                <div class="s3d-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <ellipse cx="24" cy="12" rx="16" ry="6"/>
+                    <path d="M8 12v24c0 3.3 7.2 6 16 6s16-2.7 16-6V12"/>
+                    <path d="M8 22c0 3.3 7.2 6 16 6s16-2.7 16-6"/>
+                    <path d="M8 32c0 3.3 7.2 6 16 6s16-2.7 16-6"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="s3d-title" data-i18n-html="s5.title">Bases de Données<br/>Custom</h3>
+              <p class="s3d-desc" data-i18n="s5.desc">Conception d'architectures de données sur mesure. Modélisation, optimisation, migrations et administration de bases SQL & NoSQL.</p>
+              <div class="s3d-stack">
+                <span>PostgreSQL</span><span>MongoDB</span><span>Redis</span><span>MySQL</span><span>Supabase</span>
+              </div>
+              <a href="#" class="btn-liquid magnetic">
+                <span class="btn-liquid-fill"></span>
+                <span class="btn-liquid-text" data-i18n="services.explore">Explorer</span>
+                <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+              </a>
+            </div>
+            <div class="s3d-card-visual">
+              <div class="s3d-visual-bg" style="background: linear-gradient(135deg, #0a1a1a 0%, #0d4b4b 40%, #00d4aa 100%)"></div>
+              <div class="s3d-visual-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 — Robotique Firmware & Software -->
+        <div class="s3d-card" data-service-idx="5">
+          <div class="s3d-card-inner">
+            <div class="s3d-card-glow"></div>
+            <div class="s3d-card-content">
+              <div class="s3d-card-head">
+                <span class="s3d-num">06</span>
+                <div class="s3d-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <rect x="12" y="12" width="24" height="24" rx="3"/>
+                    <rect x="19" y="19" width="10" height="10" rx="1.5"/>
+                    <line x1="18" y1="6" x2="18" y2="12"/><line x1="24" y1="6" x2="24" y2="12"/><line x1="30" y1="6" x2="30" y2="12"/>
+                    <line x1="18" y1="36" x2="18" y2="42"/><line x1="24" y1="36" x2="24" y2="42"/><line x1="30" y1="36" x2="30" y2="42"/>
+                    <line x1="6" y1="18" x2="12" y2="18"/><line x1="6" y1="24" x2="12" y2="24"/><line x1="6" y1="30" x2="12" y2="30"/>
+                    <line x1="36" y1="18" x2="42" y2="18"/><line x1="36" y1="24" x2="42" y2="24"/><line x1="36" y1="30" x2="42" y2="30"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="s3d-title" data-i18n-html="s6.title">Robotique<br/>Firmware & Software</h3>
+              <p class="s3d-desc" data-i18n="s6.desc">Développement firmware embarqué et logiciels de contrôle. Du microcontrôleur au robot complet, électronique et code fusionnés.</p>
+              <div class="s3d-stack">
+                <span>C/C++</span><span>Rust</span><span>Arduino</span><span>ESP32</span><span>ROS</span>
+              </div>
+              <a href="#" class="btn-liquid magnetic">
+                <span class="btn-liquid-fill"></span>
+                <span class="btn-liquid-text" data-i18n="services.explore">Explorer</span>
+                <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+              </a>
+            </div>
+            <div class="s3d-card-visual">
+              <div class="s3d-visual-bg" style="background: linear-gradient(135deg, #1a0a0a 0%, #4a1a1a 40%, #ff4444 100%)"></div>
+              <div class="s3d-visual-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 7 — IA Locale & On-Premise -->
+        <div class="s3d-card" data-service-idx="6">
+          <div class="s3d-card-inner">
+            <div class="s3d-card-glow"></div>
+            <div class="s3d-card-content">
+              <div class="s3d-card-head">
+                <span class="s3d-num">07</span>
+                <div class="s3d-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M24 4L8 12v12c0 11 7 21 16 24 9-3 16-13 16-24V12L24 4z"/>
+                    <circle cx="24" cy="22" r="6"/>
+                    <path d="M21 22h6M24 19v6"/>
+                    <circle cx="24" cy="22" r="10" stroke-dasharray="3 3"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="s3d-title" data-i18n-html="s7.title">IA Locale<br/>& On-Premise</h3>
+              <p class="s3d-desc" data-i18n="s7.desc">Déploiement de modèles IA en local. Inférence privée, fine-tuning, LLMs on-premise. Vos données restent chez vous.</p>
+              <div class="s3d-stack">
+                <span>Ollama</span><span>LLaMA</span><span>GGUF</span><span>vLLM</span><span>PyTorch</span>
+              </div>
+              <a href="#" class="btn-liquid magnetic">
+                <span class="btn-liquid-fill"></span>
+                <span class="btn-liquid-text" data-i18n="services.explore">Explorer</span>
+                <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+              </a>
+            </div>
+            <div class="s3d-card-visual">
+              <div class="s3d-visual-bg" style="background: linear-gradient(135deg, #0a0a1a 0%, #2a1a4a 40%, #e040fb 100%)"></div>
+              <div class="s3d-visual-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 8 — Installation Multi-OS -->
+        <div class="s3d-card" data-service-idx="7">
+          <div class="s3d-card-inner">
+            <div class="s3d-card-glow"></div>
+            <div class="s3d-card-content">
+              <div class="s3d-card-head">
+                <span class="s3d-num">08</span>
+                <div class="s3d-icon">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <rect x="4" y="4" width="40" height="32" rx="3"/>
+                    <line x1="4" y1="12" x2="44" y2="12"/>
+                    <polyline points="12,20 18,24 12,28"/>
+                    <line x1="22" y1="28" x2="32" y2="28"/>
+                    <circle cx="8" cy="8" r="1" fill="currentColor"/><circle cx="12" cy="8" r="1" fill="currentColor"/><circle cx="16" cy="8" r="1" fill="currentColor"/>
+                    <line x1="16" y1="40" x2="32" y2="40"/><line x1="24" y1="36" x2="24" y2="40"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="s3d-title" data-i18n-html="s8.title">Installation<br/>Multi-OS</h3>
+              <p class="s3d-desc" data-i18n="s8.desc">Installation et configuration Linux, dual-boot, serveurs. Arch, Debian, Ubuntu, NixOS — environnements optimisés et sécurisés.</p>
+              <div class="s3d-stack">
+                <span>Arch Linux</span><span>Debian</span><span>NixOS</span><span>Bash</span><span>Docker</span>
+              </div>
+              <a href="#" class="btn-liquid magnetic">
+                <span class="btn-liquid-fill"></span>
+                <span class="btn-liquid-text" data-i18n="services.explore">Explorer</span>
+                <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+              </a>
+            </div>
+            <div class="s3d-card-visual">
+              <div class="s3d-visual-bg" style="background: linear-gradient(135deg, #0a0f0a 0%, #0a2a0a 40%, #00ff41 100%)"></div>
+              <div class="s3d-visual-grid"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WORK / PROJECTS ===== -->
+    <section class="work" id="work">
+      <div class="container">
+        <div class="section-intro">
+          <div class="section-intro-left">
+            <span class="section-tag" data-i18n="work.tag">(02) — Projets</span>
+            <h2 data-split class="section-title" data-i18n-html="work.title">Projets<br/>sélectionnés</h2>
+          </div>
+          <div class="section-intro-right">
+            <p class="section-desc reveal-up" data-i18n="work.desc">Chaque projet est une collaboration unique. Voici quelques réalisations dont nous sommes fiers.</p>
+            <a href="#" class="btn-liquid btn-liquid--outline magnetic">
+              <span class="btn-liquid-fill"></span>
+              <span class="btn-liquid-text" data-i18n="work.viewAll">Voir tout</span>
+              <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Full-width project showcase -->
+        <div class="work-showcase">
+          <a href="#" class="work-item" data-cursor-text="Voir">
+            <div class="work-item-visual">
+              <div class="work-item-img" style="background:linear-gradient(145deg,#0d1117 0%,#161b22 30%,#0f3460 80%,#1a73e8 100%)"></div>
+              <div class="work-item-overlay"></div>
+              <div class="work-item-badge" data-i18n="work.featured">En vedette</div>
+            </div>
+            <div class="work-item-info">
+              <div class="work-item-meta">
+                <span class="work-cat" data-i18n="work.p1.cat">Web Design</span>
+                <span class="work-year">2026</span>
+              </div>
+              <h3 class="work-name">Nebula</h3>
+              <p class="work-type" data-i18n="work.p1.type">E-commerce immersif avec expérience 3D interactive</p>
+              <div class="work-techs">
+                <span>Next.js</span><span>Three.js</span><span>Stripe</span>
+              </div>
+            </div>
+          </a>
+
+          <div class="work-duo">
+            <a href="#" class="work-item work-item--half" data-cursor-text="Voir">
+              <div class="work-item-visual">
+                <div class="work-item-img" style="background:linear-gradient(145deg,#050505 0%,#1a2f1a 40%,#c8ff00 100%)"></div>
+                <div class="work-item-overlay"></div>
+              </div>
+              <div class="work-item-info">
+                <div class="work-item-meta">
+                <span class="work-cat" data-i18n="work.p2.cat">App Native</span>
+                <span class="work-year">2025</span>
+              </div>
+              <h3 class="work-name">Vertex</h3>
+              <p class="work-type" data-i18n="work.p2.type">App Android — Visualisation 3D temps réel</p>
+              </div>
+            </a>
+            <a href="#" class="work-item work-item--half" data-cursor-text="Voir">
+              <div class="work-item-visual">
+                <div class="work-item-img" style="background:linear-gradient(145deg,#1a0a2e 0%,#6b21a8 50%,#c084fc 100%)"></div>
+                <div class="work-item-overlay"></div>
+              </div>
+              <div class="work-item-info">
+                <div class="work-item-meta">
+                <span class="work-cat" data-i18n="work.p3.cat">IA & Data</span>
+                <span class="work-year">2025</span>
+              </div>
+              <h3 class="work-name">Pulse</h3>
+              <p class="work-type" data-i18n="work.p3.type">Dashboard analytics prédictif propulsé par IA</p>
+              </div>
+            </a>
+          </div>
+
+          <a href="#" class="work-item" data-cursor-text="Voir">
+            <div class="work-item-visual">
+              <div class="work-item-img" style="background:linear-gradient(145deg,#0a0a0a 0%,#1c1c1c 40%,#333 70%,#c8ff00 100%)"></div>
+              <div class="work-item-overlay"></div>
+            </div>
+            <div class="work-item-info">
+              <div class="work-item-meta">
+                <span class="work-cat" data-i18n="work.p4.cat">Web Design</span>
+                <span class="work-year">2025</span>
+              </div>
+              <h3 class="work-name">Aether</h3>
+              <p class="work-type" data-i18n="work.p4.type">Site vitrine luxe — WebGL & Motion Design immersif</p>
+              <div class="work-techs">
+                <span>GSAP</span><span>WebGL</span><span>Figma</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section class="process" id="process">
+      <div class="container">
+        <div class="section-intro section-intro--center">
+          <span class="section-tag" data-i18n="process.tag">(03) — Processus</span>
+          <h2 data-split class="section-title" data-i18n-html="process.title">Notre<br/>méthode</h2>
+        </div>
+
+        <div class="process-steps">
+          <div class="process-step" data-step="01">
+            <div class="process-step-line"></div>
+            <div class="process-step-num">01</div>
+            <div class="process-step-content">
+              <h3 class="process-step-title" data-i18n="process.s1.title">Découverte</h3>
+              <p class="process-step-desc" data-i18n="process.s1.desc">Analyse approfondie de vos besoins, objectifs business et de votre audience. Audit technique et créatif.</p>
+            </div>
+            <div class="process-step-visual">
+              <div class="process-icon-circle">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="14" cy="14" r="10"/><line x1="22" y1="22" x2="28" y2="28"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="process-step" data-step="02">
+            <div class="process-step-line"></div>
+            <div class="process-step-num">02</div>
+            <div class="process-step-content">
+              <h3 class="process-step-title" data-i18n="process.s2.title">Design</h3>
+              <p class="process-step-desc" data-i18n="process.s2.desc">Wireframes, prototypes interactifs, design system complet. Chaque détail est pensé et validé avec vous.</p>
+            </div>
+            <div class="process-step-visual">
+              <div class="process-icon-circle">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="24" height="24" rx="3"/><line x1="4" y1="12" x2="28" y2="12"/><line x1="12" y1="12" x2="12" y2="28"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="process-step" data-step="03">
+            <div class="process-step-line"></div>
+            <div class="process-step-num">03</div>
+            <div class="process-step-content">
+              <h3 class="process-step-title" data-i18n="process.s3.title">Développement</h3>
+              <p class="process-step-desc" data-i18n="process.s3.desc">Code propre et performant, animations fluides, tests rigoureux. On construit pour durer.</p>
+            </div>
+            <div class="process-step-visual">
+              <div class="process-icon-circle">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,8 4,16 10,24"/><polyline points="22,8 28,16 22,24"/><line x1="18" y1="4" x2="14" y2="28"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="process-step" data-step="04">
+            <div class="process-step-line"></div>
+            <div class="process-step-num">04</div>
+            <div class="process-step-content">
+              <h3 class="process-step-title" data-i18n="process.s4.title">Lancement</h3>
+              <p class="process-step-desc" data-i18n="process.s4.desc">Déploiement optimisé, monitoring, accompagnement post-lancement. Votre succès est notre priorité.</p>
+            </div>
+            <div class="process-step-visual">
+              <div class="process-icon-circle">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 26L26 6"/><polyline points="12,6 26,6 26,20"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MARQUEE 2 ===== -->
+    <section class="marquee-strip marquee-strip--accent">
+      <div class="marquee" data-direction="right" data-speed="0.7">
+        <div class="marquee-inner">
+          <span class="marquee-item" data-i18n="marquee2.1">CRÉATIVITÉ</span>
+          <span class="marquee-dot"></span>
+          <span class="marquee-item" data-i18n="marquee2.2">INNOVATION</span>
+          <span class="marquee-dot"></span>
+          <span class="marquee-item" data-i18n="marquee2.3">PERFORMANCE</span>
+          <span class="marquee-dot"></span>
+          <span class="marquee-item" data-i18n="marquee2.4">EXCELLENCE</span>
+          <span class="marquee-dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="about-layout">
+          <div class="about-col-left">
+            <span class="section-tag" data-i18n="about.tag">(04) — À propos</span>
+            <h2 data-split class="section-title" data-i18n-html="about.title">Qui nous<br/>sommes</h2>
+            <p class="about-manifesto" data-split-words data-i18n="about.manifesto">Nous croyons que le digital est un art. Chaque projet est une œuvre unique, façonnée avec précision, passion et une obsession du détail.</p>
+          </div>
+          <div class="about-col-right">
+            <div class="about-image-block parallax-wrap">
+              <div class="about-image parallax-element" style="background:linear-gradient(160deg, #c8ff00 0%, #0a0a0a 50%, #161616 100%)"></div>
+              <div class="about-image-label">
+                <span class="mono" data-i18n="about.est">Est. 2023</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-details">
+          <div class="about-text reveal-up">
+            <p data-i18n="about.p1">IRKEEDIA est un studio de création digitale fondé sur la conviction que chaque pixel compte. Spécialisés dans les expériences web haut de gamme, les applications natives Android et les solutions d'intelligence artificielle.</p>
+            <p data-i18n="about.p2">Notre approche fusionne expertise technique de pointe et vision créative audacieuse pour délivrer des projets qui impressionnent, convertissent et perdurent.</p>
+          </div>
+          <div class="about-numbers">
+            <div class="number-block" data-count="50">
+              <span class="number-value stat-num">0</span><span class="number-plus">+</span>
+              <span class="number-label" data-i18n="about.stat1">Projets livrés</span>
+            </div>
+            <div class="number-block" data-count="35">
+              <span class="number-value stat-num">0</span><span class="number-plus">+</span>
+              <span class="number-label" data-i18n="about.stat2">Clients satisfaits</span>
+            </div>
+            <div class="number-block" data-count="3">
+              <span class="number-value stat-num">0</span>
+              <span class="number-label" data-i18n="about.stat3">Ans d'expertise</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Stack Visual -->
+        <div class="tech-orbit reveal-up">
+          <div class="tech-orbit-label" data-i18n="about.techLabel">Stack Technique</div>
+          <div class="tech-grid">
+            <span class="tech-pill">React</span>
+            <span class="tech-pill">Next.js</span>
+            <span class="tech-pill">TypeScript</span>
+            <span class="tech-pill">GSAP</span>
+            <span class="tech-pill">Three.js</span>
+            <span class="tech-pill">Kotlin</span>
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">Node.js</span>
+            <span class="tech-pill">PostgreSQL</span>
+            <span class="tech-pill">MongoDB</span>
+            <span class="tech-pill">Docker</span>
+            <span class="tech-pill">Figma</span>
+            <span class="tech-pill">OpenAI</span>
+            <span class="tech-pill">Rust</span>
+            <span class="tech-pill">C/C++</span>
+            <span class="tech-pill">Linux</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="contact-hero">
+          <span class="section-tag section-tag--dark" data-i18n="contact.tag">(05) — Contact</span>
+          <h2 data-split class="section-title section-title--dark" data-i18n-html="contact.title">Parlons de<br/>votre projet</h2>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-left">
+            <p class="contact-intro" data-i18n="contact.intro">Vous avez un projet ambitieux ? Une idée qui mérite d'être sublimée ? Discutons-en.</p>
+            <a href="mailto:hello@irkeedia.com" class="contact-big-email magnetic">hello@irkeedia.com</a>
+            <div class="contact-links">
+              <a href="#" class="contact-link magnetic">Instagram</a>
+              <a href="#" class="contact-link magnetic">LinkedIn</a>
+              <a href="#" class="contact-link magnetic">Behance</a>
+              <a href="#" class="contact-link magnetic">Dribbble</a>
+            </div>
+          </div>
+          <div class="contact-right">
+            <form class="contact-form" id="contactForm">
+              <div class="form-row">
+                <div class="form-field">
+                  <input type="text" name="name" id="fname" required autocomplete="name" placeholder=" "/>
+                  <label for="fname" data-i18n="contact.name">Votre nom</label>
+                  <div class="field-line"></div>
+                </div>
+                <div class="form-field">
+                  <input type="email" name="email" id="femail" required autocomplete="email" placeholder=" "/>
+                  <label for="femail" data-i18n="contact.email">Votre email</label>
+                  <div class="field-line"></div>
+                </div>
+              </div>
+              <div class="form-field">
+                <input type="text" name="subject" id="fsubject" required placeholder=" "/>
+                <label for="fsubject" data-i18n="contact.subject">Sujet du projet</label>
+                <div class="field-line"></div>
+              </div>
+              <div class="form-field">
+                <textarea name="message" id="fmessage" rows="4" required placeholder=" "></textarea>
+                <label for="fmessage" data-i18n="contact.message">Votre message</label>
+                <div class="field-line"></div>
+              </div>
+              <button type="submit" class="btn-liquid btn-liquid--dark magnetic">
+                <span class="btn-liquid-fill"></span>
+                <span class="btn-liquid-text" data-i18n="contact.send">Envoyer</span>
+                <span class="btn-liquid-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="footer-marquee">
+        <div class="marquee" data-direction="left" data-speed="0.3">
+          <div class="marquee-inner marquee-giant">
+            <span class="marquee-item">IRKEEDIA</span>
+            <span class="marquee-dot"></span>
+            <span class="marquee-item">IRKEEDIA</span>
+            <span class="marquee-dot"></span>
+            <span class="marquee-item">IRKEEDIA</span>
+            <span class="marquee-dot"></span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bar container">
+        <div class="footer-left">
+          <span class="mono">© 2026 IRKEEDIA</span>
+          <span class="footer-dot">·</span>
+          <span class="mono" data-i18n="footer.rights">Tous droits réservés</span>
+        </div>
+        <div class="footer-right">
+          <a href="#hero" class="footer-back-top magnetic">
+            <span>Top</span>
+            <span class="back-top-arrow">↑</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
