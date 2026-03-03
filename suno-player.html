@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suno Player — Lecteur Musical Android | IRKEEDIA</title>
+  <meta name="description" content="Lecteur musical Android élégant pensé pour écouter vos créations Suno AI. Flutter, design sombre et or, UX minimaliste." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="project-page">
+
+  <!-- Custom Cursor -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" aria-hidden="true">
+    <span class="cursor-text"></span>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <nav class="project-nav">
+    <div class="project-nav-left">
+      <a href="/" class="project-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Retour
+      </a>
+    </div>
+    <a href="/" class="project-nav-logo">
+      <span class="logo-mark">◈</span>
+      <span class="logo-text">IRKEEDIA</span>
+    </a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="project-hero">
+    <div class="project-hero-tag">
+      <span class="status-dot"></span>
+      App Native Android · Flutter — Projet Personnel
+    </div>
+    <h1 class="project-hero-title">
+      Suno <span class="text-accent">Player</span>
+    </h1>
+    <p class="project-hero-subtitle">
+      Un lecteur musical Android élégant, pensé pour écouter tes créations <strong>Suno AI</strong> dans une interface fluide et agréable. Pas de compte, pas de streaming, pas de pub — juste tes fichiers audio et un beau player.
+    </p>
+    <div class="project-hero-meta">
+      <span class="project-meta-pill project-meta-pill--accent">Opérationnel</span>
+      <span class="project-meta-pill">Flutter</span>
+      <span class="project-meta-pill">Dart</span>
+      <span class="project-meta-pill">Android</span>
+      <span class="project-meta-pill">MIT License</span>
+    </div>
+    <div class="project-hero-visual">
+      <div class="project-hero-visual-bg" style="background: linear-gradient(145deg, #080E2B 0%, #1A237E 40%, #FFD54F 100%)"></div>
+      <div class="project-hero-visual-grid"></div>
+    </div>
+  </header>
+
+  <!-- ===== CONTENT ===== -->
+  <div class="project-content">
+
+    <!-- Design -->
+    <section class="project-section">
+      <span class="project-section-tag">Design</span>
+      <h2 class="project-section-title">Dark theme exclusif, or lumineux</h2>
+      <div class="project-cols">
+        <div>
+          <div class="project-text">
+            <p>Le design de Suno Player suit une philosophie <strong>minimaliste et immersive</strong> :</p>
+            <ul>
+              <li>Dark theme exclusif — pas de mode clair</li>
+              <li>Typographie Poppins pour la lisibilité</li>
+              <li>Coins arrondis partout pour un look moderne</li>
+              <li>Animations subtiles et fluides</li>
+              <li>UX minimaliste — l'essentiel, rien de superflu</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="info-row" style="margin-top:0;">
+            <div class="info-block">
+              <span class="info-block-label">Bleu nuit</span>
+              <span class="info-block-value" style="color:#1A237E;">#1A237E</span>
+            </div>
+            <div class="info-block">
+              <span class="info-block-label">Or lumineux</span>
+              <span class="info-block-value" style="color:#FFD54F;">#FFD54F</span>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-block">
+              <span class="info-block-label">Blanc doux</span>
+              <span class="info-block-value" style="color:#F5F5F7;">#F5F5F7</span>
+            </div>
+            <div class="info-block">
+              <span class="info-block-label">Fond sombre</span>
+              <span class="info-block-value" style="color:#555;">#080E2B</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fonctionnalités -->
+    <section class="project-section">
+      <span class="project-section-tag">Fonctionnalités</span>
+      <h2 class="project-section-title">Un lecteur complet et élégant</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">🎧 Lecture complète</h3>
+          <p class="feature-card-desc">Play, pause, suivant, précédent, barre de progression. Tout ce qu'on attend d'un lecteur, mais en mieux.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🔀 Shuffle & Repeat</h3>
+          <p class="feature-card-desc">Mode aléatoire + répétition intelligente : off, repeat all, repeat one. Parfait pour les sessions créatives.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🔍 Recherche</h3>
+          <p class="feature-card-desc">Filtrage instantané par titre, artiste ou album. Retrouve n'importe quelle création en une seconde.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🖼️ Artwork</h3>
+          <p class="feature-card-desc">Affichage des pochettes intégrées aux fichiers audio. Suno génère de belles covers — autant les montrer.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">📱 Mini Player</h3>
+          <p class="feature-card-desc">Barre de lecture persistante en bas de l'écran. Toujours accessible, jamais intrusif.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🎵 Player plein écran</h3>
+          <p class="feature-card-desc">Vue immersive avec grand artwork, contrôles centrés et progression détaillée. L'expérience d'écoute ultime.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">📋 File d'attente</h3>
+          <p class="feature-card-desc">Voir et naviguer la playlist en cours. Saut direct vers n'importe quel morceau de la queue.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🔄 Scan automatique</h3>
+          <p class="feature-card-desc">Détecte automatiquement tous les fichiers audio sur l'appareil. MP3, WAV, FLAC, M4A, OGG, AAC.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="project-section">
+      <span class="project-section-tag">Architecture</span>
+      <h2 class="project-section-title">Structure Flutter</h2>
+      <div class="file-tree">
+<span class="ft-dir">lib/</span>
+├── main.dart                          <span class="ft-comment"># Point d'entrée</span>
+├── <span class="ft-dir">theme/</span>
+│   └── app_theme.dart                 <span class="ft-comment"># Thème & couleurs</span>
+├── <span class="ft-dir">models/</span>
+│   └── song.dart                      <span class="ft-comment"># Modèle Song</span>
+├── <span class="ft-dir">services/</span>
+│   ├── audio_player_service.dart      <span class="ft-comment"># Moteur de lecture</span>
+│   └── music_library_service.dart     <span class="ft-comment"># Scan & recherche</span>
+├── <span class="ft-dir">screens/</span>
+│   ├── home_screen.dart               <span class="ft-comment"># Écran principal</span>
+│   └── player_screen.dart             <span class="ft-comment"># Lecteur plein écran</span>
+└── <span class="ft-dir">widgets/</span>
+    ├── artwork_widget.dart            <span class="ft-comment"># Widget artwork</span>
+    ├── mini_player.dart               <span class="ft-comment"># Mini lecteur</span>
+    └── song_tile.dart                 <span class="ft-comment"># Tuile de chanson</span>
+      </div>
+    </section>
+
+    <!-- Stack -->
+    <section class="project-section">
+      <span class="project-section-tag">Stack technique</span>
+      <h2 class="project-section-title">Technologies</h2>
+      <div class="project-cols">
+        <div>
+          <table class="spec-table">
+            <thead>
+              <tr><th>Composant</th><th>Technologie</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Framework</td><td>Flutter (app native Android)</td></tr>
+              <tr><td>Audio</td><td>just_audio — lecture performante</td></tr>
+              <tr><td>Scan fichiers</td><td>on_audio_query — bibliothèque musicale</td></tr>
+              <tr><td>Permissions</td><td>permission_handler</td></tr>
+              <tr><td>Typographie</td><td>Google Fonts (Poppins)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3 class="feature-card-title" style="margin-bottom:1rem;">Permissions requises</h3>
+          <table class="spec-table">
+            <thead>
+              <tr><th>Permission</th><th>Raison</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>READ_MEDIA_AUDIO</code></td><td>Fichiers audio (Android 13+)</td></tr>
+              <tr><td><code>READ_EXTERNAL_STORAGE</code></td><td>Fichiers audio (Android &lt; 13)</td></tr>
+              <tr><td><code>FOREGROUND_SERVICE</code></td><td>Lecture en arrière-plan</td></tr>
+              <tr><td><code>WAKE_LOCK</code></td><td>Empêcher la mise en veille</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="project-stack">
+        <span class="tech-pill">Flutter</span>
+        <span class="tech-pill">Dart</span>
+        <span class="tech-pill">just_audio</span>
+        <span class="tech-pill">on_audio_query</span>
+        <span class="tech-pill">Google Fonts</span>
+        <span class="tech-pill">Android SDK 21+</span>
+      </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="project-section">
+      <span class="project-section-tag">Roadmap</span>
+      <h2 class="project-section-title">Prochaines évolutions</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">🎵 Playlists</h3>
+          <p class="feature-card-desc">Playlists personnalisées et favoris pour organiser ses créations.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🎚️ Égaliseur</h3>
+          <p class="feature-card-desc">Égaliseur audio intégré pour ajuster le son selon ses envies.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🔔 Notifications</h3>
+          <p class="feature-card-desc">Notification de lecture avec contrôles — play/pause/skip depuis la barre de notifications.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🔗 Import Suno</h3>
+          <p class="feature-card-desc">Import direct depuis l'URL Suno + widget écran d'accueil. Support tablette.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Installation -->
+    <section class="project-section">
+      <span class="project-section-tag">Installation</span>
+      <h2 class="project-section-title">Build & Install</h2>
+      <div class="archi-block">
+<pre>
+# Cloner le repo
+git clone https://github.com/Irkeedia/Lecteur-musical.git
+cd Lecteur-musical
+
+# Installer les dépendances
+flutter pub get
+
+# Compiler l'APK debug
+flutter build apk --debug
+
+# Installer sur un appareil connecté
+flutter install --debug
+</pre>
+      </div>
+      <div class="project-text" style="margin-top:1.5rem; max-width:600px;">
+        <p><strong>Prérequis :</strong> Flutter SDK 3.x+, Android SDK (API 21+), appareil Android ou émulateur.</p>
+        <p><strong>Utilisation :</strong> Copie tes fichiers audio Suno sur ton téléphone (dossier Music/ ou Download/), ouvre Suno Player, accepte la permission et profite.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== CTA ===== -->
+  <div class="project-cta-banner">
+    <h3>Tes créations Suno méritent un beau player</h3>
+    <p>Fait avec ❤️ et beaucoup de flutter build — par Mathieu @Irkeedia.</p>
+    <a href="/" class="btn-liquid btn-liquid--dark">
+      <span class="btn-liquid-fill"></span>
+      <span class="btn-liquid-text">Voir tous les projets</span>
+      <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="project-footer">
+    <div class="project-footer-left">
+      <span>© 2026 IRKEEDIA</span>
+      <span>·</span>
+      <span>Tous droits réservés</span>
+    </div>
+    <div class="project-footer-right">
+      <a href="/#work">← Retour aux projets</a>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/project-init.js"></script>
+</body>
+</html>

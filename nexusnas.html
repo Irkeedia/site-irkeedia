@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexusNAS — Serveur de Stockage Réseau | IRKEEDIA</title>
+  <meta name="description" content="Serveur de stockage réseau privé, moderne et auto-hébergé. Interface rouge/blanc/noir, multi-utilisateurs, PWA installable." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="project-page">
+
+  <!-- Custom Cursor -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" aria-hidden="true">
+    <span class="cursor-text"></span>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <nav class="project-nav">
+    <div class="project-nav-left">
+      <a href="/" class="project-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Retour
+      </a>
+    </div>
+    <a href="/" class="project-nav-logo">
+      <span class="logo-mark">◈</span>
+      <span class="logo-text">IRKEEDIA</span>
+    </a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="project-hero">
+    <div class="project-hero-tag">
+      <span class="status-dot"></span>
+      Self-Hosting · FastAPI + PWA — Projet Personnel
+    </div>
+    <h1 class="project-hero-title">
+      Nexus<span class="text-accent">NAS</span>
+    </h1>
+    <p class="project-hero-subtitle">
+      Serveur de stockage réseau privé, moderne et auto-hébergé. Interface <strong>rouge/blanc/noir</strong>, multi-utilisateurs, PWA installable, zéro dépendance cloud.
+    </p>
+    <div class="project-hero-meta">
+      <span class="project-meta-pill project-meta-pill--accent">Opérationnel</span>
+      <span class="project-meta-pill">Python · FastAPI</span>
+      <span class="project-meta-pill">SQLite Async</span>
+      <span class="project-meta-pill">PWA</span>
+      <span class="project-meta-pill">MIT License</span>
+    </div>
+    <div class="project-hero-visual">
+      <div class="project-hero-visual-bg" style="background: linear-gradient(145deg, #0a0a0a 0%, #1c0a0a 30%, #4a1a1a 60%, #ff4444 100%)"></div>
+      <div class="project-hero-visual-grid"></div>
+    </div>
+  </header>
+
+  <!-- ===== CONTENT ===== -->
+  <div class="project-content">
+
+    <!-- Fonctionnalités -->
+    <section class="project-section">
+      <span class="project-section-tag">Fonctionnalités</span>
+      <h2 class="project-section-title">Tout ce qu'il faut, rien de trop</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">📁 Stockage & Fichiers</h3>
+          <ul class="feature-card-list">
+            <li>Upload drag & drop avec barre de progression</li>
+            <li>Explorateur grille ou liste</li>
+            <li>Prévisualisation (images, vidéos, audio, texte, PDF)</li>
+            <li>Recherche instantanée</li>
+            <li>Favoris et corbeille avec restauration</li>
+            <li>Dossiers illimités + fil d'Ariane</li>
+            <li>Quota configurable par utilisateur (50 Go défaut)</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🔒 Sécurité & Utilisateurs</h3>
+          <ul class="feature-card-list">
+            <li>Authentification JWT (tokens 24h)</li>
+            <li>Hashage bcrypt des mots de passe</li>
+            <li>Multi-utilisateurs avec rôles (admin / user)</li>
+            <li>Panneau admin pour gérer les comptes</li>
+            <li>Isolation des données par utilisateur</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🎨 Interface</h3>
+          <ul class="feature-card-list">
+            <li>Thème sombre rouge / blanc / noir</li>
+            <li>Responsive — smartphone, tablette, desktop</li>
+            <li>PWA installable sur tout appareil</li>
+            <li>Menu hamburger + sidebar rétractable</li>
+            <li>Notifications toast + menu contextuel clic droit</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">⚙️ Système</h3>
+          <ul class="feature-card-list">
+            <li>Monitoring temps réel (CPU, RAM, disque)</li>
+            <li>Journal d'activité des opérations</li>
+            <li>mDNS — accessible via nexusnas.local</li>
+            <li>Service systemd avec démarrage automatique</li>
+            <li>Service worker pour cache offline</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="project-section">
+      <span class="project-section-tag">Architecture</span>
+      <h2 class="project-section-title">Structure du projet</h2>
+      <div class="file-tree">
+<span class="ft-dir">nas-server/</span>
+├── <span class="ft-dir">app/</span>
+│   ├── config.py            <span class="ft-comment"># Configuration (clés, chemins, quotas)</span>
+│   ├── database.py          <span class="ft-comment"># Engine SQLAlchemy async (aiosqlite)</span>
+│   ├── main.py              <span class="ft-comment"># Point d'entrée FastAPI</span>
+│   ├── <span class="ft-dir">models/</span>
+│   │   └── models.py        <span class="ft-comment"># User, FileEntry, ShareLink, ActivityLog</span>
+│   ├── <span class="ft-dir">routers/</span>
+│   │   ├── auth.py          <span class="ft-comment"># Login, register, profil, admin</span>
+│   │   ├── files.py         <span class="ft-comment"># CRUD fichiers, upload, download, corbeille</span>
+│   │   └── system.py        <span class="ft-comment"># Monitoring CPU/RAM/disque</span>
+│   └── <span class="ft-dir">utils/</span>
+│       ├── auth.py          <span class="ft-comment"># JWT, hashing, middleware OAuth2</span>
+│       └── files.py         <span class="ft-comment"># Catégorisation fichiers, thumbnails</span>
+├── <span class="ft-dir">static/</span>
+│   ├── css/style.css        <span class="ft-comment"># Thème complet (~1500 lignes)</span>
+│   ├── js/app.js            <span class="ft-comment"># SPA vanilla JS (~1300 lignes)</span>
+│   ├── manifest.json        <span class="ft-comment"># Manifest PWA</span>
+│   └── sw.js                <span class="ft-comment"># Service Worker</span>
+├── <span class="ft-dir">templates/</span>
+│   └── index.html           <span class="ft-comment"># Shell SPA</span>
+├── <span class="ft-dir">storage/</span>               <span class="ft-comment"># Fichiers utilisateurs (gitignored)</span>
+├── install.sh               <span class="ft-comment"># Installation automatique</span>
+├── start.sh                 <span class="ft-comment"># Lancement du serveur</span>
+└── nexusnas.service          <span class="ft-comment"># Unit systemd</span>
+      </div>
+    </section>
+
+    <!-- API REST -->
+    <section class="project-section">
+      <span class="project-section-tag">API REST</span>
+      <h2 class="project-section-title">Endpoints sous /api/</h2>
+      <div class="project-cols">
+        <div>
+          <div class="api-group">
+            <h4 class="api-group-title">Authentification</h4>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/auth/login</span><span class="api-desc">Connexion OAuth2</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/auth/register</span><span class="api-desc">Inscription</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/auth/me</span><span class="api-desc">Profil utilisateur</span></div>
+          </div>
+          <div class="api-group">
+            <h4 class="api-group-title">Système</h4>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/system/info</span><span class="api-desc">Infos système (admin)</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="api-group">
+            <h4 class="api-group-title">Fichiers</h4>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/files/</span><span class="api-desc">Lister les fichiers</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/files/upload</span><span class="api-desc">Upload de fichier</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/files/download/{id}</span><span class="api-desc">Télécharger</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/files/folder</span><span class="api-desc">Créer un dossier</span></div>
+            <div class="api-row"><span class="api-method api-method--delete">DEL</span><span class="api-endpoint">/api/files/{id}</span><span class="api-desc">Supprimer / corbeille</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/files/search?q=</span><span class="api-desc">Recherche</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/files/favorites</span><span class="api-desc">Favoris</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/files/trash</span><span class="api-desc">Corbeille</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack -->
+    <section class="project-section">
+      <span class="project-section-tag">Stack technique</span>
+      <h2 class="project-section-title">Technologies</h2>
+      <table class="spec-table">
+        <thead>
+          <tr><th>Composant</th><th>Technologie</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Backend</td><td>FastAPI + Uvicorn</td></tr>
+          <tr><td>Base de données</td><td>SQLite (async via aiosqlite)</td></tr>
+          <tr><td>ORM</td><td>SQLAlchemy 2.0 (async)</td></tr>
+          <tr><td>Auth</td><td>JWT (python-jose) + bcrypt</td></tr>
+          <tr><td>Frontend</td><td>Vanilla JS (SPA) + CSS custom</td></tr>
+          <tr><td>Images</td><td>Pillow (thumbnails)</td></tr>
+          <tr><td>Monitoring</td><td>psutil</td></tr>
+          <tr><td>mDNS</td><td>Avahi</td></tr>
+          <tr><td>PWA</td><td>Service Worker + Web App Manifest</td></tr>
+        </tbody>
+      </table>
+      <div class="project-stack">
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">FastAPI</span>
+        <span class="tech-pill">SQLite</span>
+        <span class="tech-pill">SQLAlchemy</span>
+        <span class="tech-pill">JWT</span>
+        <span class="tech-pill">Vanilla JS</span>
+        <span class="tech-pill">PWA</span>
+        <span class="tech-pill">Pillow</span>
+        <span class="tech-pill">psutil</span>
+      </div>
+    </section>
+
+    <!-- Configuration -->
+    <section class="project-section">
+      <span class="project-section-tag">Configuration</span>
+      <h2 class="project-section-title">Paramètres clés</h2>
+      <table class="spec-table">
+        <thead>
+          <tr><th>Variable</th><th>Défaut</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>SECRET_KEY</code></td><td>nexusnas-super-secret…</td><td>Clé JWT — à changer en production</td></tr>
+          <tr><td><code>ACCESS_TOKEN_EXPIRE_MINUTES</code></td><td>1440 (24h)</td><td>Durée de validité du token</td></tr>
+          <tr><td><code>MAX_UPLOAD_SIZE</code></td><td>10 Go</td><td>Taille max par upload</td></tr>
+          <tr><td><code>PORT</code></td><td>8888</td><td>Port du serveur</td></tr>
+          <tr><td><code>STORAGE_PATH</code></td><td>./storage</td><td>Répertoire de stockage</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Installation -->
+    <section class="project-section">
+      <span class="project-section-tag">Installation</span>
+      <h2 class="project-section-title">Déploiement rapide</h2>
+      <div class="project-cols">
+        <div>
+          <div class="archi-block">
+<pre>
+# Cloner le dépôt
+git clone https://github.com/Irkeedia/nas-nipogi.git
+cd nas-nipogi
+
+# Installation automatique
+chmod +x install.sh
+./install.sh
+
+# Lancement
+./start.sh
+</pre>
+          </div>
+        </div>
+        <div>
+          <div class="project-text">
+            <p><strong>Prérequis :</strong> Linux (Ubuntu/Debian), Python 3.10+, accès réseau local.</p>
+            <p>Le script d'installation configure automatiquement le venv, les dépendances et les dossiers de stockage. Le premier utilisateur créé est automatiquement <strong>admin</strong>.</p>
+            <p><strong>PWA :</strong> Installable directement depuis le navigateur sur Android, iOS, PC et Mac.</p>
+          </div>
+          <div class="info-row" style="margin-top:1.5rem;">
+            <div class="info-block">
+              <span class="info-block-label">Port</span>
+              <span class="info-block-value info-block-value--accent">8888</span>
+            </div>
+            <div class="info-block">
+              <span class="info-block-label">Upload max</span>
+              <span class="info-block-value">10 Go</span>
+            </div>
+            <div class="info-block">
+              <span class="info-block-label">Quota user</span>
+              <span class="info-block-value">50 Go</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== CTA ===== -->
+  <div class="project-cta-banner">
+    <h3>Votre stockage, vos règles</h3>
+    <p>NexusNAS — Fait avec ❤️ pour le self-hosting. Licence MIT.</p>
+    <a href="/" class="btn-liquid btn-liquid--dark">
+      <span class="btn-liquid-fill"></span>
+      <span class="btn-liquid-text">Voir tous les projets</span>
+      <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="project-footer">
+    <div class="project-footer-left">
+      <span>© 2026 IRKEEDIA</span>
+      <span>·</span>
+      <span>Tous droits réservés</span>
+    </div>
+    <div class="project-footer-right">
+      <a href="/#work">← Retour aux projets</a>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/project-init.js"></script>
+</body>
+</html>

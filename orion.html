@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORION V5 — Robot IA Autonome | IRKEEDIA</title>
+  <meta name="description" content="Robot IA autonome construit sur Raspberry Pi 5 + Hailo 8L. Vision, voix, personnalité, navigation autonome." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="project-page">
+
+  <!-- Custom Cursor -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" aria-hidden="true">
+    <span class="cursor-text"></span>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <nav class="project-nav">
+    <div class="project-nav-left">
+      <a href="/" class="project-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Retour
+      </a>
+    </div>
+    <a href="/" class="project-nav-logo">
+      <span class="logo-mark">◈</span>
+      <span class="logo-text">IRKEEDIA</span>
+    </a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="project-hero">
+    <div class="project-hero-tag">
+      <span class="status-dot"></span>
+      Robotique & IA — Projet Personnel
+    </div>
+    <h1 class="project-hero-title">
+      ORION <span class="text-accent">V5</span>
+    </h1>
+    <p class="project-hero-subtitle">
+      Robot IA autonome construit sur <strong>Raspberry Pi 5 + Hailo 8L</strong> (13 TOPS). Il voit, entend, parle, reconnaît les visages, réagit aux gestes et se déplace grâce à 2 moteurs DC et une navigation autonome par vision.
+    </p>
+    <div class="project-hero-meta">
+      <span class="project-meta-pill project-meta-pill--accent">Opérationnel</span>
+      <span class="project-meta-pill">Firmware V4.0</span>
+      <span class="project-meta-pill">Visage V3.0</span>
+      <span class="project-meta-pill">Python · Flask · Arduino</span>
+      <span class="project-meta-pill">Montseret, Aude</span>
+    </div>
+    <p class="project-text" style="max-width:700px; margin-bottom:0;">
+      ORION n'est pas un assistant — c'est une <strong>personnalité</strong>. Un mec de 25 ans, sarcastique, curieux, taquin, avec de l'humour pince-sans-rire et un vrai caractère. Il vit à Montseret avec Mathieu, son créateur.
+    </p>
+    <div class="project-hero-visual">
+      <div class="project-hero-visual-bg" style="background: linear-gradient(145deg, #0d1117 0%, #161b22 30%, #1a3a5f 60%, #c8ff00 100%)"></div>
+      <div class="project-hero-visual-grid"></div>
+    </div>
+  </header>
+
+  <!-- ===== CONTENT ===== -->
+  <div class="project-content">
+
+    <!-- Architecture -->
+    <section class="project-section">
+      <span class="project-section-tag">Architecture</span>
+      <h2 class="project-section-title">3 cerveaux, 1 robot</h2>
+      <div class="archi-block">
+<pre>
+┌─────────────────────┐    série 115200     ┌────────────────────┐
+│   Raspberry Pi 5    │◄──────────────────►│  Elegoo Mega 2560   │
+│   + Hailo 8L        │                    │  2× BTS7960 H-Bridge│
+│                     │                    │  2× moteurs DC avant│
+│  Flask :5000        │                    │  2× encodeurs       │
+│  Vosk (STT)         │                    │  2× roues folles arr│
+│  Hailo YOLOv8s      │                    └────────────────────┘
+│  FaceID (Haar+cos)  │    HTTP :11435     ┌────────────────────┐
+│  Webcam Logitech    │◄──────────────────►│  PC Serveur         │
+│  Micro USB          │   WiFi 192.168.1.x │  Ollama (LLM)      │
+│                     │                    │  Piper (TTS)        │
+└─────────────────────┘                    │  SQLite (mémoire)   │
+  Écran 10.1" HDMI                         └────────────────────┘
+  600×1024 portrait
+  Chromium Kiosk
+</pre>
+      </div>
+      <div class="info-row">
+        <div class="info-block">
+          <span class="info-block-label">Pi5</span>
+          <span class="info-block-value">Capteurs + Vision</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">PC Serveur</span>
+          <span class="info-block-value">LLM + TTS + Mémoire</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">Elegoo Mega</span>
+          <span class="info-block-value">Moteurs + PID</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision -->
+    <section class="project-section">
+      <span class="project-section-tag">Vision</span>
+      <h2 class="project-section-title">Hailo 8L — 13 TOPS</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="6"/><path d="M24 4v8M24 36v8M4 24h8M36 24h8"/></svg>
+          </div>
+          <h3 class="feature-card-title">Détection d'objets</h3>
+          <p class="feature-card-desc">YOLOv8s accéléré hardware, ~15 FPS, 80 classes COCO traduites en français. Fallback CPU YOLOv8n si Hailo indisponible.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="20" r="8"/><path d="M6 42c0-10 8-16 18-16s18 6 18 16"/></svg>
+          </div>
+          <h3 class="feature-card-title">Reconnaissance faciale</h3>
+          <p class="feature-card-desc">Haar cascade + cosine similarity. Encodage 64×64 normalisé, vote majoritaire sur 3 frames consécutives. Seuil ≥ 0.88.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="40" height="32" rx="4"/><circle cx="18" cy="22" r="4"/><circle cx="30" cy="22" r="4"/><path d="M16 32c2 3 6 4 8 4s6-1 8-4"/></svg>
+          </div>
+          <h3 class="feature-card-title">Détection du regard</h3>
+          <p class="feature-card-desc">3 états : looking_at_camera, looking_away, turned_away. Déclenche des réactions spontanées ("Eh, regarde-moi quand je te parle").</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 24h4l4-12 4 24 4-16 4 8 4-6h8"/></svg>
+          </div>
+          <h3 class="feature-card-title">Analyse de scène</h3>
+          <p class="feature-card-desc">SceneAnalyzer : positions spatiales, activité humaine, tracking de mouvement, classification (bureau, cuisine, salon, extérieur).</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12l24 24M36 12L12 36"/><circle cx="24" cy="24" r="18"/></svg>
+          </div>
+          <h3 class="feature-card-title">12 événements visuels</h3>
+          <p class="feature-card-desc">person_very_close, person_recognized, stranger_detected, person_approaching, looking_at_camera, person_staring… chacun avec cooldowns et priorités.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 4v40M4 24h40"/><circle cx="24" cy="24" r="20" stroke-dasharray="4 4"/></svg>
+          </div>
+          <h3 class="feature-card-title">Streaming vision</h3>
+          <p class="feature-card-desc">Envoi de frames JPEG au serveur (7.5 FPS, qualité 70). Réactions rapides (2-8s) et commentaires de scène lents (~120s).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Voix & Personnalité -->
+    <section class="project-section">
+      <span class="project-section-tag">Voix & Personnalité</span>
+      <h2 class="project-section-title">Il parle, il écoute, il a du caractère</h2>
+      <div class="project-cols">
+        <div>
+          <div class="project-text">
+            <p><strong>STT</strong> — Vosk offline (modèle français), buffer intelligent avec détection de silence (1.0s). Wake word "Orion" avec variantes phonétiques.</p>
+            <p><strong>TTS</strong> — Piper sur le PC serveur, 3 voix françaises : Siwis (standard), Gilles (grave), UPMC (neutre, par défaut). Synchronisation labiale et streaming phrase par phrase.</p>
+            <p><strong>LLM</strong> — Mistral-small via Ollama. 120+ lignes de prompt système : français oral, humour, émotions, opinions, relations. Le LLM reçoit en temps réel ce qu'Orion voit.</p>
+            <p><strong>Mémoire persistante</strong> — Détection automatique de prénoms, préférences, âge, travail, lieu → SQLite sur PC. Résumé automatique toutes les 16 messages.</p>
+          </div>
+        </div>
+        <div>
+          <h3 class="feature-card-title" style="margin-bottom:1rem;">11 émotions</h3>
+          <div class="project-stack" style="margin-top:0;">
+            <span class="tech-pill">neutral</span>
+            <span class="tech-pill">happy</span>
+            <span class="tech-pill">joy</span>
+            <span class="tech-pill">sad</span>
+            <span class="tech-pill">angry</span>
+            <span class="tech-pill">surprised</span>
+            <span class="tech-pill">love</span>
+            <span class="tech-pill">suspicious</span>
+            <span class="tech-pill">thinking</span>
+            <span class="tech-pill">sleepy</span>
+            <span class="tech-pill">wink</span>
+          </div>
+          <p class="project-text" style="margin-top:1.5rem;">
+            13 formes SVG dans le visage animé V3 — double lèvres avec animation syllabique indépendante. Tags <code>[EMO:xxx]</code> extraits des réponses LLM → expression faciale.
+          </p>
+          <h3 class="feature-card-title" style="margin-top:2rem; margin-bottom:1rem;">Conscience système</h3>
+          <p class="project-text">
+            Orion connaît : date/heure, période du jour, température CPU, RAM, uptime, état connexion serveur. Anti-hallucination strict sur les commentaires visuels.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation autonome -->
+    <section class="project-section">
+      <span class="project-section-tag">Navigation</span>
+      <h2 class="project-section-title">Navigation autonome par vision</h2>
+      <div class="project-cols">
+        <div class="project-text">
+          <p><strong>7 niveaux de décision</strong> — social, recul, contournement, esquive, ajustement, prudence, exploration. Fréquence 4 Hz.</p>
+          <p><strong>Anti-blocage</strong> — Escalade automatique : esquive → scan → demi-tour. Seuils de proximité configurables.</p>
+          <p><strong>PID différentiel V4.0</strong> — Correction trajectoire 20 Hz par encodeurs Hall avec filtre EMA (α=0.2). Gains Kp=5.0, Ki=0.04, Kd=0.3. Écart L/R réduit de 1.1% à 0.54%.</p>
+        </div>
+        <div>
+          <div class="info-row" style="margin-top:0;">
+            <div class="info-block">
+              <span class="info-block-label">Critique</span>
+              <span class="info-block-value info-block-value--accent">35%</span>
+            </div>
+            <div class="info-block">
+              <span class="info-block-label">Proche</span>
+              <span class="info-block-value info-block-value--accent">12%</span>
+            </div>
+            <div class="info-block">
+              <span class="info-block-label">Prudence</span>
+              <span class="info-block-value info-block-value--accent">5%</span>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-block">
+              <span class="info-block-label">Vitesse max</span>
+              <span class="info-block-value">120 PWM</span>
+            </div>
+            <div class="info-block">
+              <span class="info-block-label">Tour</span>
+              <span class="info-block-value">100 PWM</span>
+            </div>
+            <div class="info-block">
+              <span class="info-block-label">Lente</span>
+              <span class="info-block-value">70 PWM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sécurité Triple Watchdog -->
+    <section class="project-section">
+      <span class="project-section-tag">Sécurité</span>
+      <h2 class="project-section-title">Triple watchdog anti-dérive</h2>
+      <table class="spec-table">
+        <thead>
+          <tr><th>Couche</th><th>Mécanisme</th><th>Délai</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1. App PC/Téléphone</td><td>Arrêt au relâchement des touches</td><td><code>Immédiat</code></td><td>Envoie STOP via API</td></tr>
+          <tr><td>2. Watchdog Pi (Flask)</td><td>Thread daemon surveille l'activité /api/move</td><td><code>600ms</code></td><td>Envoie STOP via série</td></tr>
+          <tr><td>3. Watchdog Arduino</td><td>Timer firmware sans commande série</td><td><code>500ms</code></td><td>brakeAll() — freinage dur</td></tr>
+        </tbody>
+      </table>
+      <p class="project-text" style="margin-top:1.5rem;">Même si l'app PC se déconnecte totalement, le robot s'arrête en maximum <strong>500ms</strong>.</p>
+    </section>
+
+    <!-- Interface -->
+    <section class="project-section">
+      <span class="project-section-tag">Interface</span>
+      <h2 class="project-section-title">Visage SVG V3 + Dashboard</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">/face (V3)</h3>
+          <p class="feature-card-desc">Yeux SVG multicouches avec fill dégradé, contour glow, highlight, halo ambiant. Triple bloom filter, bouche organique double lèvres, 10 palettes couleur par émotion.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">/dashboard (V4)</h3>
+          <p class="feature-card-desc">Design "Porcelaine Divine" (or/noir/blanc), 600×1024 portrait. 3 jauges (CPU, charge, RAM), waveform audio, sélecteur voix et modèle IA.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">/splash (V4)</h3>
+          <p class="feature-card-desc">Écran de chargement : 6 modules avec spinners dorés, barre de progression, transition dissolve vers /face quand ready.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Matériel -->
+    <section class="project-section">
+      <span class="project-section-tag">Matériel</span>
+      <h2 class="project-section-title">Hardware embarqué</h2>
+      <table class="spec-table">
+        <thead>
+          <tr><th>Composant</th><th>Modèle</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Compute</td><td>Raspberry Pi 5 (8GB)</td></tr>
+          <tr><td>NPU</td><td>Hailo 8L (13 TOPS)</td></tr>
+          <tr><td>Micro-contrôleur</td><td>Elegoo Mega 2560 + Screw Shield</td></tr>
+          <tr><td>Moteurs</td><td>2× DC avant + 2× BTS7960 (pont en H)</td></tr>
+          <tr><td>Encodeurs</td><td>2× rotatifs (ISR : INT5/INT4 gauche, INT0/INT1 droit)</td></tr>
+          <tr><td>Caméra</td><td>Webcam USB Logitech</td></tr>
+          <tr><td>Écran</td><td>10.1" HDMI 1024×600 (portrait 600×1024)</td></tr>
+          <tr><td>Audio</td><td>Micro USB + haut-parleur (PipeWire)</td></tr>
+          <tr><td>Réseau</td><td>WiFi (wlan0) — power-save désactivé</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Threads -->
+    <section class="project-section">
+      <span class="project-section-tag">Threads</span>
+      <h2 class="project-section-title">8 threads concurrents</h2>
+      <table class="spec-table">
+        <thead>
+          <tr><th>Thread</th><th>Rôle</th><th>Fréquence</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>vision_loop_background</code></td><td>Capture caméra + Hailo + FaceID</td><td>~20 FPS</td></tr>
+          <tr><td><code>ear_process</code></td><td>Écoute micro Vosk, détection silence</td><td>Continu</td></tr>
+          <tr><td><code>speak_worker</code></td><td>File TTS → Piper → pw-play</td><td>À la demande</td></tr>
+          <tr><td><code>brain_process</code></td><td>Commentaires visuels spontanés</td><td>~120s</td></tr>
+          <tr><td><code>visual_reaction_process</code></td><td>Réactions rapides aux événements</td><td>~2s</td></tr>
+          <tr><td><code>arduino_process</code></td><td>Télémétrie Arduino + batterie</td><td>2s</td></tr>
+          <tr><td><code>autonomous_nav_process</code></td><td>Navigation IA par vision</td><td>4 Hz</td></tr>
+          <tr><td><code>_motor_safety_watchdog</code></td><td>Watchdog moteur Pi-side</td><td>5 Hz</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- API REST -->
+    <section class="project-section">
+      <span class="project-section-tag">API REST</span>
+      <h2 class="project-section-title">Endpoints Flask</h2>
+      <div class="project-cols">
+        <div>
+          <div class="api-group">
+            <h4 class="api-group-title">Système</h4>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/stats</span><span class="api-desc">Télémétrie complète</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/boot_status</span><span class="api-desc">État du boot</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/shutdown</span><span class="api-desc">Éteindre le Pi</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/reboot</span><span class="api-desc">Redémarrer le Pi</span></div>
+          </div>
+          <div class="api-group">
+            <h4 class="api-group-title">Voix & LLM</h4>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/toggle_mute</span><span class="api-desc">Mode muet</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/toggle_wakeword</span><span class="api-desc">Wake word on/off</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/set_voice</span><span class="api-desc">Changer la voix TTS</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/models</span><span class="api-desc">Modèles LLM disponibles</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/set_model</span><span class="api-desc">Changer le modèle LLM</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="api-group">
+            <h4 class="api-group-title">Vision & Visages</h4>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/vision</span><span class="api-desc">Statut vision</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/enroll_face</span><span class="api-desc">Inscrire un visage</span></div>
+            <div class="api-row"><span class="api-method api-method--delete">DEL</span><span class="api-endpoint">/api/delete_face</span><span class="api-desc">Supprimer un visage</span></div>
+          </div>
+          <div class="api-group">
+            <h4 class="api-group-title">Moteurs & Navigation</h4>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/move</span><span class="api-desc">Mouvement différentiel</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/stop</span><span class="api-desc">Arrêt immédiat</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/rotate</span><span class="api-desc">Rotation sur place</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/drive_mode</span><span class="api-desc">Mode de conduite</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/pid</span><span class="api-desc">État PID</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/pid</span><span class="api-desc">Configurer PID</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack technique -->
+    <section class="project-section">
+      <span class="project-section-tag">Stack</span>
+      <h2 class="project-section-title">Dépendances principales</h2>
+      <table class="spec-table">
+        <thead>
+          <tr><th>Package</th><th>Version</th><th>Usage</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Flask</td><td>3.1.2</td><td>Serveur web + API REST</td></tr>
+          <tr><td>opencv-python</td><td>4.13.0</td><td>Vision, FaceID, Haar cascades</td></tr>
+          <tr><td>vosk</td><td>0.3.45</td><td>STT offline français</td></tr>
+          <tr><td>ollama</td><td>0.6.1</td><td>Client LLM</td></tr>
+          <tr><td>ultralytics</td><td>8.4.12</td><td>YOLO fallback CPU</td></tr>
+          <tr><td>torch</td><td>2.10.0</td><td>Backend YOLO</td></tr>
+          <tr><td>psutil</td><td>7.2.2</td><td>Monitoring système</td></tr>
+          <tr><td>numpy</td><td>2.4.2</td><td>Calculs vision + encodages</td></tr>
+        </tbody>
+      </table>
+      <p class="project-text" style="margin-top:1rem;">58 dépendances au total. Projet 100% portable — aucun chemin hardcodé.</p>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ORION CONTROL — SUB PROJECT -->
+    <!-- ============================================ -->
+    <div class="sub-project-divider">
+      <div class="sub-project-divider-line"></div>
+      <h2 class="sub-project-divider-title">Orion <span class="text-accent">Control</span></h2>
+      <p class="project-hero-subtitle" style="margin:1.5rem auto 0; text-align:center; max-width:600px;">
+        Interface IA locale pour piloter Orion — Electron + React + Tailwind
+      </p>
+      <div class="project-hero-meta" style="justify-content:center; margin-top:1.5rem;">
+        <span class="project-meta-pill project-meta-pill--accent">v2.1.1</span>
+        <span class="project-meta-pill">Electron 39</span>
+        <span class="project-meta-pill">React 19</span>
+        <span class="project-meta-pill">Tailwind CSS 4</span>
+        <span class="project-meta-pill">AppImage Linux</span>
+      </div>
+    </div>
+
+    <!-- Orion Control — Features -->
+    <section class="project-section">
+      <span class="project-section-tag">Fonctionnalités</span>
+      <h2 class="project-section-title">L'app de contrôle complète</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">💬 Chat IA</h3>
+          <p class="feature-card-desc">Conversation streaming avec modèles Ollama. Synthèse vocale Piper TTS, pièces jointes images, sauvegarde mémoire persistante, détection d'émotions.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🎭 Visage Neon 2D</h3>
+          <p class="feature-card-desc">Rendu Canvas 2D avec effets néon et particules. 9 émotions, yeux kawaii avec gaze tracking, sourcils 7 couches, bouche synchronisée avec la parole.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🎮 Contrôle robot</h3>
+          <p class="feature-card-desc">Joystick tactile pour pilotage temps réel via Wi-Fi. Modes Manuel / Autonome / Suivre. Watchdog serveur 500ms, stop retries (3 tentatives).</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🧠 Mémoire persistante</h3>
+          <p class="feature-card-desc">SQLite intégrée (better-sqlite3). Catégories : conversations, préférences, faits, compétences. API REST complète avec tags et épinglage.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🖥️ Serveur & Proxy</h3>
+          <p class="feature-card-desc">Proxy Ollama sur port 11435. Proxy contrôle robot vers orion.local:5000. Endpoint TTS HTTP, interception LLM pour détection d'émotions streaming.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">👁️ Vision</h3>
+          <p class="feature-card-desc">Analyse d'images via modèles multimodaux (LLaVA). Le Pi5 interroge /face/status (JSON) et rend le visage localement — plus de stream MJPEG.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Orion Control — Architecture -->
+    <section class="project-section">
+      <span class="project-section-tag">Architecture App</span>
+      <h2 class="project-section-title">Architecture Electron</h2>
+      <div class="archi-block">
+<pre>
+┌─────────────────┐    /face/status     ┌──────────────────┐
+│   Ce PC (GPU)   │ ←── poll JSON ──────│  Pi5 (rendu local)│
+│  Electron + React│                     │  Écran 10.1"     │
+│  Détection émotion│                    │  600×1024 portrait│
+└────────┬────────┘                     └──────────────────┘
+         │
+    Proxy :11435
+    ├── /api/chat    → Ollama :11434 (+ détection émotion)
+    ├── /face/status → État expression (JSON polling)
+    ├── /control/*   → orion.local:5000 (Flask API)
+    ├── /tts         → Piper TTS
+    └── /memory/*    → SQLite local
+</pre>
+      </div>
+
+      <div class="project-stack">
+        <span class="tech-pill">Electron 39</span>
+        <span class="tech-pill">React 19</span>
+        <span class="tech-pill">Vite 7</span>
+        <span class="tech-pill">Tailwind CSS 4</span>
+        <span class="tech-pill">Ollama</span>
+        <span class="tech-pill">Piper TTS</span>
+        <span class="tech-pill">better-sqlite3</span>
+        <span class="tech-pill">electron-builder</span>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== CTA ===== -->
+  <div class="project-cta-banner">
+    <h3>Projet opensource disponible</h3>
+    <p>Créé par Mathieu — Irkeedia. Base : Montseret, Aude — France.</p>
+    <a href="/" class="btn-liquid btn-liquid--dark">
+      <span class="btn-liquid-fill"></span>
+      <span class="btn-liquid-text">Voir tous les projets</span>
+      <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="project-footer">
+    <div class="project-footer-left">
+      <span>© 2026 IRKEEDIA</span>
+      <span>·</span>
+      <span>Tous droits réservés</span>
+    </div>
+    <div class="project-footer-right">
+      <a href="/#work">← Retour aux projets</a>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/project-init.js"></script>
+</body>
+</html>

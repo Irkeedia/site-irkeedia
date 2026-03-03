@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Survival Codex — Projet Charlie | IRKEEDIA</title>
+  <meta name="description" content="Application encyclopédie offline-first dédiée à la survie et la reconstruction de la civilisation. Assistant IA Charlie + Chat P2P Bluetooth." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="project-page">
+
+  <!-- Custom Cursor -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" aria-hidden="true">
+    <span class="cursor-text"></span>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <nav class="project-nav">
+    <div class="project-nav-left">
+      <a href="/" class="project-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Retour
+      </a>
+    </div>
+    <a href="/" class="project-nav-logo">
+      <span class="logo-mark">◈</span>
+      <span class="logo-text">IRKEEDIA</span>
+    </a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="project-hero">
+    <div class="project-hero-tag">
+      <span class="status-dot"></span>
+      App Hybride · React + Capacitor — Projet Personnel
+    </div>
+    <h1 class="project-hero-title">
+      Survival <span class="text-accent">Codex</span>
+    </h1>
+    <p class="project-hero-subtitle">
+      Application encyclopédie <strong>"Offline-first"</strong> dédiée à la survie et à la reconstruction de la civilisation. Elle embarque une base de connaissances locale, un assistant IA (Charlie) et un système de chat P2P Bluetooth.
+    </p>
+    <div class="project-hero-meta">
+      <span class="project-meta-pill project-meta-pill--accent">En développement</span>
+      <span class="project-meta-pill">React + Capacitor</span>
+      <span class="project-meta-pill">Supabase</span>
+      <span class="project-meta-pill">Google Gemini</span>
+      <span class="project-meta-pill">BLE P2P</span>
+      <span class="project-meta-pill">Android</span>
+    </div>
+    <div class="project-hero-visual">
+      <div class="project-hero-visual-bg" style="background: linear-gradient(145deg, #0a1a0a 0%, #1a3a1a 30%, #2d5a2d 60%, #c8ff00 100%)"></div>
+      <div class="project-hero-visual-grid"></div>
+    </div>
+  </header>
+
+  <!-- ===== CONTENT ===== -->
+  <div class="project-content">
+
+    <!-- Concept -->
+    <section class="project-section">
+      <span class="project-section-tag">Concept</span>
+      <h2 class="project-section-title">3 piliers, zéro cloud requis</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">📖 Le Codex</h3>
+          <p class="feature-card-desc">Base de connaissances d'articles techniques sur la survie, stockés localement sur le téléphone. Fonctionne sans connexion internet.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🤖 Charlie (IA)</h3>
+          <p class="feature-card-desc">Assistant IA capable de répondre aux questions contextuelles. Alimenté par Google Gemini 2.5 Pro (nécessite internet pour le moment).</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">📡 Chat P2P</h3>
+          <p class="feature-card-desc">Communication entre appareils proches via Bluetooth Low Energy. Aucune connexion internet nécessaire — le walkie-talkie numérique.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="project-section">
+      <span class="project-section-tag">Architecture</span>
+      <h2 class="project-section-title">App hybride Web → Android</h2>
+      <div class="project-text" style="max-width:700px; margin-bottom: 2rem;">
+        <p>C'est une application <strong>hybride</strong> : un site React "encapsulé" dans une app native Android via Capacitor. Le meilleur des deux mondes — la vitesse de développement web avec l'accès natif au hardware (Bluetooth, fichiers, etc.).</p>
+      </div>
+      <table class="spec-table">
+        <thead>
+          <tr><th>Dossier</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>src/</code></td><td>Code de l'application — interface React, composants, logique</td></tr>
+          <tr><td><code>src/components/</code></td><td>Briques visuelles (ArticleCard, Header, etc.)</td></tr>
+          <tr><td><code>scripts/</code></td><td>L'usine à contenu — scripts Python qui transforment des fichiers texte en base de données</td></tr>
+          <tr><td><code>supabase/</code></td><td>Configuration de la base de données (Backend)</td></tr>
+          <tr><td><code>android/</code></td><td>Projet natif Android généré par Capacitor</td></tr>
+          <tr><td><code>.env</code></td><td>Clés secrètes (Supabase, Google AI) — non versionné</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Walkie-Talkie BLE -->
+    <section class="project-section">
+      <span class="project-section-tag">Walkie-Talkie BLE</span>
+      <h2 class="project-section-title">Communication Bluetooth sans internet</h2>
+      <div class="project-cols">
+        <div>
+          <table class="spec-table">
+            <thead>
+              <tr><th>Composant</th><th>Technologie</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Central (scan, connect, write)</td><td><code>@capacitor-community/bluetooth-le@7.2.0</code></td></tr>
+              <tr><td>Peripheral (GATT server)</td><td><code>cordova-plugin-ble-peripheral@1.0.0</code> (patché)</td></tr>
+              <tr><td>UUIDs</td><td>Service + Characteristic personnalisés</td></tr>
+            </tbody>
+          </table>
+
+          <h3 class="feature-card-title" style="margin-top:2rem; margin-bottom:0.75rem;">✅ Fonctionnel</h3>
+          <div class="project-text">
+            <ul>
+              <li>Advertising BLE sur les deux téléphones (S21 Ultra + Note 9)</li>
+              <li>Scan et détection mutuelle — les appareils se voient dans le radar</li>
+              <li>Connexion GATT entre Central et Peripheral</li>
+              <li>Envoi et réception de messages confirmés côté transport</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <h3 class="feature-card-title" style="margin-bottom:0.75rem;">🔄 En cours</h3>
+          <div class="project-text">
+            <ul>
+              <li>Affichage messages reçus dans le chat UI — problème de mapping deviceId (adresses BLE randomisées par Android)</li>
+              <li>Chat bidirectionnel — non testé dans les deux sens</li>
+            </ul>
+          </div>
+          <h3 class="feature-card-title" style="margin-top:2rem; margin-bottom:0.75rem;">⚠️ Notes techniques</h3>
+          <div class="project-text">
+            <ul>
+              <li>Plugin cordova-plugin-ble-peripheral fortement patché (patch-package)</li>
+              <li><code>npx cap sync</code> écrase le Java du plugin — d'où le script postinstall</li>
+              <li>Permissions BLUETOOTH_ADVERTISE pour Android 12+</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pipeline de contenu -->
+    <section class="project-section">
+      <span class="project-section-tag">Pipeline de contenu</span>
+      <h2 class="project-section-title">De Markdown à Supabase</h2>
+      <div class="project-text" style="max-width:800px; margin-bottom:2rem;">
+        <p>On ne modifie <strong>jamais</strong> la base de données à la main. On édite des fichiers Markdown, puis un script Python transforme tout en SQL.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">1. Rédiger en Markdown</h3>
+          <p class="feature-card-desc">Créer un fichier .md avec titre, introduction, matériel requis, étapes, avertissements. Organisé par catégorie (Alimentation, Abri, Eau…).</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">2. Script Python</h3>
+          <p class="feature-card-desc">generate_v14_import.py scanne les dossiers, lit chaque fichier, nettoie via Regex, structure en JSON et génère un fichier SQL d'insertion.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">3. Import Supabase</h3>
+          <p class="feature-card-desc">Coller le SQL généré dans l'éditeur SQL de Supabase et cliquer RUN. Les fiches apparaissent immédiatement dans l'application.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Traduction -->
+    <section class="project-section">
+      <span class="project-section-tag">Internationalisation</span>
+      <h2 class="project-section-title">Traduction automatique par IA</h2>
+      <div class="project-text" style="max-width:700px;">
+        <p>Le projet est multilingue. Des scripts Python lisent les fiches françaises, demandent à <strong>Google Gemini</strong> de les traduire et génèrent le SQL correspondant pour chaque langue cible.</p>
+      </div>
+      <div class="project-stack">
+        <span class="tech-pill">Français (source)</span>
+        <span class="tech-pill">Anglais</span>
+        <span class="tech-pill">Espagnol</span>
+        <span class="tech-pill">+ autres langues</span>
+      </div>
+    </section>
+
+    <!-- Stack technique -->
+    <section class="project-section">
+      <span class="project-section-tag">Stack technique</span>
+      <h2 class="project-section-title">Technologies utilisées</h2>
+      <div class="project-cols">
+        <div>
+          <table class="spec-table">
+            <thead><tr><th>Composant</th><th>Technologie</th></tr></thead>
+            <tbody>
+              <tr><td>Frontend</td><td>React + Vite</td></tr>
+              <tr><td>Mobile</td><td>Capacitor (Android natif)</td></tr>
+              <tr><td>Base de données</td><td>Supabase (PostgreSQL)</td></tr>
+              <tr><td>IA</td><td>Google Gemini 2.5 Pro</td></tr>
+              <tr><td>BLE Central</td><td>@capacitor-community/bluetooth-le</td></tr>
+              <tr><td>BLE Peripheral</td><td>cordova-plugin-ble-peripheral (patché)</td></tr>
+              <tr><td>Contenu</td><td>Markdown → Python → SQL</td></tr>
+              <tr><td>Build</td><td>Android Studio → APK</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3 class="feature-card-title" style="margin-bottom:1rem;">Workflow mobile</h3>
+          <div class="project-text">
+            <p>1. Modifier le code dans <code>src/</code></p>
+            <p>2. <code>npm run mobile:sync</code> pour synchroniser Capacitor</p>
+            <p>3. <code>npx cap open android</code> pour ouvrir Android Studio</p>
+            <p>4. Build → Build APK → installer sur téléphone</p>
+          </div>
+          <div class="project-stack">
+            <span class="tech-pill">React</span>
+            <span class="tech-pill">Vite</span>
+            <span class="tech-pill">Capacitor</span>
+            <span class="tech-pill">Supabase</span>
+            <span class="tech-pill">Gemini</span>
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">Bluetooth LE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== CTA ===== -->
+  <div class="project-cta-banner">
+    <h3>Encyclopédie de survie accessible à tous</h3>
+    <p>Créé par Mathieu — Irkeedia. Offline-first, open source.</p>
+    <a href="/" class="btn-liquid btn-liquid--dark">
+      <span class="btn-liquid-fill"></span>
+      <span class="btn-liquid-text">Voir tous les projets</span>
+      <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="project-footer">
+    <div class="project-footer-left">
+      <span>© 2026 IRKEEDIA</span>
+      <span>·</span>
+      <span>Tous droits réservés</span>
+    </div>
+    <div class="project-footer-right">
+      <a href="/#work">← Retour aux projets</a>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/project-init.js"></script>
+</body>
+</html>
