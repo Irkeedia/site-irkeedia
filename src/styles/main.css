@@ -1254,6 +1254,12 @@ input,textarea { font:inherit; color:inherit; background:none; border:none; outl
   color: var(--text-muted);
 }
 .footer-dot { color: var(--text-muted); }
+.footer-legal-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-legal-link:hover { color: var(--accent); }
 .footer-back-top {
   display: flex; align-items: center; gap: 0.5rem;
   font-family: var(--font-mono);

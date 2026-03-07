@@ -14,6 +14,7 @@ export default defineConfig({
         survivalCodex: resolve(__dirname, 'survival-codex.html'),
         nexusnas: resolve(__dirname, 'nexusnas.html'),
         sunoPlayer: resolve(__dirname, 'suno-player.html'),
+        mentionsLegales: resolve(__dirname, 'mentions-legales.html'),
       },
     },
   },
