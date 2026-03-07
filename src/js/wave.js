@@ -14,13 +14,10 @@ const TAU = Math.PI * 2;
    Using irrational frequency ratios ensures the composite wave never
    visibly repeats. */
 const LAYERS = [
-  { freq: 1.0,         amp: 0.35, speed: 0.4,   phase: 0       },
-  { freq: PHI,         amp: 0.25, speed: -0.3,   phase: 1.3     },
-  { freq: Math.PI,     amp: 0.15, speed: 0.55,   phase: 2.7     },
-  { freq: Math.E,      amp: 0.12, speed: -0.45,  phase: 0.8     },
-  { freq: Math.SQRT2,  amp: 0.10, speed: 0.35,   phase: 4.1     },
-  { freq: PHI * PHI,   amp: 0.08, speed: -0.25,  phase: 3.5     },
-  { freq: 4.669,       amp: 0.06, speed: 0.6,    phase: 5.2     }, // Feigenbaum δ
+  { freq: 0.8,         amp: 0.55, speed: 1.2,    phase: 0       },
+  { freq: PHI * 0.7,   amp: 0.35, speed: -0.9,   phase: 1.3     },
+  { freq: Math.SQRT2,  amp: 0.20, speed: 1.5,    phase: 2.7     },
+  { freq: Math.E * 0.5,amp: 0.15, speed: -1.1,   phase: 4.1     },
 ];
 
 /* ── Simple 1D value noise ──────────────────────────────────
@@ -46,9 +43,9 @@ export class ProceduralWave {
     // Config
     this.fillColor  = options.fillColor  || '#050505';
     this.resolution = options.resolution || 3;     // px per sample (lower = smoother)
-    this.waveHeight = options.waveHeight || 0.65;  // 0-1, how much of canvas the wave occupies
-    this.noiseAmp   = options.noiseAmp   || 0.08;  // Noise contribution
-    this.noiseFreq  = options.noiseFreq  || 2.5;
+    this.waveHeight = options.waveHeight || 0.85;  // 0-1, how much of canvas the wave occupies
+    this.noiseAmp   = options.noiseAmp   || 0.12;  // Noise contribution
+    this.noiseFreq  = options.noiseFreq  || 1.8;
 
     // State
     this.time = 0;
