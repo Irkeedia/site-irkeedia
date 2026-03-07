@@ -1235,52 +1235,37 @@ input,textarea { font:inherit; color:inherit; background:none; border:none; outl
 /* ===== FOOTER ===== */
 .footer {
   background: var(--bg);
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 
-/* Wave separator */
-.footer-wave {
-  position: relative;
-  width: 100%;
-  height: clamp(60px, 8vw, 120px);
-  overflow: hidden;
-}
-.footer-wave svg {
+/* Deforming top edge — the dark footer "invades" upward */
+.footer-edge {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  width: 200%;
+  width: 100%;
+  height: clamp(60px, 10vw, 140px);
+  transform: translateY(-100%);
+  overflow: hidden;
+  pointer-events: none;
+}
+.footer-edge-svg {
+  display: block;
+  width: 100%;
   height: 100%;
-  min-width: 200%;
 }
-.wave {
-  fill: var(--bg);
+.edge-wave {
+  fill: #050505;
 }
-.wave--1 {
-  fill: rgba(200, 255, 0, 0.04);
-  animation: waveShift1 7s ease-in-out infinite alternate;
+.edge-wave--1 {
+  opacity: 0.35;
 }
-.wave--2 {
-  fill: rgba(200, 255, 0, 0.025);
-  animation: waveShift2 9s ease-in-out infinite alternate;
+.edge-wave--2 {
+  opacity: 0.55;
 }
-.wave--3 {
-  fill: var(--bg);
-  animation: waveShift3 6s ease-in-out infinite alternate;
-}
-
-@keyframes waveShift1 {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-25%); }
-}
-@keyframes waveShift2 {
-  0%   { transform: translateX(-10%); }
-  100% { transform: translateX(-35%); }
-}
-@keyframes waveShift3 {
-  0%   { transform: translateX(-5%); }
-  100% { transform: translateX(-20%); }
+.edge-wave--3 {
+  opacity: 1;
 }
 
 .footer-marquee {

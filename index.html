@@ -807,12 +807,36 @@
 
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
-      <!-- Wave separator -->
-      <div class="footer-wave">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="wave wave--1" d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z" />
-          <path class="wave wave--2" d="M0,70 C240,10 480,110 720,50 C960,10 1200,100 1440,70 L1440,120 L0,120 Z" />
-          <path class="wave wave--3" d="M0,80 C240,40 480,100 720,60 C960,30 1200,90 1440,80 L1440,120 L0,120 Z" />
+      <!-- Deforming top edge -->
+      <div class="footer-edge" aria-hidden="true">
+        <svg class="footer-edge-svg" viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Wave layer 1 (subtle, slow) -->
+          <path class="edge-wave edge-wave--1" d="M0,80 C180,65 360,90 540,70 C720,50 900,80 1080,60 C1260,40 1350,70 1440,55 L1440,100 L0,100 Z">
+            <animate attributeName="d" dur="8s" repeatCount="indefinite" values="
+              M0,80 C180,65 360,90 540,70 C720,50 900,80 1080,60 C1260,40 1350,70 1440,55 L1440,100 L0,100 Z;
+              M0,65 C180,85 360,55 540,80 C720,90 900,55 1080,75 C1260,85 1350,55 1440,70 L1440,100 L0,100 Z;
+              M0,75 C180,50 360,80 540,55 C720,70 900,45 1080,70 C1260,55 1350,80 1440,60 L1440,100 L0,100 Z;
+              M0,80 C180,65 360,90 540,70 C720,50 900,80 1080,60 C1260,40 1350,70 1440,55 L1440,100 L0,100 Z"
+              calcMode="spline" keySplines="0.45 0 0.55 1; 0.45 0 0.55 1; 0.45 0 0.55 1" />
+          </path>
+          <!-- Wave layer 2 (mid opacity, mid speed) -->
+          <path class="edge-wave edge-wave--2" d="M0,70 C180,55 360,85 540,60 C720,80 900,50 1080,70 C1260,50 1350,80 1440,65 L1440,100 L0,100 Z">
+            <animate attributeName="d" dur="10s" repeatCount="indefinite" values="
+              M0,70 C180,55 360,85 540,60 C720,80 900,50 1080,70 C1260,50 1350,80 1440,65 L1440,100 L0,100 Z;
+              M0,55 C180,75 360,50 540,75 C720,55 900,80 1080,55 C1260,75 1350,55 1440,75 L1440,100 L0,100 Z;
+              M0,75 C180,60 360,75 540,50 C720,70 900,55 1080,80 C1260,60 1350,70 1440,55 L1440,100 L0,100 Z;
+              M0,70 C180,55 360,85 540,60 C720,80 900,50 1080,70 C1260,50 1350,80 1440,65 L1440,100 L0,100 Z"
+              calcMode="spline" keySplines="0.45 0 0.55 1; 0.45 0 0.55 1; 0.45 0 0.55 1" />
+          </path>
+          <!-- Wave layer 3 (opaque, fastest — defines the visible edge) -->
+          <path class="edge-wave edge-wave--3" d="M0,70 C180,50 360,75 540,55 C720,70 900,50 1080,65 C1260,50 1350,70 1440,55 L1440,100 L0,100 Z">
+            <animate attributeName="d" dur="7s" repeatCount="indefinite" values="
+              M0,70 C180,50 360,75 540,55 C720,70 900,50 1080,65 C1260,50 1350,70 1440,55 L1440,100 L0,100 Z;
+              M0,55 C180,70 360,50 540,70 C720,50 900,70 1080,50 C1260,65 1350,50 1440,70 L1440,100 L0,100 Z;
+              M0,65 C180,45 360,70 540,50 C720,65 900,45 1080,70 C1260,55 1350,65 1440,50 L1440,100 L0,100 Z;
+              M0,70 C180,50 360,75 540,55 C720,70 900,50 1080,65 C1260,50 1350,70 1440,55 L1440,100 L0,100 Z"
+              calcMode="spline" keySplines="0.45 0 0.55 1; 0.45 0 0.55 1; 0.45 0 0.55 1" />
+          </path>
         </svg>
       </div>
       <div class="footer-marquee">
