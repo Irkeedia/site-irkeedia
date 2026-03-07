@@ -56,20 +56,21 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   })
 })
 
-// Fade-in sections on scroll
+// Fade-in sections on scroll (re-triggers when scrolling back)
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible')
-        observer.unobserve(entry.target)
+      } else {
+        entry.target.classList.remove('is-visible')
       }
     })
   },
   { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
 )
 
-document.querySelectorAll('.project-section, .feature-card, .info-block').forEach((el) => {
+document.querySelectorAll('.project-section, .feature-card, .info-block, .archi-block, .project-stack, .project-cta-banner').forEach((el) => {
   el.style.opacity = '0'
   el.style.transform = 'translateY(30px)'
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease'
@@ -81,7 +82,10 @@ const style = document.createElement('style')
 style.textContent = `
   .project-section.is-visible,
   .feature-card.is-visible,
-  .info-block.is-visible {
+  .info-block.is-visible,
+  .archi-block.is-visible,
+  .project-stack.is-visible,
+  .project-cta-banner.is-visible {
     opacity: 1 !important;
     transform: translateY(0) !important;
   }
