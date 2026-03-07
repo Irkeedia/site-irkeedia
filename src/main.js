@@ -22,6 +22,7 @@ import {
 import { initWebGL } from './js/webgl.js'
 import { initLiquidButtons } from './js/liquid-button.js'
 import { initI18n } from './js/i18n.js'
+import { initWave } from './js/wave.js'
 
 // ─── BOOT SEQUENCE ──────────────────────────────
 async function init() {
@@ -47,6 +48,9 @@ async function init() {
 
   // 6. Initialize all scroll-based animations
   initAllAnimations()
+
+  // 7. Procedural wave footer edge
+  initWave()
 }
 
 // ─── START ──────────────────────────────────────
