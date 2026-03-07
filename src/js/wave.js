@@ -43,9 +43,10 @@ export class ProceduralWave {
     // Config
     this.fillColor  = options.fillColor  || '#050505';
     this.resolution = options.resolution || 3;     // px per sample (lower = smoother)
-    this.waveHeight = options.waveHeight || 0.85;  // 0-1, how much of canvas the wave occupies
+    this.waveHeight = options.waveHeight || 0.70;  // 0-1, how much of canvas the wave occupies
     this.noiseAmp   = options.noiseAmp   || 0.12;  // Noise contribution
     this.noiseFreq  = options.noiseFreq  || 1.8;
+    this.waveBias   = options.waveBias   || 0.35;  // 0-1, vertical offset (higher = wave drawn lower)
 
     // State
     this.time = 0;
@@ -109,7 +110,8 @@ export class ProceduralWave {
   /* ── Render one frame ── */
   _draw() {
     const { ctx, width, height } = this;
-    const midY = height * (1 - this.waveHeight);
+    // waveBias pushes the midline down so crests have headroom
+    const midY = height * this.waveBias + height * (1 - this.waveBias) * (1 - this.waveHeight);
     const amplitude = height * this.waveHeight * 0.5;
     const step = this.resolution;
     const cols = Math.ceil(width / step) + 1;
