@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infrastructure & Sécurité — Souveraineté numérique | IRKEEDIA</title>
+  <meta name="description" content="Serveurs bare-metal, NAS, clusters GPU. Architecture réseau souveraine, chiffrement, zéro dépendance cloud. Vos données sous votre contrôle total." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="project-page">
+
+  <!-- Custom Cursor -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" aria-hidden="true">
+    <span class="cursor-text"></span>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <nav class="project-nav">
+    <div class="project-nav-left">
+      <a href="/" class="project-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Retour
+      </a>
+    </div>
+    <a href="/" class="project-nav-logo">
+      <span class="logo-mark">◈</span>
+      <span class="logo-text">IRKEEDIA</span>
+    </a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="project-hero">
+    <div class="project-hero-tag">
+      <span class="status-dot"></span>
+      Service — Infrastructure
+    </div>
+    <h1 class="project-hero-title">
+      Infrastructure <span class="text-accent">&</span> Sécurité
+    </h1>
+    <p class="project-hero-subtitle">
+      La base de tout projet d'IA locale : une <strong>infrastructure souveraine</strong>. Serveurs bare-metal, NAS, clusters GPU, réseaux chiffrés. Zéro dépendance cloud — vos données, votre matériel, votre contrôle.
+    </p>
+    <div class="project-hero-meta">
+      <span class="project-meta-pill project-meta-pill--accent">Souveraineté</span>
+      <span class="project-meta-pill">Bare-metal</span>
+      <span class="project-meta-pill">Chiffrement E2E</span>
+      <span class="project-meta-pill">Haute disponibilité</span>
+    </div>
+    <div class="project-hero-visual">
+      <div class="project-hero-visual-bg" style="background: linear-gradient(145deg, #0a0f0a 0%, #0a2a0a 30%, #0d4b0d 60%, #00ff41 100%)"></div>
+      <div class="project-hero-visual-grid"></div>
+    </div>
+  </header>
+
+  <!-- ===== CONTENT ===== -->
+  <div class="project-content">
+
+    <!-- Pourquoi -->
+    <section class="project-section">
+      <span class="project-section-tag">Le constat</span>
+      <h2 class="project-section-title">Le cloud n'est pas la seule option</h2>
+      <p class="project-text">
+        AWS, Azure, Google Cloud — pratiques, mais vos données sont <strong>chez eux</strong>. Soumises à des juridictions étrangères (CLOUD Act, FISA), avec des coûts qui explosent à l'échelle. Pour l'IA locale, le cloud est un paradoxe : on veut garder ses données, pas les envoyer ailleurs.
+      </p>
+      <p class="project-text">
+        Nous construisons des infrastructures <strong>on-premise</strong> adaptées à l'IA : serveurs GPU pour l'inférence, stockage rapide pour les embeddings, réseau sécurisé pour les flux internes. Le tout administré, monitoré et maintenu.
+      </p>
+    </section>
+
+    <!-- Services infra -->
+    <section class="project-section">
+      <span class="project-section-tag">Nos services</span>
+      <h2 class="project-section-title">Ce que nous installons et maintenons</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">🖥️ Serveurs GPU dédiés</h3>
+          <p class="feature-card-desc">Configuration et déploiement de serveurs optimisés pour l'inférence IA. NVIDIA RTX 4090, A6000, ou A100 selon vos besoins. Refroidissement, alimentation, rack — on gère tout.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">💾 Stockage NAS sécurisé</h3>
+          <p class="feature-card-desc">Solutions de stockage réseau privé. RAID, snapshots, chiffrement au repos, sauvegardes automatiques. Accès multi-utilisateurs avec gestion fine des permissions.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🔒 Réseau chiffré</h3>
+          <p class="feature-card-desc">Architecture réseau segmentée avec VLANs, firewall, VPN WireGuard. Tunnel chiffré entre sites distants. Zéro trust, authentification forte, logs d'audit.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🐳 Conteneurisation</h3>
+          <p class="feature-card-desc">Docker, Podman, Kubernetes (K3s) pour isoler et orchestrer vos services IA. Déploiement reproductible, scaling horizontal, rollback instantané.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🖧 Virtualisation</h3>
+          <p class="feature-card-desc">Proxmox VE pour gérer VMs et containers sur un même hyperviseur. GPU passthrough pour l'IA, isolation des environnements, migration live.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">📊 Monitoring & Alertes</h3>
+          <p class="feature-card-desc">Surveillance 24/7 avec Grafana, Prometheus, Netdata. Alertes température GPU, espace disque, charge CPU. Dashboard en temps réel, historique des métriques.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture type -->
+    <section class="project-section">
+      <span class="project-section-tag">Architecture</span>
+      <h2 class="project-section-title">Architecture type PME / Cabinet</h2>
+      <div class="archi-block">
+<pre>
+┌─────────────────────────────────────────────────────────┐
+│                  Baie serveur sur site                   │
+│                                                         │
+│  ┌──────────────┐     ┌──────────────┐                  │
+│  │  Serveur IA   │     │  NAS Stockage│                  │
+│  │  Proxmox VE   │     │  RAID 6      │                  │
+│  │  ├─ VM Ollama │     │  Chiffré AES │                  │
+│  │  ├─ VM vLLM   │     │  Snapshots   │                  │
+│  │  ├─ CT Docker │     │  4-8 baies   │                  │
+│  │  └─ GPU pass. │     │  10GbE       │                  │
+│  └──────┬───────┘     └──────┬───────┘                  │
+│         │                    │                           │
+│    ─────┴────────────────────┴─────── Switch 10GbE ───  │
+│         │                                                │
+│  ┌──────┴───────┐     ┌──────────────┐                  │
+│  │  Firewall     │     │  UPS / SAI   │                  │
+│  │  OPNsense     │     │  30 min auto │                  │
+│  │  WireGuard VPN│     │  Shutdown    │                  │
+│  │  IDS/IPS      │     │  propre      │                  │
+│  └──────┬───────┘     └──────────────┘                  │
+│         │                                                │
+│    ─ Réseau local segmenté (VLANs) ──────────────────── │
+│         │              │              │                   │
+│    ┌────┴───┐    ┌────┴───┐    ┌────┴───┐               │
+│    │ Postes │    │ Wi-Fi  │    │ IoT /  │               │
+│    │ travail│    │ sécurisé│    │ Robots │               │
+│    └────────┘    └────────┘    └────────┘               │
+│                                                         │
+│       🔒 Aucune donnée ne quitte ce réseau              │
+└─────────────────────────────────────────────────────────┘
+</pre>
+      </div>
+      <div class="info-row">
+        <div class="info-block">
+          <span class="info-block-label">Hyperviseur</span>
+          <span class="info-block-value">Proxmox VE + GPU passthrough</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">Firewall</span>
+          <span class="info-block-value">OPNsense + WireGuard + IDS</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">Stockage</span>
+          <span class="info-block-value">NAS RAID 6 + chiffrement AES-256</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">Monitoring</span>
+          <span class="info-block-value">Grafana + Prometheus + Netdata</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sécurité -->
+    <section class="project-section">
+      <span class="project-section-tag">Sécurité</span>
+      <h2 class="project-section-title">Mesures de sécurité</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">🔐 Chiffrement bout en bout</h3>
+          <p class="feature-card-desc">Données au repos chiffrées (LUKS/AES-256), flux chiffrés (TLS 1.3), tunnels WireGuard entre sites. Aucune donnée en clair, jamais.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🛡️ Zero Trust</h3>
+          <p class="feature-card-desc">Chaque accès est vérifié, chaque connexion authentifiée. Pas de confiance implicite — même depuis le réseau interne. MFA obligatoire, tokens à durée limitée.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">📋 Audit & Conformité</h3>
+          <p class="feature-card-desc">Logs d'accès complets, traçabilité des actions, rapports RGPD automatisés. Prêt pour les audits, compatible HDS pour le médical.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">💿 Sauvegardes 3-2-1</h3>
+          <p class="feature-card-desc">3 copies, 2 supports différents, 1 hors site (coffre-fort chiffré, pas cloud). Restauration testée régulièrement. RPO/RTO définis et respectés.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Maintenance -->
+    <section class="project-section">
+      <span class="project-section-tag">Maintenance</span>
+      <h2 class="project-section-title">On ne vous laisse pas seul</h2>
+      <p class="project-text">
+        Installer c'est bien, maintenir c'est essentiel. Nous proposons des <strong>contrats de maintenance</strong> qui couvrent les mises à jour système, les patches de sécurité, le monitoring proactif et le support technique. Votre infrastructure tourne, on s'en occupe.
+      </p>
+      <div class="info-row">
+        <div class="info-block">
+          <span class="info-block-label">Mises à jour</span>
+          <span class="info-block-value">Patches sécurité, MAJ firmware, kernels</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">Monitoring</span>
+          <span class="info-block-value">Alertes 24/7, intervention proactive</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">Support</span>
+          <span class="info-block-value">Intervention sur site ou distante (VPN)</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">Évolution</span>
+          <span class="info-block-value">Ajout GPU, extension stockage, scaling</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack technique -->
+    <section class="project-section">
+      <span class="project-section-tag">Technologies</span>
+      <h2 class="project-section-title">Stack technique</h2>
+      <div class="project-stack">
+        <span class="tech-pill">Linux (Debian / NixOS)</span>
+        <span class="tech-pill">Proxmox VE</span>
+        <span class="tech-pill">Docker</span>
+        <span class="tech-pill">Podman</span>
+        <span class="tech-pill">K3s</span>
+        <span class="tech-pill">OPNsense</span>
+        <span class="tech-pill">WireGuard</span>
+        <span class="tech-pill">NGINX</span>
+        <span class="tech-pill">Traefik</span>
+        <span class="tech-pill">Grafana</span>
+        <span class="tech-pill">Prometheus</span>
+        <span class="tech-pill">Netdata</span>
+        <span class="tech-pill">ZFS</span>
+        <span class="tech-pill">LUKS</span>
+        <span class="tech-pill">Ansible</span>
+        <span class="tech-pill">Terraform</span>
+        <span class="tech-pill">NVIDIA CUDA</span>
+        <span class="tech-pill">10GbE Networking</span>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== CTA ===== -->
+  <div class="project-cta-banner">
+    <h3>Reprendre le contrôle de vos données</h3>
+    <p>Audit gratuit de votre infrastructure actuelle — on identifie les failles et les opportunités.</p>
+    <a href="/#contact" class="btn-liquid btn-liquid--dark">
+      <span class="btn-liquid-fill"></span>
+      <span class="btn-liquid-text">Nous contacter</span>
+      <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="project-footer">
+    <div class="project-footer-left">
+      <span>© 2026 IRKEEDIA</span>
+      <span>·</span>
+      <span>Tous droits réservés</span>
+    </div>
+    <div class="project-footer-right">
+      <a href="/#services">← Retour aux services</a>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/project-init.js"></script>
+</body>
+</html>

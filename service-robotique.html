@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robotique & IA Embarquée — Robots intelligents | IRKEEDIA</title>
+  <meta name="description" content="Conception de robots avec IA embarquée. Vision, voix, navigation autonome. Du prototype au produit complet, hardware et software fusionnés." />
+  <meta name="theme-color" content="#050505" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="project-page">
+
+  <!-- Custom Cursor -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" aria-hidden="true">
+    <span class="cursor-text"></span>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <nav class="project-nav">
+    <div class="project-nav-left">
+      <a href="/" class="project-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Retour
+      </a>
+    </div>
+    <a href="/" class="project-nav-logo">
+      <span class="logo-mark">◈</span>
+      <span class="logo-text">IRKEEDIA</span>
+    </a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="project-hero">
+    <div class="project-hero-tag">
+      <span class="status-dot"></span>
+      Service — Robotique
+    </div>
+    <h1 class="project-hero-title">
+      Robotique <span class="text-accent">&</span> IA Embarquée
+    </h1>
+    <p class="project-hero-subtitle">
+      Conception et développement de <strong>robots intelligents</strong> avec IA embarquée. Vision par ordinateur, reconnaissance vocale, navigation autonome — le tout sans dépendance cloud. Du prototype au système opérationnel.
+    </p>
+    <div class="project-hero-meta">
+      <span class="project-meta-pill project-meta-pill--accent">Hardware + Software</span>
+      <span class="project-meta-pill">IA embarquée</span>
+      <span class="project-meta-pill">Temps réel</span>
+      <span class="project-meta-pill">Autonome</span>
+    </div>
+    <div class="project-hero-visual">
+      <div class="project-hero-visual-bg" style="background: linear-gradient(145deg, #1a0a0a 0%, #3a0a0a 30%, #8b1a1a 60%, #ff4444 100%)"></div>
+      <div class="project-hero-visual-grid"></div>
+    </div>
+  </header>
+
+  <!-- ===== CONTENT ===== -->
+  <div class="project-content">
+
+    <!-- Vision -->
+    <section class="project-section">
+      <span class="project-section-tag">Notre vision</span>
+      <h2 class="project-section-title">Des robots qui pensent localement</h2>
+      <p class="project-text">
+        Un robot utile ne doit pas dépendre d'une connexion internet pour fonctionner. Chaque milliseconde de latence cloud est un risque en environnement réel. Nos robots embarquent leur intelligence <strong>directement sur le hardware</strong> — ils perçoivent, décident et agissent en temps réel.
+      </p>
+      <p class="project-text">
+        Que ce soit un assistant de service, un robot d'inspection industrielle ou un prototype de recherche, nous concevons l'ensemble : châssis, électronique, firmware, logiciel de contrôle et modèles IA optimisés pour le edge computing.
+      </p>
+    </section>
+
+    <!-- Capacités -->
+    <section class="project-section">
+      <span class="project-section-tag">Capacités</span>
+      <h2 class="project-section-title">Ce que nos robots savent faire</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">👁️ Vision temps réel</h3>
+          <p class="feature-card-desc">Détection d'objets, reconnaissance faciale, suivi de mouvement, OCR. YOLOv8/v11 optimisés pour NPU (Hailo, Coral, Jetson). 30+ FPS en edge.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🗣️ Interaction vocale</h3>
+          <p class="feature-card-desc">Speech-to-Text (Vosk, Whisper) + Text-to-Speech (Piper) + compréhension par LLM local. Le robot écoute, comprend et répond — sans serveur distant.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🧭 Navigation autonome</h3>
+          <p class="feature-card-desc">SLAM, évitement d'obstacles, suivi de personne, planification de trajectoires. Capteurs LIDAR, ultrasons, caméras stéréo — fusion de données multi-capteurs.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🧠 Décision locale</h3>
+          <p class="feature-card-desc">LLMs compacts embarqués (Phi-4, Qwen 2.5, TinyLlama) pour raisonnement contextuel. Le robot adapte son comportement en temps réel selon la situation.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🤖 Personnalité & Expression</h3>
+          <p class="feature-card-desc">Visages expressifs (écrans, LEDs), émotions contextuelles, voix personnalisée. Le robot a un caractère qui crée de l'engagement et de la confiance.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">📡 Communication sécurisée</h3>
+          <p class="feature-card-desc">API REST locale, WebSocket temps réel, protocoles série (UART/SPI/I2C). Télémétrie et contrôle à distance sur réseau local chiffré, sans cloud.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Processus -->
+    <section class="project-section">
+      <span class="project-section-tag">Processus</span>
+      <h2 class="project-section-title">Du concept au robot opérationnel</h2>
+      <div class="info-row">
+        <div class="info-block">
+          <span class="info-block-label">01 — Cahier des charges</span>
+          <span class="info-block-value">Définition des capacités, environnement, contraintes physiques et budget</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">02 — Conception hardware</span>
+          <span class="info-block-value">Choix des composants, conception mécanique, schémas électroniques, PCB</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">03 — Firmware & Software</span>
+          <span class="info-block-value">Firmware C/C++, drivers capteurs, serveur de contrôle, interface utilisateur</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">04 — Intégration IA</span>
+          <span class="info-block-value">Modèles vision/voix/LLM optimisés, quantification, déploiement NPU</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">05 — Tests & Itérations</span>
+          <span class="info-block-value">Tests terrain, calibration, optimisation énergie, fiabilisation</span>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">06 — Livraison & Support</span>
+          <span class="info-block-value">Documentation, formation, maintenance, mises à jour firmware OTA</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Applications -->
+    <section class="project-section">
+      <span class="project-section-tag">Applications</span>
+      <h2 class="project-section-title">Cas d'usage</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">🏭 Inspection industrielle</h3>
+          <p class="feature-card-desc">Robots d'inspection visuelle pour lignes de production. Détection de défauts en temps réel, reporting automatique, zéro connexion internet requise.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🏥 Assistance en EHPAD / Hôpital</h3>
+          <p class="feature-card-desc">Robots d'accueil et d'accompagnement. Reconnaissance des résidents, rappels médicaments, présence rassurante avec personnalité adaptée.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🔬 Recherche & Prototypage</h3>
+          <p class="feature-card-desc">Plateformes robotiques modulaires pour laboratoires et écoles. Architecture ouverte, documentation complète, extensible à volonté.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">🏢 Accueil & Service</h3>
+          <p class="feature-card-desc">Robots d'accueil en entreprise, hôtellerie, événementiel. Guidage, information, interaction naturelle — sans envoyer les visages sur un cloud.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack technique -->
+    <section class="project-section">
+      <span class="project-section-tag">Technologies</span>
+      <h2 class="project-section-title">Stack technique</h2>
+      <div class="project-stack">
+        <span class="tech-pill">C / C++</span>
+        <span class="tech-pill">Rust</span>
+        <span class="tech-pill">Python</span>
+        <span class="tech-pill">Arduino</span>
+        <span class="tech-pill">ESP32</span>
+        <span class="tech-pill">Raspberry Pi 5</span>
+        <span class="tech-pill">Hailo 8L NPU</span>
+        <span class="tech-pill">NVIDIA Jetson</span>
+        <span class="tech-pill">Google Coral</span>
+        <span class="tech-pill">ROS 2</span>
+        <span class="tech-pill">YOLOv8</span>
+        <span class="tech-pill">Vosk STT</span>
+        <span class="tech-pill">Piper TTS</span>
+        <span class="tech-pill">Ollama</span>
+        <span class="tech-pill">Flask / FastAPI</span>
+        <span class="tech-pill">FreeRTOS</span>
+        <span class="tech-pill">KiCad</span>
+        <span class="tech-pill">FreeCAD</span>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== CTA ===== -->
+  <div class="project-cta-banner">
+    <h3>Un projet robotique en tête ?</h3>
+    <p>Du concept au prototype fonctionnel — parlons de votre idée.</p>
+    <a href="/#contact" class="btn-liquid btn-liquid--dark">
+      <span class="btn-liquid-fill"></span>
+      <span class="btn-liquid-text">Nous contacter</span>
+      <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="project-footer">
+    <div class="project-footer-left">
+      <span>© 2026 IRKEEDIA</span>
+      <span>·</span>
+      <span>Tous droits réservés</span>
+    </div>
+    <div class="project-footer-right">
+      <a href="/#services">← Retour aux services</a>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/project-init.js"></script>
+</body>
+</html>
