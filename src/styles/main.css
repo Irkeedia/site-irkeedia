@@ -1239,33 +1239,27 @@ input,textarea { font:inherit; color:inherit; background:none; border:none; outl
   position: relative;
 }
 
-/* Deforming top edge — the dark footer "invades" upward */
+/* Travelling wave edge — dark footer invades upward */
 .footer-edge {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: clamp(60px, 10vw, 140px);
+  height: clamp(50px, 8vw, 120px);
   transform: translateY(-100%);
   overflow: hidden;
   pointer-events: none;
 }
 .footer-edge-svg {
   display: block;
-  width: 100%;
+  width: 200%;
   height: 100%;
+  animation: waveTravel 4s linear infinite;
 }
-.edge-wave {
-  fill: #050505;
-}
-.edge-wave--1 {
-  opacity: 0.35;
-}
-.edge-wave--2 {
-  opacity: 0.55;
-}
-.edge-wave--3 {
-  opacity: 1;
+
+@keyframes waveTravel {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .footer-marquee {
