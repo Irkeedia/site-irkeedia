@@ -1,0 +1,454 @@
+/* ============================================
+   IRKEEDIA — Cookie Consent Styles
+   Glassmorphic card, 3D cookie, crumb particles
+   ============================================ */
+
+/* ===== CRUMB PARTICLES ===== */
+.cookie-crumb {
+  position: fixed;
+  z-index: 100002;
+  pointer-events: none;
+  animation: crumbBurst 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes crumbBurst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0.2);
+  }
+}
+
+/* ===== BANNER WRAPPER ===== */
+.cookie-banner {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1.5rem;
+  pointer-events: none;
+}
+
+.cookie-banner-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 5, 0);
+  transition: background 0.6s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  pointer-events: none;
+}
+
+.cookie-banner.is-visible .cookie-banner-backdrop {
+  background: rgba(5, 5, 5, 0.5);
+  pointer-events: auto;
+}
+
+/* ===== CARD ===== */
+.cookie-card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: rgba(18, 18, 18, 0.85);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 2rem;
+  pointer-events: auto;
+
+  /* Entry animation */
+  opacity: 0;
+  transform: translateY(100%) scale(0.9);
+  transition:
+    opacity 0.7s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.7s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.cookie-banner.is-visible .cookie-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cookie-banner.is-leaving .cookie-card {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  transition-duration: 0.4s;
+}
+
+/* Accent glow border effect */
+.cookie-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 21px;
+  padding: 1px;
+  background: conic-gradient(
+    from 180deg,
+    transparent 40%,
+    rgba(200, 255, 0, 0.35) 50%,
+    transparent 60%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: cookieGlowSpin 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes cookieGlowSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== COOKIE ICON ===== */
+.cookie-icon-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+}
+
+.cookie-icon {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  animation: cookieFloat 3s ease-in-out infinite;
+}
+
+.cookie-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 35% 35%, #d4a04a, #a0722a 60%, #7a5520);
+  border-radius: 50%;
+  box-shadow:
+    inset -4px -4px 10px rgba(0, 0, 0, 0.3),
+    inset 2px 2px 8px rgba(255, 220, 120, 0.2),
+    0 4px 20px rgba(200, 255, 0, 0.15);
+  overflow: hidden;
+}
+
+.cookie-body::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.15), transparent 50%);
+}
+
+.cookie-chip {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle at 40% 35%, #4a3520, #2a1a0a);
+  border-radius: 50% 45% 55% 40%;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.cookie-crack {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+.cookie-crack.c1 {
+  width: 18px; height: 2px;
+  top: 55%; left: 15%;
+  transform: rotate(-15deg);
+}
+.cookie-crack.c2 {
+  width: 12px; height: 2px;
+  top: 38%; left: 45%;
+  transform: rotate(25deg);
+}
+
+.cookie-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 255, 0, 0.12), transparent 65%);
+  animation: cookiePulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes cookieFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-6px) rotate(3deg); }
+  66% { transform: translateY(-3px) rotate(-2deg); }
+}
+
+@keyframes cookiePulse {
+  from { opacity: 0.5; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1.1); }
+}
+
+/* ===== CONTENT ===== */
+.cookie-content {
+  text-align: center;
+}
+
+.cookie-title {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: #f0f0f0;
+}
+
+.cookie-desc {
+  font-size: 0.85rem;
+  color: #999;
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+}
+
+/* ===== TOGGLES ===== */
+.cookie-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.4rem;
+}
+
+.cookie-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.8rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.cookie-toggle-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(200, 255, 0, 0.15);
+}
+
+.cookie-toggle-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.cookie-toggle-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+.cookie-toggle-desc {
+  font-size: 0.7rem;
+  color: #666;
+  margin-top: 1px;
+}
+
+/* ===== SWITCH ===== */
+.cookie-switch {
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.cookie-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cookie-switch-track {
+  display: block;
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  position: relative;
+  transition: background 0.35s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.cookie-switch-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #666;
+  border-radius: 50%;
+  transition:
+    transform 0.35s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.cookie-switch input:checked + .cookie-switch-track {
+  background: rgba(200, 255, 0, 0.2);
+}
+
+.cookie-switch input:checked + .cookie-switch-track .cookie-switch-thumb {
+  transform: translateX(20px);
+  background: #c8ff00;
+  box-shadow: 0 0 12px rgba(200, 255, 0, 0.5);
+}
+
+/* Locked (necessary) */
+.cookie-switch--locked {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.cookie-switch--locked .cookie-switch-track {
+  background: rgba(200, 255, 0, 0.12);
+}
+
+.cookie-switch--locked .cookie-switch-thumb {
+  background: #c8ff00;
+  transform: translateX(20px);
+  box-shadow: 0 0 8px rgba(200, 255, 0, 0.3);
+}
+
+/* ===== ACTION BUTTONS ===== */
+.cookie-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.cookie-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-family: var(--font-body, 'Space Grotesk', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.35s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.cookie-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cookie-btn:hover::before {
+  opacity: 0.06;
+}
+
+/* Reject */
+.cookie-btn--reject {
+  background: rgba(255, 255, 255, 0.05);
+  color: #888;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cookie-btn--reject:hover {
+  color: #ccc;
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Accept */
+.cookie-btn--accept {
+  background: #c8ff00;
+  color: #050505;
+  box-shadow: 0 4px 24px rgba(200, 255, 0, 0.2);
+}
+
+.cookie-btn--accept:hover {
+  box-shadow: 0 6px 32px rgba(200, 255, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+.cookie-btn--accept:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.cookie-btn-arrow {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.cookie-btn--accept:hover .cookie-btn-arrow {
+  transform: translateX(3px);
+}
+
+/* Save custom */
+.cookie-btn-save {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 0.75rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+.cookie-btn-save:hover {
+  color: #c8ff00;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 480px) {
+  .cookie-banner {
+    padding: 0.75rem;
+  }
+
+  .cookie-card {
+    padding: 1.5rem 1.2rem;
+    border-radius: 16px;
+  }
+
+  .cookie-icon-wrap {
+    width: 48px;
+    height: 48px;
+  }
+
+  .cookie-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .cookie-chip {
+    width: 7px;
+    height: 7px;
+  }
+
+  .cookie-title {
+    font-size: 1.2rem;
+  }
+
+  .cookie-desc {
+    font-size: 0.8rem;
+  }
+
+  .cookie-actions {
+    flex-direction: column;
+  }
+}
+
+/* Touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .cookie-btn, .cookie-switch, .cookie-btn-save {
+    cursor: auto;
+  }
+}

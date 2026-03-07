@@ -5,6 +5,8 @@
 
 import './styles/main.css'
 import './styles/project.css'
+import './styles/cookies.css'
+import { initCookies } from './js/cookies.js'
 
 // ─── CUSTOM CURSOR (lightweight, no GSAP) ───────
 ;(function initCursor() {
@@ -107,3 +109,6 @@ document.querySelectorAll('.info-row').forEach((row) => {
     block.style.transitionDelay = `${i * 0.1}s`
   })
 })
+
+// Cookie consent
+initCookies()

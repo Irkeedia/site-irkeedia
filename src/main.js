@@ -4,6 +4,7 @@
    ============================================ */
 
 import './styles/main.css'
+import './styles/cookies.css'
 
 import {
   initSmoothScroll,
@@ -23,6 +24,7 @@ import { initWebGL } from './js/webgl.js'
 import { initLiquidButtons } from './js/liquid-button.js'
 import { initI18n } from './js/i18n.js'
 import { initWave } from './js/wave.js'
+import { initCookies } from './js/cookies.js'
 
 // ─── BOOT SEQUENCE ──────────────────────────────
 async function init() {
@@ -51,6 +53,9 @@ async function init() {
 
   // 7. Procedural wave footer edge
   initWave()
+
+  // 8. Cookie consent
+  initCookies()
 }
 
 // ─── START ──────────────────────────────────────
