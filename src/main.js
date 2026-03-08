@@ -79,6 +79,9 @@ function initScroll3DUI() {
 
 // ─── BOOT SEQUENCE ──────────────────────────────
 async function init() {
+  // 0. Audio FIRST — must be ready to catch the very first user gesture
+  initAudio()
+
   // 1. Start WebGL immediately (renders behind preloader)
   initWebGL()
 
@@ -111,9 +114,6 @@ async function init() {
 
   // 8. Cookie consent
   initCookies()
-
-  // 9. Ambient audio
-  initAudio()
 }
 
 // ─── START ──────────────────────────────────────
