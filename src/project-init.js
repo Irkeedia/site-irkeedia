@@ -6,7 +6,7 @@
 import './styles/main.css'
 import './styles/project.css'
 import './styles/cookies.css'
-import { initCookies } from './js/cookies.js'
+import { initCookies, initEntryGate } from './js/cookies.js'
 import { initAudio } from './js/audio.js'
 import { initPageTransitions } from './js/page-transitions.js'
 
@@ -114,6 +114,9 @@ document.querySelectorAll('.info-row').forEach((row) => {
 
 // Cookie consent
 initCookies()
+
+// Fullscreen entry interface (with cookie choice)
+initEntryGate()
 
 // Ambient audio (seamless across pages)
 initAudio()

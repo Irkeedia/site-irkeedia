@@ -24,7 +24,7 @@ import { initWebGL } from './js/webgl.js'
 import { initLiquidButtons } from './js/liquid-button.js'
 import { initI18n } from './js/i18n.js'
 import { initWave } from './js/wave.js'
-import { initCookies } from './js/cookies.js'
+import { initCookies, initEntryGate } from './js/cookies.js'
 import { initScroll3D } from './js/scroll-3d.js'
 import { initAudio } from './js/audio.js'
 import { initPageTransitions } from './js/page-transitions.js'
@@ -82,6 +82,9 @@ function initScroll3DUI() {
 async function init() {
   // 0. Audio FIRST — must be ready to catch the very first user gesture
   initAudio()
+
+  // 0.05 Fullscreen entry interface (with cookie choice)
+  initEntryGate()
 
   // 0.1 Page transitions — intercept internal links to keep audio alive
   initPageTransitions()

@@ -1,18 +1,12 @@
 /* ============================================
-   IRKEEDIA — Cookie Consent System
-   Awwwards-level editorial design
+   IRKEEDIA — Entry Gate + Cookie Consent
+   Fullscreen entry interface shown on each
+   site entry. Replaces cookie popup banner.
    ============================================ */
 
 const COOKIE_KEY = 'irkeedia_consent'
 const CONSENT_VERSION = 1
 
-const CATEGORIES = {
-  necessary: { label: 'Essentiels', locked: true },
-  analytics: { label: 'Analytiques', locked: false },
-  marketing: { label: 'Marketing', locked: false },
-}
-
-// ─── CONSENT STORAGE ────────────────────────────
 function getConsent() {
   try {
     const raw = localStorage.getItem(COOKIE_KEY)
@@ -20,7 +14,9 @@ function getConsent() {
     const data = JSON.parse(raw)
     if (data.version !== CONSENT_VERSION) return null
     return data
-  } catch { return null }
+  } catch {
+    return null
+  }
 }
 
 function setConsent(choices) {
@@ -36,151 +32,102 @@ function applyConsent(choices) {
   window.dispatchEvent(new CustomEvent('cookie-consent', { detail: choices }))
 }
 
-// ─── DISSOLVE PARTICLES ─────────────────────────
-function dissolveCard(card, callback) {
-  const rect = card.getBoundingClientRect()
-  const particleCount = 35
-  const frag = document.createDocumentFragment()
+function createEntryGate() {
+  const gate = document.createElement('div')
+  gate.className = 'entry-gate'
+  gate.setAttribute('role', 'dialog')
+  gate.setAttribute('aria-label', 'Entrer dans l\'expérience')
 
-  for (let i = 0; i < particleCount; i++) {
-    const p = document.createElement('div')
-    p.className = 'cc-particle'
-    const x = rect.left + Math.random() * rect.width
-    const y = rect.top + Math.random() * rect.height
-    const tx = (Math.random() - 0.5) * 200
-    const ty = -30 - Math.random() * 120
-    const size = 2 + Math.random() * 4
-    const delay = Math.random() * 0.15
-    p.style.cssText = `
-      left:${x}px;top:${y}px;
-      width:${size}px;height:${size}px;
-      --tx:${tx}px;--ty:${ty}px;
-      animation-delay:${delay}s;
-    `
-    frag.appendChild(p)
-  }
-  document.body.appendChild(frag)
-
-  card.classList.add('cc-dissolving')
-
-  setTimeout(() => {
-    document.querySelectorAll('.cc-particle').forEach(p => p.remove())
-    callback?.()
-  }, 900)
-}
-
-// ─── STAGGER TEXT REVEAL ────────────────────────
-function staggerReveal(container) {
-  const items = container.querySelectorAll('.cc-reveal')
-  items.forEach((el, i) => {
-    el.style.transitionDelay = `${0.08 + i * 0.06}s`
-  })
-}
-
-// ─── BUILD BANNER ───────────────────────────────
-function createBanner() {
-  const banner = document.createElement('div')
-  banner.className = 'cc-banner'
-  banner.setAttribute('role', 'dialog')
-  banner.setAttribute('aria-label', 'Consentement cookies')
-
-  banner.innerHTML = `
-    <div class="cc-card">
-      <div class="cc-line cc-reveal">
-        <span class="cc-mono">COOKIES</span>
-        <span class="cc-separator"></span>
-      </div>
-
-      <p class="cc-text cc-reveal">
-        Ce site utilise des cookies pour fonctionner correctement et mesurer son audience.
+  gate.innerHTML = `
+    <div class="entry-gate__panel">
+      <span class="entry-gate__kicker">IRKEEDIA EXPERIENCE</span>
+      <h1 class="entry-gate__title">Entrer dans l'expérience</h1>
+      <p class="entry-gate__text">
+        En entrant, vous activez l'expérience immersive et choisissez votre préférence cookies.
       </p>
 
-      <div class="cc-categories cc-reveal">
-        ${Object.entries(CATEGORIES).map(([key, cat]) => `
-          <label class="cc-cat ${cat.locked ? 'cc-cat--locked' : ''}" data-cat="${key}">
-            <input type="checkbox" ${cat.locked ? 'checked disabled' : ''} data-cookie-cat="${key}" />
-            <span class="cc-cat-indicator">
-              <span class="cc-cat-dot"></span>
-            </span>
-            <span class="cc-cat-label">${cat.label}</span>
-          </label>
-        `).join('')}
+      <div class="entry-gate__cookies">
+        <p class="entry-gate__cookies-title">Préférences cookies</p>
+        <p class="entry-gate__cookies-text">Essentiels toujours actifs. Optionnels selon votre choix.</p>
       </div>
 
-      <div class="cc-actions cc-reveal">
-        <button class="cc-btn cc-btn--ghost" data-action="reject">Refuser</button>
-        <button class="cc-btn cc-btn--primary" data-action="accept">
-          Accepter
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+      <div class="entry-gate__actions">
+        <button class="entry-gate__btn entry-gate__btn--ghost" data-entry="reject">
+          Entrer avec essentiels
+        </button>
+        <button class="entry-gate__btn entry-gate__btn--primary" data-entry="accept">
+          Entrer et accepter tout
         </button>
       </div>
     </div>
   `
 
-  document.body.appendChild(banner)
-  return banner
+  document.body.appendChild(gate)
+  return gate
 }
 
-// ─── BIND EVENTS ────────────────────────────────
-function bindBanner(banner) {
-  const card = banner.querySelector('.cc-card')
-
-  banner.querySelector('[data-action="accept"]').addEventListener('click', () => {
-    const choices = {}
-    Object.keys(CATEGORIES).forEach(k => choices[k] = true)
-    setConsent(choices)
-    dissolveCard(card, () => banner.remove())
-  })
-
-  banner.querySelector('[data-action="reject"]').addEventListener('click', () => {
-    const choices = {}
-    Object.keys(CATEGORIES).forEach(k => choices[k] = CATEGORIES[k].locked)
-    setConsent(choices)
-    card.classList.add('cc-exit')
-    setTimeout(() => banner.remove(), 600)
-  })
-
-  // Toggle categories — save on any change
-  banner.querySelectorAll('.cc-cat:not(.cc-cat--locked)').forEach(label => {
-    label.addEventListener('click', () => {
-      // Let the checkbox toggle first
-      requestAnimationFrame(() => {
-        // Visual feedback
-        label.classList.add('cc-cat--flash')
-        setTimeout(() => label.classList.remove('cc-cat--flash'), 400)
-      })
-    })
-  })
+function removeLegacyCookieBanner() {
+  document.querySelectorAll('.cc-banner').forEach((el) => el.remove())
 }
 
-// ─── SHOW ───────────────────────────────────────
-function showBanner(banner) {
-  const card = banner.querySelector('.cc-card')
-  staggerReveal(card)
+export function initEntryGate() {
+  if (window.__irkeediaEntryGateReady) return
+  window.__irkeediaEntryGateReady = true
+
+  removeLegacyCookieBanner()
+
+  const existing = getConsent()
+  if (existing) {
+    applyConsent(existing.choices)
+  }
+
+  const gate = createEntryGate()
+  document.body.classList.add('entry-gate-open')
+
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      banner.classList.add('is-visible')
-    })
+    gate.classList.add('is-visible')
+  })
+
+  const choicesAccept = {
+    necessary: true,
+    analytics: true,
+    marketing: true,
+  }
+
+  const choicesReject = {
+    necessary: true,
+    analytics: false,
+    marketing: false,
+  }
+
+  gate.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-entry]')
+    if (!btn) return
+
+    const mode = btn.getAttribute('data-entry')
+    setConsent(mode === 'accept' ? choicesAccept : choicesReject)
+
+    gate.classList.remove('is-visible')
+    gate.classList.add('is-leaving')
+    setTimeout(() => {
+      gate.remove()
+      document.body.classList.remove('entry-gate-open')
+    }, 420)
   })
 }
 
-// ─── INIT ───────────────────────────────────────
+// Compat: no popup anymore
 export function initCookies() {
   const existing = getConsent()
   if (existing) {
     applyConsent(existing.choices)
-    return
   }
-
-  const banner = createBanner()
-  bindBanner(banner)
-  setTimeout(() => showBanner(banner), 2000)
 }
 
-// ─── RE-OPEN ────────────────────────────────────
 export function reopenCookies() {
   localStorage.removeItem(COOKIE_KEY)
-  const banner = createBanner()
-  bindBanner(banner)
-  showBanner(banner)
+  if (window.__irkeediaEntryGateReady) {
+    window.__irkeediaEntryGateReady = false
+  }
+  initEntryGate()
 }
