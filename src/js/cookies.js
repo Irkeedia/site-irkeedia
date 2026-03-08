@@ -40,24 +40,25 @@ function createEntryGate() {
 
   gate.innerHTML = `
     <div class="entry-gate__panel">
-      <span class="entry-gate__kicker">IRKEEDIA EXPERIENCE</span>
-      <h1 class="entry-gate__title">Entrer dans l'expérience</h1>
+      <span class="entry-gate__kicker">IRKEEDIA DIGITAL CRAFT</span>
+      <h1 class="entry-gate__title">Ici, vous n'êtes pas n'importe où.</h1>
       <p class="entry-gate__text">
-        En entrant, vous activez l'expérience immersive et choisissez votre préférence cookies.
+        Bienvenue dans une expérience digitale premium, pensée comme un univers complet.
       </p>
 
-      <div class="entry-gate__cookies">
-        <p class="entry-gate__cookies-title">Préférences cookies</p>
-        <p class="entry-gate__cookies-text">Essentiels toujours actifs. Optionnels selon votre choix.</p>
+      <div class="entry-gate__actions">
+        <button class="entry-gate__btn entry-gate__btn--primary" data-entry="enter">
+          Entrer dans l'expérience
+        </button>
       </div>
 
-      <div class="entry-gate__actions">
-        <button class="entry-gate__btn entry-gate__btn--ghost" data-entry="reject">
-          Entrer avec essentiels
-        </button>
-        <button class="entry-gate__btn entry-gate__btn--primary" data-entry="accept">
-          Entrer et accepter tout
-        </button>
+      <div class="entry-gate__cookies">
+        <p class="entry-gate__cookies-title">Cookies</p>
+        <p class="entry-gate__cookies-text">Les essentiels sont toujours actifs.</p>
+        <div class="entry-gate__cookie-choice" role="group" aria-label="Préférences cookies">
+          <button class="entry-gate__chip is-active" data-cookie-mode="essential" type="button">Essentiels uniquement</button>
+          <button class="entry-gate__chip" data-cookie-mode="all" type="button">Tout accepter</button>
+        </div>
       </div>
     </div>
   `
@@ -100,12 +101,22 @@ export function initEntryGate() {
     marketing: false,
   }
 
+  let cookieMode = 'essential'
+
+  gate.querySelectorAll('[data-cookie-mode]').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      cookieMode = chip.getAttribute('data-cookie-mode') || 'essential'
+      gate.querySelectorAll('[data-cookie-mode]').forEach((el) => {
+        el.classList.toggle('is-active', el === chip)
+      })
+    })
+  })
+
   gate.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-entry]')
+    const btn = e.target.closest('[data-entry="enter"]')
     if (!btn) return
 
-    const mode = btn.getAttribute('data-entry')
-    setConsent(mode === 'accept' ? choicesAccept : choicesReject)
+    setConsent(cookieMode === 'all' ? choicesAccept : choicesReject)
 
     gate.classList.remove('is-visible')
     gate.classList.add('is-leaving')
