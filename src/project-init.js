@@ -114,26 +114,5 @@ document.querySelectorAll('.info-row').forEach((row) => {
 // Cookie consent
 initCookies()
 
-// Audio toggle — inject button into page for project/service pages
-;(function injectAudioButton() {
-  if (document.getElementById('audioToggle')) return
-  const btn = document.createElement('button')
-  btn.className = 'audio-toggle'
-  btn.id = 'audioToggle'
-  btn.type = 'button'
-  btn.setAttribute('aria-label', 'Couper la musique')
-  btn.innerHTML = `
-    <svg class="audio-icon audio-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-      <path class="audio-wave audio-wave-1" d="M15.54 8.46a5 5 0 010 7.07"/>
-      <path class="audio-wave audio-wave-2" d="M19.07 4.93a10 10 0 010 14.14"/>
-    </svg>
-    <svg class="audio-icon audio-icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-      <line x1="23" y1="9" x2="17" y2="15"/>
-      <line x1="17" y1="9" x2="23" y2="15"/>
-    </svg>
-  `
-  document.body.appendChild(btn)
-  initAudio()
-})()
+// Ambient audio (seamless across pages)
+initAudio()

@@ -1,122 +1,111 @@
 /* ============================================
-   IRKEEDIA — Ambient Audio Controller
-   Background music with mute/unmute toggle
-   Respects autoplay policies + localStorage
+   IRKEEDIA — Seamless Ambient Audio
+   Background music that persists across pages.
+   No button — auto-plays on first interaction
+   and resumes position when navigating.
    ============================================ */
 
+const STORAGE_TIME = 'irkeedia-audio-time'
+const STORAGE_PLAYED = 'irkeedia-audio-played'
+
 export function initAudio() {
-  const btn = document.getElementById('audioToggle')
-  if (!btn) return
+  // Prevent double-init
+  if (window.__irkeediaAudio) return
+  window.__irkeediaAudio = true
 
   const audio = new Audio('/audio/ambient.mp3')
   audio.loop = true
-  audio.volume = 0.35
+  audio.volume = 0.4
   audio.preload = 'auto'
 
-  const STORAGE_KEY = 'irkeedia-audio-muted'
-  let isMuted = localStorage.getItem(STORAGE_KEY) === 'true'
-  let hasInteracted = false
   let isPlaying = false
+  let hasStarted = false
 
-  // ─── UI update ─────────────────────────────────
-  function updateUI() {
-    btn.classList.toggle('is-muted', isMuted)
-    btn.setAttribute('aria-label', isMuted ? 'Activer la musique' : 'Couper la musique')
+  // ─── Restore position from previous page ──────
+  const savedTime = parseFloat(sessionStorage.getItem(STORAGE_TIME))
+  if (!isNaN(savedTime) && savedTime > 0) {
+    audio.currentTime = savedTime
   }
 
-  // ─── Try to play ──────────────────────────────
-  async function tryPlay() {
-    if (isMuted || isPlaying) return
+  // ─── Save position continuously ───────────────
+  audio.addEventListener('timeupdate', () => {
+    sessionStorage.setItem(STORAGE_TIME, audio.currentTime.toFixed(2))
+  })
+
+  // ─── Save position on page unload ─────────────
+  window.addEventListener('beforeunload', () => {
+    sessionStorage.setItem(STORAGE_TIME, audio.currentTime.toFixed(2))
+  })
+
+  // ─── Play ─────────────────────────────────────
+  async function play() {
+    if (isPlaying) return
     try {
       await audio.play()
       isPlaying = true
-      btn.classList.add('is-playing')
+      hasStarted = true
+      sessionStorage.setItem(STORAGE_PLAYED, 'true')
+      console.log('[Audio] Playing at', audio.currentTime.toFixed(1) + 's')
     } catch (e) {
-      // Autoplay blocked — will retry on interaction
+      // Autoplay blocked — will retry on user interaction
       console.log('[Audio] Autoplay blocked, waiting for interaction')
     }
   }
 
-  // ─── Toggle ───────────────────────────────────
-  function toggle() {
-    isMuted = !isMuted
-    localStorage.setItem(STORAGE_KEY, isMuted)
-    updateUI()
-
-    if (isMuted) {
-      audio.pause()
-      isPlaying = false
-      btn.classList.remove('is-playing')
-    } else {
-      tryPlay()
-    }
+  // ─── Try immediate autoplay ───────────────────
+  // If user already interacted on a previous page, browsers
+  // often allow autoplay. Try it immediately.
+  const wasPlaying = sessionStorage.getItem(STORAGE_PLAYED) === 'true'
+  if (wasPlaying) {
+    play()
   }
 
-  // ─── First interaction handler ────────────────
-  function onFirstInteraction() {
-    if (hasInteracted) return
-    hasInteracted = true
-
-    // Remove listeners
-    document.removeEventListener('click', onFirstInteraction)
-    document.removeEventListener('keydown', onFirstInteraction)
-    document.removeEventListener('touchstart', onFirstInteraction)
-    document.removeEventListener('scroll', onFirstInteraction)
-
-    // Auto-play if not muted
-    if (!isMuted) {
-      // Small delay to let preloader finish
-      setTimeout(() => tryPlay(), 1500)
-    }
+  // ─── First interaction → start music ──────────
+  function onInteraction() {
+    if (hasStarted) return
+    removeListeners()
+    play()
   }
 
-  // ─── Init ─────────────────────────────────────
-  updateUI()
+  const events = ['click', 'keydown', 'touchstart', 'scroll', 'mousemove']
 
-  // Button click
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation()
-    if (!hasInteracted) {
-      hasInteracted = true
-      document.removeEventListener('click', onFirstInteraction)
-      document.removeEventListener('keydown', onFirstInteraction)
-      document.removeEventListener('touchstart', onFirstInteraction)
-      document.removeEventListener('scroll', onFirstInteraction)
-    }
-    toggle()
-  })
+  function addListeners() {
+    events.forEach(evt => {
+      document.addEventListener(evt, onInteraction, {
+        once: false,
+        passive: true,
+        capture: true,
+      })
+    })
+  }
 
-  // Listen for any user interaction to unlock autoplay
-  document.addEventListener('click', onFirstInteraction, { once: false })
-  document.addEventListener('keydown', onFirstInteraction, { once: false })
-  document.addEventListener('touchstart', onFirstInteraction, { once: false })
-  document.addEventListener('scroll', onFirstInteraction, { once: false, passive: true })
+  function removeListeners() {
+    events.forEach(evt => {
+      document.removeEventListener(evt, onInteraction, { capture: true })
+    })
+  }
 
-  // Pause when tab is hidden, resume when visible
+  // Always add listeners as fallback (autoplay may have been blocked)
+  addListeners()
+
+  // ─── Visibility: pause in background, resume on focus ─
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       if (isPlaying) {
         audio.pause()
+        isPlaying = false
       }
     } else {
-      if (!isMuted && hasInteracted) {
-        tryPlay()
+      if (hasStarted) {
+        play()
       }
     }
   })
 
-  // Handle audio ending (safety — shouldn't happen with loop=true)
+  // ─── Safety: if loop fails, restart ───────────
   audio.addEventListener('ended', () => {
     isPlaying = false
-    if (!isMuted) {
-      audio.currentTime = 0
-      tryPlay()
-    }
+    audio.currentTime = 0
+    play()
   })
-
-  return {
-    mute() { if (!isMuted) toggle() },
-    unmute() { if (isMuted) toggle() },
-    isMuted() { return isMuted },
-  }
 }
