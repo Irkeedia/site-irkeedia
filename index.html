@@ -659,6 +659,9 @@
           </div>
           <div class="contact-right">
             <form class="contact-form" id="contactForm">
+              <input type="hidden" name="access_key" value="edb5c8d4-72d6-4fe3-82c7-dc6dee0934f1" />
+              <input type="hidden" name="subject" value="Nouveau message depuis irkeedia.com" />
+              <input type="hidden" name="from_name" value="IRKEEDIA Contact" />
               <div class="form-row">
                 <div class="form-field">
                   <input type="text" name="name" id="fname" required autocomplete="name" placeholder=" "/>
@@ -681,13 +684,14 @@
                 <label for="fmessage" data-i18n="contact.message">Votre message</label>
                 <div class="field-line"></div>
               </div>
-              <button type="submit" class="btn-liquid btn-liquid--dark magnetic">
+              <button type="submit" class="btn-liquid btn-liquid--dark magnetic" id="contactSubmit">
                 <span class="btn-liquid-fill"></span>
                 <span class="btn-liquid-text" data-i18n="contact.send">Envoyer</span>
                 <span class="btn-liquid-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </span>
               </button>
+              <div class="form-status" id="formStatus"></div>
             </form>
           </div>
         </div>

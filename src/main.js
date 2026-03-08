@@ -121,6 +121,57 @@ async function init() {
 
   // 8. Cookie consent
   initCookies()
+
+  // 9. Contact form (Web3Forms)
+  initContactForm()
+}
+
+// ─── CONTACT FORM ───────────────────────────────
+function initContactForm() {
+  const form = document.getElementById('contactForm')
+  if (!form) return
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const btn = form.querySelector('#contactSubmit')
+    const btnText = btn?.querySelector('.btn-liquid-text')
+    const status = document.getElementById('formStatus')
+    const originalText = btnText?.textContent || 'Envoyer'
+
+    // Disable & show loading
+    btn.disabled = true
+    if (btnText) btnText.textContent = 'Envoi en cours...'
+    if (status) { status.textContent = ''; status.className = 'form-status' }
+
+    try {
+      const formData = new FormData(form)
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      })
+      const data = await res.json()
+
+      if (data.success) {
+        if (status) {
+          status.textContent = 'Message envoyé avec succès !'
+          status.className = 'form-status form-status--success'
+        }
+        form.reset()
+      } else {
+        throw new Error(data.message || 'Erreur inconnue')
+      }
+    } catch (err) {
+      if (status) {
+        status.textContent = 'Erreur lors de l\'envoi. Réessayez.'
+        status.className = 'form-status form-status--error'
+      }
+      console.error('[Form]', err)
+    } finally {
+      btn.disabled = false
+      if (btnText) btnText.textContent = originalText
+    }
+  })
 }
 
 // ─── START ──────────────────────────────────────

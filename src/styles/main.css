@@ -1232,6 +1232,18 @@ input,textarea { font:inherit; color:inherit; background:none; border:none; outl
 .form-field input:focus ~ .field-line,
 .form-field textarea:focus ~ .field-line { width: 100%; }
 
+/* Form submit status */
+.form-status {
+  margin-top: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  min-height: 1.4em;
+  transition: opacity 0.3s ease;
+}
+.form-status--success { color: var(--accent); }
+.form-status--error { color: #ff4444; }
+
 /* ===== FOOTER ===== */
 .footer {
   background: var(--bg);
