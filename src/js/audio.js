@@ -1,16 +1,13 @@
 /* ============================================
-   IRKEEDIA — Seamless Ambient Audio
-   
-   Strategy: Web Audio API bypass.
-   1. <audio muted> → autoplay always allowed
-   2. createMediaElementSource() routes sound 
-      through Web Audio graph (ignores .muted)
-   3. audioContext.resume() is the ONLY gate
-      — Chrome often allows it on return visits
-      — fallback: first natural interaction
-   
-   Position persists via sessionStorage.
-   ============================================ */
+  IRKEEDIA — Seamless Ambient Audio
+
+  Strategy:
+  1) Try autoplay with sound directly
+  2) If blocked, start muted (always allowed)
+  3) On first gesture, force audible playback
+
+  Position persists via sessionStorage.
+  ============================================ */
 
 const STORAGE_TIME = 'irkeedia-audio-time'
 const STORAGE_PLAYED = 'irkeedia-audio-played'
@@ -22,33 +19,13 @@ export function initAudio() {
   const audio = document.createElement('audio')
   audio.src = '/audio/ambient.mp3'
   audio.loop = true
-  audio.muted = true          // ← Required for guaranteed autoplay
   audio.preload = 'auto'
-  audio.crossOrigin = 'anonymous'
   audio.style.display = 'none'
   document.body.appendChild(audio)
 
-  let soundActive = false
-  let audioCtx = null
-  let gainNode = null
-
-  // ─── Web Audio API setup ──────────────────────
-  // Sound goes through GainNode → destination,
-  // completely bypassing the element's .muted property
-  try {
-    const AC = window.AudioContext || window.webkitAudioContext
-    audioCtx = new AC()
-    const source = audioCtx.createMediaElementSource(audio)
-    gainNode = audioCtx.createGain()
-    gainNode.gain.value = 0.4
-    source.connect(gainNode)
-    gainNode.connect(audioCtx.destination)
-    console.log('[Audio] Web Audio API graph ready')
-  } catch (e) {
-    console.log('[Audio] Web Audio API unavailable:', e.message)
-    // Fallback: direct element (will need gesture for unmute)
-    audioCtx = null
-  }
+  audio.volume = 0.4
+  let isAudible = false
+  let startedMutedFallback = false
 
   // ─── Restore position ────────────────────────
   audio.addEventListener('loadedmetadata', () => {
@@ -56,87 +33,64 @@ export function initAudio() {
     if (!isNaN(saved) && saved > 0 && saved < audio.duration) {
       audio.currentTime = saved
     }
-    beginPlayback()
+    startAudio()
   }, { once: true })
 
   // Handle already-loaded (browser cache)
   if (audio.readyState >= 1) {
     const saved = parseFloat(sessionStorage.getItem(STORAGE_TIME))
     if (!isNaN(saved) && saved > 0) audio.currentTime = saved
-    beginPlayback()
+    startAudio()
   }
 
-  // ─── Start playback (muted → guaranteed) ─────
-  function beginPlayback() {
-    if (!audio.paused) {
-      tryActivateSound()
-      return
-    }
+  function startAudio() {
+    if (!audio.paused) return
+
+    // 1) Try autoplay with sound
+    audio.muted = false
+    audio.volume = 0.4
     audio.play().then(() => {
-      console.log('[Audio] ✓ Element playing (muted)')
+      isAudible = true
       sessionStorage.setItem(STORAGE_PLAYED, 'true')
-      tryActivateSound()
-    }).catch(err => {
-      console.log('[Audio] Even muted play failed:', err.message)
+      removeGestureListeners()
+      console.log('[Audio] ✓ Playing with sound')
+    }).catch(() => {
+      // 2) Fallback: autoplay muted (usually allowed)
+      audio.muted = true
+      audio.volume = 0
+      audio.play().then(() => {
+        startedMutedFallback = true
+        sessionStorage.setItem(STORAGE_PLAYED, 'true')
+        console.log('[Audio] Started muted (waiting user gesture for sound)')
+      }).catch((err) => {
+        console.log('[Audio] Autoplay blocked entirely:', err.message)
+      })
     })
   }
 
-  // ─── Activate sound via AudioContext.resume() ─
-  function tryActivateSound() {
-    if (soundActive || !audioCtx) return
-
-    audioCtx.resume().then(() => {
-      if (audioCtx.state === 'running') {
-        soundActive = true
-        console.log('[Audio] ✓ Sound active! (Web Audio API)')
-        removeGestureListeners()
-      }
-    }).catch(() => {})
-
-    // Retry a few times — some browsers need a moment
-    setTimeout(() => {
-      if (soundActive || !audioCtx) return
-      audioCtx.resume().then(() => {
-        if (audioCtx.state === 'running') {
-          soundActive = true
-          console.log('[Audio] ✓ Sound active (delayed resume)')
-          removeGestureListeners()
-        }
-      }).catch(() => {})
-    }, 500)
-
-    setTimeout(() => {
-      if (soundActive || !audioCtx) return
-      audioCtx.resume().catch(() => {})
-      if (audioCtx.state === 'running') {
-        soundActive = true
-        removeGestureListeners()
-      }
-    }, 1500)
-  }
-
-  // ─── Gesture fallback ────────────────────────
+  // ─── Gesture fallback (guaranteed unlock path) ─
   function onGesture() {
-    if (soundActive) return
+    if (isAudible) return
 
-    if (audioCtx) {
-      audioCtx.resume().then(() => {
-        soundActive = true
-        console.log('[Audio] ✓ Sound via gesture (Web Audio)')
-        removeGestureListeners()
-      }).catch(() => {})
-    } else {
-      // No Web Audio: direct unmute
-      audio.muted = false
-      audio.volume = 0.4
-      soundActive = true
-      if (audio.paused) audio.play().catch(() => {})
-      console.log('[Audio] ✓ Sound via gesture (direct)')
+    // Force audible playback on first interaction
+    audio.muted = false
+    audio.volume = 0.4
+    audio.play().then(() => {
+      isAudible = true
       removeGestureListeners()
-    }
-
-    // Start playback if needed
-    if (audio.paused) audio.play().catch(() => {})
+      console.log('[Audio] ✓ Sound unlocked by gesture')
+    }).catch(() => {
+      // Retry once after a tiny delay in the same interaction window
+      setTimeout(() => {
+        audio.muted = false
+        audio.volume = 0.4
+        audio.play().then(() => {
+          isAudible = true
+          removeGestureListeners()
+          console.log('[Audio] ✓ Sound unlocked by delayed retry')
+        }).catch(() => {})
+      }, 30)
+    })
   }
 
   const gestureEvents = ['click', 'mousedown', 'keydown', 'touchstart', 'pointerdown']
@@ -170,10 +124,10 @@ export function initAudio() {
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       audio.pause()
-      if (audioCtx) audioCtx.suspend().catch(() => {})
     } else {
-      audio.play().catch(() => {})
-      if (audioCtx && soundActive) audioCtx.resume().catch(() => {})
+      if (!audio.paused || startedMutedFallback || isAudible) {
+        audio.play().catch(() => {})
+      }
     }
   })
 
