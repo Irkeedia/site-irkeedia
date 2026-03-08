@@ -62,21 +62,44 @@ function isLowEndGPU(gpuInfo) {
   return lowEndPatterns.some(p => r.includes(p))
 }
 
+function isHighEndGPU(gpuInfo) {
+  const r = gpuInfo.renderer.toLowerCase()
+  const highEndPatterns = [
+    'rtx', 'rx 7', 'rx 6', 'rx 5', 'radeon pro', 'quadro',
+    'geforce gtx 16', 'geforce gtx 10', 'arc a7', 'arc a5',
+    'apple m1', 'apple m2', 'apple m3', 'apple m4',
+  ]
+  return highEndPatterns.some(p => r.includes(p))
+}
+
 function detectInitialQuality(renderer) {
   const cores = navigator.hardwareConcurrency || 4
-  const mem = navigator.deviceMemory || 4
+  // deviceMemory is not supported in Firefox/Safari — don't penalize for missing API
+  const mem = navigator.deviceMemory || 8
   const gpuInfo = detectGPU(renderer)
   const mobile = isMobile()
   const lowGPU = isLowEndGPU(gpuInfo)
+  const highGPU = isHighEndGPU(gpuInfo)
 
-  console.log('[3D] GPU:', gpuInfo.renderer, '| Cores:', cores, '| RAM:', mem + 'GB', '| Mobile:', mobile, '| LowGPU:', lowGPU)
+  console.log('[3D] GPU:', gpuInfo.renderer, '| Cores:', cores, '| RAM:', mem + 'GB', '| Mobile:', mobile, '| LowGPU:', lowGPU, '| HighGPU:', highGPU)
 
-  if (mobile && (cores <= 4 || mem <= 3 || lowGPU)) return 'MINIMAL'
-  if (mobile) return 'LOW'
-  if (lowGPU && cores <= 4) return 'LOW'
-  if (lowGPU || cores <= 4 || mem <= 4) return 'MEDIUM'
-  if (cores >= 8 && mem >= 8 && !lowGPU) return 'ULTRA'
-  return 'HIGH'
+  // Mobile devices
+  if (mobile && (cores <= 4 || mem <= 3 || lowGPU)) return 'LOW'
+  if (mobile) return 'MEDIUM'
+
+  // Desktop with known high-end GPU → always ULTRA
+  if (highGPU) return 'ULTRA'
+
+  // Desktop with low-end GPU
+  if (lowGPU && cores <= 4) return 'MEDIUM'
+  if (lowGPU) return 'MEDIUM'
+
+  // Desktop with unknown GPU — use core/RAM heuristics
+  if (cores >= 8 && mem >= 8) return 'ULTRA'
+  if (cores >= 6 || mem >= 8) return 'HIGH'
+  if (cores >= 4) return 'MEDIUM'
+
+  return 'MEDIUM'
 }
 
 // ─── CUSTOM SHADERS ─────────────────────────────
@@ -376,27 +399,45 @@ function createSectionMarkers(scene) {
 class PerfMonitor {
   constructor(onDowngrade) {
     this.onDowngrade = onDowngrade
+    this.createdAt = performance.now()
     this.lastCheck = performance.now()
-    this.checkInterval = 3000
+    this.checkInterval = 5000       // 5s between checks (more stable)
+    this.warmupTime = 10000         // 10s warmup — ignore perf during preloader + shader compile
     this.degradeCount = 0
-    this.maxDegrades = 3
-    this.targetFPS = 35
+    this.maxDegrades = 2            // max 2 downgrades (never reach hiding)
+    this.targetFPS = 24             // only downgrade on truly bad perf
     this.frameCount = 0
+    this.consecutiveBadReadings = 0 // need 2 consecutive bad readings
+    this.requiredBadReadings = 2
   }
 
   tick() {
     this.frameCount++
     const now = performance.now()
 
+    // Skip measurement during warmup (preloader, shader compilation, etc.)
+    if (now - this.createdAt < this.warmupTime) {
+      this.lastCheck = now
+      this.frameCount = 0
+      return
+    }
+
     if (now - this.lastCheck >= this.checkInterval) {
       const elapsed = (now - this.lastCheck) / 1000
       const fps = this.frameCount / elapsed
 
-      console.log('[3D Perf] FPS:', fps.toFixed(1), '| Degrades:', this.degradeCount)
+      console.log('[3D Perf] FPS:', fps.toFixed(1), '| Degrades:', this.degradeCount, '| BadReadings:', this.consecutiveBadReadings)
 
-      if (fps < this.targetFPS && this.degradeCount < this.maxDegrades) {
-        this.degradeCount++
-        this.onDowngrade(this.degradeCount)
+      if (fps < this.targetFPS) {
+        this.consecutiveBadReadings++
+        if (this.consecutiveBadReadings >= this.requiredBadReadings && this.degradeCount < this.maxDegrades) {
+          this.degradeCount++
+          this.consecutiveBadReadings = 0
+          this.onDowngrade(this.degradeCount)
+        }
+      } else {
+        // Good reading resets the consecutive counter
+        this.consecutiveBadReadings = 0
       }
 
       this.frameCount = 0
@@ -410,25 +451,18 @@ export function initScroll3D() {
   const container = document.getElementById('scroll-3d-canvas')
   if (!container) return
 
-  // Quick bail on truly low-end + mobile
-  const cores = navigator.hardwareConcurrency || 2
-  const mem = navigator.deviceMemory || 4
-  if (isMobile() && cores <= 2 && mem <= 2) {
-    container.style.display = 'none'
-    return
-  }
-
-  // Create renderer first (need it for GPU detection)
+  // Create renderer
   let renderer
   try {
     renderer = new THREE.WebGLRenderer({
       antialias: false,
       alpha: true,
       powerPreference: 'high-performance',
-      failIfMajorPerformanceCaveat: true,
+      // failIfMajorPerformanceCaveat removed — too aggressive, blocks
+      // WebGL on some valid setups. Let adaptive quality handle perf.
     })
   } catch (e) {
-    console.warn('[3D] WebGL unavailable or software rendering, skipping')
+    console.warn('[3D] WebGL unavailable, skipping')
     container.style.display = 'none'
     return
   }
@@ -516,23 +550,15 @@ export function initScroll3D() {
     targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2
   })
 
-  // Downgrade handler
+  // Downgrade handler — NEVER hides the 3D, at worst stays at lowest level
   function handleDowngrade(level) {
     const levels = ['ULTRA', 'HIGH', 'MEDIUM', 'LOW', 'MINIMAL']
     const currentIdx = levels.indexOf(qualityLevel)
     const newIdx = Math.min(currentIdx + 1, levels.length - 1)
     
     if (newIdx === currentIdx) {
-      // Already at minimum — gracefully hide 3D
-      console.log('[3D] Already at MINIMAL, hiding 3D')
-      gsap.to(renderer.domElement, {
-        opacity: 0,
-        duration: 1,
-        onComplete: () => {
-          cancelAnimationFrame(animId)
-          container.style.display = 'none'
-        }
-      })
+      // Already at minimum — just stay here, never hide
+      console.log('[3D] Already at', qualityLevel, '— staying at this level')
       return
     }
 
