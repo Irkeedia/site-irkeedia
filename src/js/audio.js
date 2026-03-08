@@ -17,6 +17,7 @@ export function initAudio() {
   window.__irkeediaAudio = true
 
   const audio = document.createElement('audio')
+  audio.id = 'irkeedia-ambient-audio'
   audio.src = '/audio/ambient.mp3'
   audio.loop = true
   audio.preload = 'auto'
