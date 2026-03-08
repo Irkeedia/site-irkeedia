@@ -48,6 +48,44 @@ async function executeEntryModules(parsedDoc) {
   }
 }
 
+function syncHeadAssets(parsedDoc) {
+  // Sync <link rel="stylesheet"> from the incoming page
+  const incomingLinks = parsedDoc.querySelectorAll('link[rel="stylesheet"]')
+  const currentHrefs = new Set(
+    Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+      .map((l) => l.getAttribute('href'))
+  )
+
+  incomingLinks.forEach((link) => {
+    const href = link.getAttribute('href')
+    if (href && !currentHrefs.has(href)) {
+      const clone = document.createElement('link')
+      clone.rel = 'stylesheet'
+      clone.href = href
+      if (link.hasAttribute('crossorigin')) clone.crossOrigin = ''
+      document.head.appendChild(clone)
+    }
+  })
+
+  // Sync <link rel="modulepreload">
+  const incomingPreloads = parsedDoc.querySelectorAll('link[rel="modulepreload"]')
+  const currentPreloads = new Set(
+    Array.from(document.querySelectorAll('link[rel="modulepreload"]'))
+      .map((l) => l.getAttribute('href'))
+  )
+
+  incomingPreloads.forEach((link) => {
+    const href = link.getAttribute('href')
+    if (href && !currentPreloads.has(href)) {
+      const clone = document.createElement('link')
+      clone.rel = 'modulepreload'
+      clone.href = href
+      if (link.hasAttribute('crossorigin')) clone.crossOrigin = ''
+      document.head.appendChild(clone)
+    }
+  })
+}
+
 async function spaNavigate(url, pushState = true) {
   const audio = document.getElementById(AUDIO_ID)
   saveAudioState()
@@ -71,6 +109,7 @@ async function spaNavigate(url, pushState = true) {
   }
 
   document.title = parsedDoc.title || document.title
+  syncHeadAssets(parsedDoc)
   copyBodyAttributes(incomingBody, document.body)
   document.body.innerHTML = incomingBody.innerHTML
 
