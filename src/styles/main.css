@@ -1583,3 +1583,91 @@ input,textarea { font:inherit; color:inherit; background:none; border:none; outl
     display: none;
   }
 }
+
+/* ============================================
+   AUDIO TOGGLE BUTTON
+   ============================================ */
+.audio-toggle {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 9999;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  background: rgba(5, 5, 5, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.3s, border-color 0.3s, background 0.3s, transform 0.3s;
+}
+
+.audio-toggle:hover {
+  color: var(--accent);
+  border-color: rgba(var(--accent-rgb), 0.3);
+  background: rgba(5, 5, 5, 0.8);
+  transform: scale(1.1);
+}
+
+.audio-toggle .audio-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Show/hide icons based on state */
+.audio-toggle .audio-icon-off {
+  display: none;
+}
+
+.audio-toggle.is-muted .audio-icon-on {
+  display: none;
+}
+
+.audio-toggle.is-muted .audio-icon-off {
+  display: block;
+}
+
+/* Sound wave animation when playing */
+.audio-toggle.is-playing .audio-wave-1 {
+  animation: audioWave 1.2s ease-in-out infinite;
+}
+
+.audio-toggle.is-playing .audio-wave-2 {
+  animation: audioWave 1.2s ease-in-out 0.3s infinite;
+}
+
+@keyframes audioWave {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* Pulse ring on active */
+.audio-toggle.is-playing::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--accent-rgb), 0.15);
+  animation: audioPulse 2s ease-out infinite;
+}
+
+@keyframes audioPulse {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Hide on very small screens */
+@media (max-width: 480px) {
+  .audio-toggle {
+    bottom: 1rem;
+    left: 1rem;
+    width: 38px;
+    height: 38px;
+  }
+}

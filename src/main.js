@@ -26,6 +26,7 @@ import { initI18n } from './js/i18n.js'
 import { initWave } from './js/wave.js'
 import { initCookies } from './js/cookies.js'
 import { initScroll3D } from './js/scroll-3d.js'
+import { initAudio } from './js/audio.js'
 
 // ─── 3D SCROLL UI (progress bar, dots, label) ──
 function initScroll3DUI() {
@@ -110,6 +111,9 @@ async function init() {
 
   // 8. Cookie consent
   initCookies()
+
+  // 9. Ambient audio
+  initAudio()
 }
 
 // ─── START ──────────────────────────────────────
