@@ -34,26 +34,26 @@ function applyConsent(choices) {
 
 // ─── PARTICLE EXPLOSION ────────────────────────
 function spawnParticles(cx, cy) {
-  const count = 60
+  const count = 80
   const frag = document.createDocumentFragment()
 
   for (let i = 0; i < count; i++) {
     const p = document.createElement('span')
-    p.className = 'gate-particle'
+    p.className = 'gate-particle tech-particle'
 
     const angle = Math.random() * Math.PI * 2
-    const distance = 120 + Math.random() * 380
+    const distance = 50 + Math.random() * 400
     const tx = Math.cos(angle) * distance
     const ty = Math.sin(angle) * distance
-    const size = 2 + Math.random() * 5
-    const duration = 0.5 + Math.random() * 0.6
+    const size = 1 + Math.random() * 4
+    const duration = 0.4 + Math.random() * 0.8
 
     p.style.cssText = `
       left:${cx}px; top:${cy}px;
       width:${size}px; height:${size}px;
       --tx:${tx}px; --ty:${ty}px;
       animation-duration:${duration}s;
-      animation-delay:${(Math.random() * 0.08).toFixed(3)}s;
+      animation-delay:${(Math.random() * 0.05).toFixed(3)}s;
     `
     frag.appendChild(p)
   }
@@ -69,7 +69,23 @@ function spawnParticles(cx, cy) {
 function createEntryGate() {
   const gate = document.createElement('div')
   gate.className = 'entry-gate'
-  gate.innerHTML = `<span class="entry-gate__phrase">Entrer dans l'immersion</span>`
+  gate.innerHTML = `
+    <div class="tech-grid"></div>
+    <div class="tech-scanline"></div>
+    <div class="tech-hud">
+      <div class="tech-hud-corners">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div class="tech-system-text typing-effect">_SYS.STATUS: NEURAL_LINK_READY</div>
+      <div class="tech-title">IRKEEDIA PROTOCOL</div>
+      <button class="tech-enter-btn">
+        <span class="btn-bracket">[</span> 
+        <span class="btn-text">INITIALISER L'IMMERSION</span> 
+        <span class="btn-bracket">]</span>
+      </button>
+      <div class="tech-system-text blink">AWAITING_USER_INPUT...</div>
+    </div>
+  `
   document.body.appendChild(gate)
   return gate
 }
@@ -93,10 +109,13 @@ export function initEntryGate() {
     })
   })
 
-  gate.addEventListener('click', (e) => {
+  const enterBtn = gate.querySelector('.tech-enter-btn')
+
+  enterBtn.addEventListener('click', (e) => {
     setConsent({ necessary: true, analytics: true, marketing: true })
 
-    spawnParticles(e.clientX, e.clientY)
+    const rect = enterBtn.getBoundingClientRect()
+    spawnParticles(rect.left + rect.width / 2, rect.top + rect.height / 2)
 
     gate.classList.remove('is-visible')
     gate.classList.add('is-leaving')
@@ -104,7 +123,7 @@ export function initEntryGate() {
     setTimeout(() => {
       gate.remove()
       document.body.classList.remove('entry-gate-open')
-    }, 600)
+    }, 800)
   })
 }
 

@@ -1,6 +1,6 @@
 /* ============================================
-   IRKEEDIA — Immersive Entry Gate
-   Pure fullscreen. One phrase. Particle burst.
+   IRKEEDIA — Immersive Tech Gate
+   Advanced Cybernetics & UI Design
    ============================================ */
 
 /* ===== LOCK BODY ===== */
@@ -13,13 +13,14 @@
   position: fixed;
   inset: 0;
   z-index: 120000;
-  display: grid;
-  place-items: center;
-  background: #050505;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #020202;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.8s ease, filter 0.8s ease;
   pointer-events: none;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .entry-gate.is-visible {
@@ -29,74 +30,235 @@
 
 .entry-gate.is-leaving {
   opacity: 0;
-  transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: blur(20px) brightness(2);
+  transform: scale(1.05);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.7s ease, transform 0.7s ease;
   pointer-events: none;
 }
 
-/* ===== PHRASE ===== */
-.entry-gate__phrase {
-  font-family: var(--font-display, 'Syne', sans-serif);
-  font-weight: 700;
-  font-size: clamp(1.4rem, 5vw, 3.6rem);
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.88);
-  text-transform: uppercase;
-  user-select: none;
-  position: relative;
-  padding: 1em 1.5em;
-  transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+/* ===== TECH BACKGROUNDS ===== */
+.tech-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 255, 170, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 170, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center center;
+  z-index: 1;
+  perspective: 1000px;
+  transform: scale(1.1);
+  animation: gridPulse 6s infinite alternate;
 }
 
-/* Subtle glow line under */
-.entry-gate__phrase::after {
+@keyframes gridPulse {
+  0% { transform: scale(1.1) translateZ(0); opacity: 0.5; }
+  100% { transform: scale(1) translateZ(50px); opacity: 0.8; }
+}
+
+.tech-scanline {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.25) 51%);
+  background-size: 100% 4px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.tech-scanline::after {
   content: '';
   position: absolute;
-  bottom: 0.3em;
-  left: 50%;
-  width: 0;
-  height: 1px;
-  background: var(--accent, #c8ff00);
-  box-shadow: 0 0 12px rgba(var(--accent-rgb, 200, 255, 0), 0.5);
-  transform: translateX(-50%);
-  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10vh;
+  background: linear-gradient(to bottom, transparent, rgba(0, 255, 170, 0.1), transparent);
+  animation: scan 4s linear infinite;
 }
 
-.entry-gate:hover .entry-gate__phrase {
-  color: #fff;
-  text-shadow: 0 0 40px rgba(var(--accent-rgb, 200, 255, 0), 0.25);
-  transform: scale(1.03);
+@keyframes scan {
+  0% { transform: translateY(-10vh); }
+  100% { transform: translateY(110vh); }
 }
 
-.entry-gate:hover .entry-gate__phrase::after {
-  width: 72%;
+/* ===== HUD CONSOLE ===== */
+.tech-hud {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 6rem;
+  background: rgba(5, 10, 8, 0.7);
+  border: 1px solid rgba(0, 255, 170, 0.1);
+  box-shadow: 0 0 40px rgba(0, 255, 170, 0.05), inset 0 0 20px rgba(0, 255, 170, 0.05);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* HUD CORNERS */
+.tech-hud-corners span {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: rgba(0, 255, 170, 0.5);
+  border-style: solid;
+  transition: all 0.3s ease;
+}
+.tech-hud-corners span:nth-child(1) { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.tech-hud-corners span:nth-child(2) { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+.tech-hud-corners span:nth-child(3) { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+.tech-hud-corners span:nth-child(4) { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+
+.tech-hud:hover .tech-hud-corners span {
+  width: 40px;
+  height: 40px;
+  border-color: rgba(0, 255, 170, 0.9);
+  box-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+}
+
+/* ===== HUD TYPOGRAPHY ===== */
+.tech-system-text {
+  font-size: 0.85rem;
+  color: #00ffaa;
+  letter-spacing: 0.2em;
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 8px rgba(0, 255, 170, 0.4);
+}
+
+.tech-system-text.blink {
+  margin-top: 3rem;
+  margin-bottom: 0;
+  animation: textBlink 1.5s infinite;
+}
+
+@keyframes textBlink {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.2; }
+}
+
+.tech-title {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(0, 255, 170, 0.3);
+  position: relative;
+}
+
+.tech-title::before {
+  content: attr(data-text);
+  position: absolute;
+  left: -2px;
+  text-shadow: 2px 0 rgba(255, 0, 85, 0.7);
+  top: 0;
+  color: white;
+  background: black;
+  overflow: hidden;
+  clip: rect(0, 900px, 0, 0); 
+  animation: noise-anim-2 3s infinite linear alternate-reverse;
+}
+
+/* ===== ADVANCED ENTER BUTTON ===== */
+.tech-enter-btn {
+  background: none;
+  border: none;
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  position: relative;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-bracket {
+  color: #00ffaa;
+  font-weight: 300;
+  font-size: 2rem;
+  opacity: 0.5;
+  transition: transform 0.3s ease, opacity 0.3s ease, text-shadow 0.3s ease;
+}
+
+.btn-text {
+  letter-spacing: 0.15em;
+  position: relative;
+  transition: text-shadow 0.3s ease;
+}
+
+.tech-enter-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 255, 170, 0.05);
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.tech-enter-btn:hover {
+  transform: scale(1.05);
+}
+
+.tech-enter-btn:hover .btn-bracket {
+  transform: scale(1.2);
+  opacity: 1;
+  text-shadow: 0 0 15px #00ffaa;
+}
+
+.tech-enter-btn:hover .btn-text {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(0, 255, 170, 0.6);
+}
+
+.tech-enter-btn:hover::after {
+  opacity: 1;
+}
+
+.tech-enter-btn:active {
+  transform: scale(0.98);
 }
 
 /* ===== PARTICLE BURST ===== */
-.gate-particle {
+.gate-particle.tech-particle {
   position: fixed;
   z-index: 130000;
   pointer-events: none;
-  border-radius: 50%;
-  background: var(--accent, #c8ff00);
-  box-shadow: 0 0 6px rgba(var(--accent-rgb, 200, 255, 0), 0.6);
-  animation: gateBurst ease-out forwards;
+  border-radius: 0; /* Square/digital particles instead of round */
+  background: #00ffaa;
+  box-shadow: 0 0 10px #00ffaa, 0 0 20px #00ffaa;
+  animation: techBurst ease-out forwards;
 }
 
-@keyframes gateBurst {
-  0% {
-    opacity: 1;
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(var(--tx), var(--ty)) scale(0);
-  }
+@keyframes techBurst {
+  0% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0) rotate(180deg); }
 }
 
 /* ===== MOBILE ===== */
-@media (max-width: 480px) {
-  .entry-gate__phrase {
-    font-size: clamp(1.2rem, 7vw, 2rem);
-    letter-spacing: 0.04em;
+@media (max-width: 768px) {
+  .tech-hud {
+    padding: 2rem 1.5rem;
+    width: 90%;
+  }
+  .tech-enter-btn {
+    font-size: 1.1rem;
+    padding: 0.8rem 1rem;
+  }
+  .tech-title {
+    margin-bottom: 2rem;
   }
 }
+
