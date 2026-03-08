@@ -1,7 +1,7 @@
 /* ============================================
-   IRKEEDIA — Entry Gate + Cookie Consent
-   Fullscreen entry interface shown on each
-   site entry. Replaces cookie popup banner.
+   IRKEEDIA — Immersive Entry Gate
+   Fullscreen black. One phrase. Click. Boom.
+   Cookies are accepted silently on entry.
    ============================================ */
 
 const COOKIE_KEY = 'irkeedia_consent'
@@ -25,120 +25,96 @@ function setConsent(choices) {
     timestamp: Date.now(),
     choices,
   }))
-  applyConsent(choices)
+  window.dispatchEvent(new CustomEvent('cookie-consent', { detail: choices }))
 }
 
 function applyConsent(choices) {
   window.dispatchEvent(new CustomEvent('cookie-consent', { detail: choices }))
 }
 
+// ─── PARTICLE EXPLOSION ────────────────────────
+function spawnParticles(cx, cy) {
+  const count = 60
+  const frag = document.createDocumentFragment()
+
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('span')
+    p.className = 'gate-particle'
+
+    const angle = Math.random() * Math.PI * 2
+    const distance = 120 + Math.random() * 380
+    const tx = Math.cos(angle) * distance
+    const ty = Math.sin(angle) * distance
+    const size = 2 + Math.random() * 5
+    const duration = 0.5 + Math.random() * 0.6
+
+    p.style.cssText = `
+      left:${cx}px; top:${cy}px;
+      width:${size}px; height:${size}px;
+      --tx:${tx}px; --ty:${ty}px;
+      animation-duration:${duration}s;
+      animation-delay:${(Math.random() * 0.08).toFixed(3)}s;
+    `
+    frag.appendChild(p)
+  }
+
+  document.body.appendChild(frag)
+
+  setTimeout(() => {
+    document.querySelectorAll('.gate-particle').forEach((p) => p.remove())
+  }, 1400)
+}
+
+// ─── CREATE GATE ────────────────────────────────
 function createEntryGate() {
   const gate = document.createElement('div')
   gate.className = 'entry-gate'
-  gate.setAttribute('role', 'dialog')
-  gate.setAttribute('aria-label', 'Entrer dans l\'expérience')
-
-  gate.innerHTML = `
-    <div class="entry-gate__panel">
-      <span class="entry-gate__kicker">IRKEEDIA DIGITAL CRAFT</span>
-      <h1 class="entry-gate__title">Ici, vous n'êtes pas n'importe où.</h1>
-      <p class="entry-gate__text">
-        Bienvenue dans une expérience digitale premium, pensée comme un univers complet.
-      </p>
-
-      <div class="entry-gate__actions">
-        <button class="entry-gate__btn entry-gate__btn--primary" data-entry="enter">
-          Entrer dans l'expérience
-        </button>
-      </div>
-
-      <div class="entry-gate__cookies">
-        <p class="entry-gate__cookies-title">Cookies</p>
-        <p class="entry-gate__cookies-text">Les essentiels sont toujours actifs.</p>
-        <div class="entry-gate__cookie-choice" role="group" aria-label="Préférences cookies">
-          <button class="entry-gate__chip is-active" data-cookie-mode="essential" type="button">Essentiels uniquement</button>
-          <button class="entry-gate__chip" data-cookie-mode="all" type="button">Tout accepter</button>
-        </div>
-      </div>
-    </div>
-  `
-
+  gate.innerHTML = `<span class="entry-gate__phrase">Entrer dans l'immersion</span>`
   document.body.appendChild(gate)
   return gate
 }
 
-function removeLegacyCookieBanner() {
-  document.querySelectorAll('.cc-banner').forEach((el) => el.remove())
-}
-
+// ─── INIT ───────────────────────────────────────
 export function initEntryGate() {
   if (window.__irkeediaEntryGateReady) return
   window.__irkeediaEntryGateReady = true
 
-  removeLegacyCookieBanner()
+  document.querySelectorAll('.cc-banner').forEach((el) => el.remove())
 
   const existing = getConsent()
-  if (existing) {
-    applyConsent(existing.choices)
-  }
+  if (existing) applyConsent(existing.choices)
 
   const gate = createEntryGate()
   document.body.classList.add('entry-gate-open')
 
   requestAnimationFrame(() => {
-    gate.classList.add('is-visible')
-  })
-
-  const choicesAccept = {
-    necessary: true,
-    analytics: true,
-    marketing: true,
-  }
-
-  const choicesReject = {
-    necessary: true,
-    analytics: false,
-    marketing: false,
-  }
-
-  let cookieMode = 'essential'
-
-  gate.querySelectorAll('[data-cookie-mode]').forEach((chip) => {
-    chip.addEventListener('click', () => {
-      cookieMode = chip.getAttribute('data-cookie-mode') || 'essential'
-      gate.querySelectorAll('[data-cookie-mode]').forEach((el) => {
-        el.classList.toggle('is-active', el === chip)
-      })
+    requestAnimationFrame(() => {
+      gate.classList.add('is-visible')
     })
   })
 
   gate.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-entry="enter"]')
-    if (!btn) return
+    setConsent({ necessary: true, analytics: true, marketing: true })
 
-    setConsent(cookieMode === 'all' ? choicesAccept : choicesReject)
+    spawnParticles(e.clientX, e.clientY)
 
     gate.classList.remove('is-visible')
     gate.classList.add('is-leaving')
+
     setTimeout(() => {
       gate.remove()
       document.body.classList.remove('entry-gate-open')
-    }, 420)
+    }, 600)
   })
 }
 
-// Compat: no popup anymore
 export function initCookies() {
   const existing = getConsent()
-  if (existing) {
-    applyConsent(existing.choices)
-  }
+  if (existing) applyConsent(existing.choices)
 }
 
 export function reopenCookies() {
   localStorage.removeItem(COOKIE_KEY)
-  if (window.__irkeediaEntryGateReady) {
-    window.__irkeediaEntryGateReady = false
-  }
+  if (window.__irkeediaEntryGateReady) window.__irkeediaEntryGateReady = false
   initEntryGate()
 }
