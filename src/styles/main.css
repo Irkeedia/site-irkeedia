@@ -1234,15 +1234,29 @@ input,textarea { font:inherit; color:inherit; background:none; border:none; outl
 
 /* Form submit status */
 .form-status {
-  margin-top: 1.2rem;
+  margin-top: 1.5rem;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   letter-spacing: 0.05em;
   min-height: 1.4em;
-  transition: opacity 0.3s ease;
+  padding: 0.8rem 1.2rem;
+  border-radius: var(--radius-sm);
+  position: relative;
+  z-index: 10;
 }
-.form-status--success { color: var(--accent); }
-.form-status--error { color: #ff4444; }
+.form-status:empty {
+  display: none;
+}
+.form-status--success {
+  color: var(--accent);
+  background: rgba(200, 255, 0, 0.08);
+  border: 1px solid rgba(200, 255, 0, 0.2);
+}
+.form-status--error {
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.08);
+  border: 1px solid rgba(255, 68, 68, 0.2);
+}
 
 /* ===== FOOTER ===== */
 .footer {
