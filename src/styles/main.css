@@ -1350,3 +1350,236 @@ input,textarea { font:inherit; color:inherit; background:none; border:none; outl
   a, button, input, textarea { cursor: auto; }
   .cursor, .cursor-follower { display: none !important; }
 }
+
+/* ============================================
+   3D SCROLL EXPERIENCE
+   ============================================ */
+
+/* Fixed 3D Canvas Container */
+.scroll-3d-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.scroll-3d-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Ensure content floats over the 3D scene */
+#smooth-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Make sections semi-transparent to show 3D through */
+.hero {
+  background: transparent;
+}
+
+.hero-canvas {
+  opacity: 0.4;
+}
+
+/* Section glass morphism overlays for 3D visibility */
+.services,
+.process,
+.about {
+  position: relative;
+}
+
+.services::before,
+.process::before,
+.about::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 5, 5, 0.75) 0%,
+    rgba(5, 5, 5, 0.5) 50%,
+    rgba(5, 5, 5, 0.75) 100%
+  );
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Marquee strips — let 3D show */
+.marquee-strip {
+  position: relative;
+  background: transparent;
+}
+
+.marquee-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 5, 0.6);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Work section — darker for readability */
+.work {
+  position: relative;
+}
+
+.work::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 5, 5, 0.8) 0%,
+    rgba(5, 5, 5, 0.6) 50%,
+    rgba(5, 5, 5, 0.8) 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Contact — slightly transparent */
+.contact {
+  position: relative;
+}
+
+.contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 5, 5, 0.7) 0%,
+    rgba(5, 5, 5, 0.5) 50%,
+    rgba(5, 5, 5, 0.7) 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Footer — keep solid */
+.footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* 3D Scroll Progress Indicator */
+.scroll-3d-progress {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  z-index: 9999;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.scroll-3d-progress.is-visible {
+  opacity: 1;
+}
+
+.scroll-3d-progress-fill {
+  width: 100%;
+  height: 0%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: height 0.1s linear;
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.6);
+}
+
+/* 3D Section Labels (floating) */
+.scroll-3d-section-label {
+  position: fixed;
+  left: 1.5rem;
+  bottom: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.scroll-3d-section-label.is-visible {
+  opacity: 0.6;
+  transform: translateY(0);
+}
+
+/* Depth indicators — small dots along the scroll path */
+.scroll-3d-depth-dots {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 9998;
+  padding-right: 12px;
+}
+
+.scroll-3d-depth-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.scroll-3d-depth-dot.is-active {
+  background: var(--accent);
+  transform: scale(1.8);
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.5);
+}
+
+/* Hide 3D effects on very small screens for performance */
+@media (max-width: 480px) {
+  .scroll-3d-container {
+    display: none;
+  }
+  .scroll-3d-progress,
+  .scroll-3d-section-label,
+  .scroll-3d-depth-dots {
+    display: none;
+  }
+  
+  .services::before,
+  .process::before,
+  .about::before,
+  .work::before,
+  .contact::before,
+  .marquee-strip::before {
+    display: none;
+  }
+}
+
+/* Reduce effects on mobile */
+@media (max-width: 768px) {
+  .scroll-3d-progress,
+  .scroll-3d-section-label,
+  .scroll-3d-depth-dots {
+    display: none;
+  }
+}
+
+/* Prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-3d-container {
+    display: none;
+  }
+}
