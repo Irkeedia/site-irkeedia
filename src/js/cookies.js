@@ -1,16 +1,15 @@
 /* ============================================
    IRKEEDIA — Cookie Consent System
-   Original design with real cookie management
+   Awwwards-level editorial design
    ============================================ */
 
 const COOKIE_KEY = 'irkeedia_consent'
 const CONSENT_VERSION = 1
 
-// Cookie categories
 const CATEGORIES = {
-  necessary: { label: 'Essentiels', desc: 'Navigation, sécurité, préférences', locked: true },
-  analytics: { label: 'Analytiques', desc: 'Statistiques de visite anonymes', locked: false },
-  marketing: { label: 'Marketing', desc: 'Publicités personnalisées', locked: false },
+  necessary: { label: 'Essentiels', locked: true },
+  analytics: { label: 'Analytiques', locked: false },
+  marketing: { label: 'Marketing', locked: false },
 }
 
 // ─── CONSENT STORAGE ────────────────────────────
@@ -25,125 +24,96 @@ function getConsent() {
 }
 
 function setConsent(choices) {
-  const data = {
+  localStorage.setItem(COOKIE_KEY, JSON.stringify({
     version: CONSENT_VERSION,
     timestamp: Date.now(),
     choices,
-  }
-  localStorage.setItem(COOKIE_KEY, JSON.stringify(data))
+  }))
   applyConsent(choices)
 }
 
 function applyConsent(choices) {
-  // Dispatch custom event for other scripts to listen
   window.dispatchEvent(new CustomEvent('cookie-consent', { detail: choices }))
-
-  // Example: load analytics if accepted
-  if (choices.analytics) {
-    // Placeholder for analytics script injection
-    // e.g. load Google Analytics, Plausible, etc.
-  }
-
-  if (choices.marketing) {
-    // Placeholder for marketing scripts
-  }
 }
 
-// ─── CRUMB PARTICLES ────────────────────────────
-function spawnCrumbs(button) {
-  const rect = button.getBoundingClientRect()
-  const cx = rect.left + rect.width / 2
-  const cy = rect.top + rect.height / 2
+// ─── DISSOLVE PARTICLES ─────────────────────────
+function dissolveCard(card, callback) {
+  const rect = card.getBoundingClientRect()
+  const particleCount = 35
+  const frag = document.createDocumentFragment()
 
-  for (let i = 0; i < 18; i++) {
-    const crumb = document.createElement('div')
-    crumb.className = 'cookie-crumb'
-    const angle = (Math.PI * 2 * i) / 18 + (Math.random() - 0.5) * 0.6
-    const dist = 60 + Math.random() * 100
-    const size = 3 + Math.random() * 6
-    const hue = 30 + Math.random() * 25
-    crumb.style.cssText = `
-      left: ${cx}px; top: ${cy}px;
-      width: ${size}px; height: ${size}px;
-      --tx: ${Math.cos(angle) * dist}px;
-      --ty: ${Math.sin(angle) * dist - 40}px;
-      --rot: ${Math.random() * 720 - 360}deg;
-      background: hsl(${hue}, 60%, ${45 + Math.random() * 20}%);
-      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+  for (let i = 0; i < particleCount; i++) {
+    const p = document.createElement('div')
+    p.className = 'cc-particle'
+    const x = rect.left + Math.random() * rect.width
+    const y = rect.top + Math.random() * rect.height
+    const tx = (Math.random() - 0.5) * 200
+    const ty = -30 - Math.random() * 120
+    const size = 2 + Math.random() * 4
+    const delay = Math.random() * 0.15
+    p.style.cssText = `
+      left:${x}px;top:${y}px;
+      width:${size}px;height:${size}px;
+      --tx:${tx}px;--ty:${ty}px;
+      animation-delay:${delay}s;
     `
-    document.body.appendChild(crumb)
-    crumb.addEventListener('animationend', () => crumb.remove())
+    frag.appendChild(p)
   }
+  document.body.appendChild(frag)
+
+  card.classList.add('cc-dissolving')
+
+  setTimeout(() => {
+    document.querySelectorAll('.cc-particle').forEach(p => p.remove())
+    callback?.()
+  }, 900)
 }
 
-// ─── BUILD BANNER HTML ──────────────────────────
+// ─── STAGGER TEXT REVEAL ────────────────────────
+function staggerReveal(container) {
+  const items = container.querySelectorAll('.cc-reveal')
+  items.forEach((el, i) => {
+    el.style.transitionDelay = `${0.08 + i * 0.06}s`
+  })
+}
+
+// ─── BUILD BANNER ───────────────────────────────
 function createBanner() {
   const banner = document.createElement('div')
-  banner.className = 'cookie-banner'
+  banner.className = 'cc-banner'
   banner.setAttribute('role', 'dialog')
   banner.setAttribute('aria-label', 'Consentement cookies')
 
   banner.innerHTML = `
-    <div class="cookie-banner-backdrop"></div>
-    <div class="cookie-card">
-      <!-- Animated cookie icon -->
-      <div class="cookie-icon-wrap">
-        <div class="cookie-icon">
-          <div class="cookie-body">
-            <div class="cookie-chip" style="top:18%;left:25%"></div>
-            <div class="cookie-chip" style="top:45%;left:60%"></div>
-            <div class="cookie-chip" style="top:70%;left:30%"></div>
-            <div class="cookie-chip" style="top:30%;left:70%"></div>
-            <div class="cookie-chip" style="top:65%;left:65%"></div>
-            <div class="cookie-crack c1"></div>
-            <div class="cookie-crack c2"></div>
-          </div>
-        </div>
-        <div class="cookie-glow"></div>
+    <div class="cc-card">
+      <div class="cc-line cc-reveal">
+        <span class="cc-mono">COOKIES</span>
+        <span class="cc-separator"></span>
       </div>
 
-      <div class="cookie-content">
-        <h3 class="cookie-title">Un cookie ? 🍪</h3>
-        <p class="cookie-desc">
-          On utilise des cookies pour améliorer votre expérience. 
-          Les essentiels sont toujours actifs — le reste, c'est vous qui décidez.
-        </p>
+      <p class="cc-text cc-reveal">
+        Ce site utilise des cookies pour fonctionner correctement et mesurer son audience.
+      </p>
 
-        <!-- Toggle categories -->
-        <div class="cookie-toggles">
-          ${Object.entries(CATEGORIES).map(([key, cat]) => `
-            <div class="cookie-toggle-row" data-cat="${key}">
-              <div class="cookie-toggle-info">
-                <span class="cookie-toggle-label">${cat.label}</span>
-                <span class="cookie-toggle-desc">${cat.desc}</span>
-              </div>
-              <label class="cookie-switch ${cat.locked ? 'cookie-switch--locked' : ''}">
-                <input type="checkbox" ${cat.locked ? 'checked disabled' : ''} data-cookie-cat="${key}" />
-                <span class="cookie-switch-track">
-                  <span class="cookie-switch-thumb"></span>
-                </span>
-              </label>
-            </div>
-          `).join('')}
-        </div>
+      <div class="cc-categories cc-reveal">
+        ${Object.entries(CATEGORIES).map(([key, cat]) => `
+          <label class="cc-cat ${cat.locked ? 'cc-cat--locked' : ''}" data-cat="${key}">
+            <input type="checkbox" ${cat.locked ? 'checked disabled' : ''} data-cookie-cat="${key}" />
+            <span class="cc-cat-indicator">
+              <span class="cc-cat-dot"></span>
+            </span>
+            <span class="cc-cat-label">${cat.label}</span>
+          </label>
+        `).join('')}
       </div>
 
-      <!-- Actions -->
-      <div class="cookie-actions">
-        <button class="cookie-btn cookie-btn--reject" data-action="reject">
-          <span>Refuser</span>
-        </button>
-        <button class="cookie-btn cookie-btn--accept" data-action="accept">
-          <span>Tout accepter</span>
-          <svg class="cookie-btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-          </svg>
+      <div class="cc-actions cc-reveal">
+        <button class="cc-btn cc-btn--ghost" data-action="reject">Refuser</button>
+        <button class="cc-btn cc-btn--primary" data-action="accept">
+          Accepter
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
         </button>
       </div>
-
-      <button class="cookie-btn-save" data-action="save">
-        Sauvegarder mes choix
-      </button>
     </div>
   `
 
@@ -151,27 +121,47 @@ function createBanner() {
   return banner
 }
 
-// ─── SHOW / HIDE ────────────────────────────────
+// ─── BIND EVENTS ────────────────────────────────
+function bindBanner(banner) {
+  const card = banner.querySelector('.cc-card')
+
+  banner.querySelector('[data-action="accept"]').addEventListener('click', () => {
+    const choices = {}
+    Object.keys(CATEGORIES).forEach(k => choices[k] = true)
+    setConsent(choices)
+    dissolveCard(card, () => banner.remove())
+  })
+
+  banner.querySelector('[data-action="reject"]').addEventListener('click', () => {
+    const choices = {}
+    Object.keys(CATEGORIES).forEach(k => choices[k] = CATEGORIES[k].locked)
+    setConsent(choices)
+    card.classList.add('cc-exit')
+    setTimeout(() => banner.remove(), 600)
+  })
+
+  // Toggle categories — save on any change
+  banner.querySelectorAll('.cc-cat:not(.cc-cat--locked)').forEach(label => {
+    label.addEventListener('click', () => {
+      // Let the checkbox toggle first
+      requestAnimationFrame(() => {
+        // Visual feedback
+        label.classList.add('cc-cat--flash')
+        setTimeout(() => label.classList.remove('cc-cat--flash'), 400)
+      })
+    })
+  })
+}
+
+// ─── SHOW ───────────────────────────────────────
 function showBanner(banner) {
-  // Micro-delay for CSS transition trigger
+  const card = banner.querySelector('.cc-card')
+  staggerReveal(card)
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       banner.classList.add('is-visible')
     })
   })
-}
-
-function hideBanner(banner, callback) {
-  banner.classList.add('is-leaving')
-  banner.classList.remove('is-visible')
-  banner.addEventListener('transitionend', function handler(e) {
-    if (e.target !== banner.querySelector('.cookie-card')) return
-    banner.removeEventListener('transitionend', handler)
-    banner.remove()
-    if (callback) callback()
-  })
-  // Fallback removal
-  setTimeout(() => { if (banner.parentNode) banner.remove() }, 1200)
 }
 
 // ─── INIT ───────────────────────────────────────
@@ -183,69 +173,14 @@ export function initCookies() {
   }
 
   const banner = createBanner()
-
-  // Accept all
-  banner.querySelector('[data-action="accept"]').addEventListener('click', (e) => {
-    spawnCrumbs(e.currentTarget)
-    const choices = {}
-    Object.keys(CATEGORIES).forEach(k => choices[k] = true)
-    setConsent(choices)
-    hideBanner(banner)
-  })
-
-  // Reject non-essential
-  banner.querySelector('[data-action="reject"]').addEventListener('click', () => {
-    const choices = {}
-    Object.keys(CATEGORIES).forEach(k => choices[k] = CATEGORIES[k].locked)
-    setConsent(choices)
-    hideBanner(banner)
-  })
-
-  // Save custom choices
-  banner.querySelector('[data-action="save"]').addEventListener('click', (e) => {
-    spawnCrumbs(e.currentTarget)
-    const choices = {}
-    banner.querySelectorAll('[data-cookie-cat]').forEach(input => {
-      choices[input.dataset.cookieCat] = input.checked
-    })
-    setConsent(choices)
-    hideBanner(banner)
-  })
-
-  // Show with delay for smooth page load
-  setTimeout(() => showBanner(banner), 1800)
+  bindBanner(banner)
+  setTimeout(() => showBanner(banner), 2000)
 }
 
-// ─── RE-OPEN (for mentions légales link etc.) ───
+// ─── RE-OPEN ────────────────────────────────────
 export function reopenCookies() {
-  // Remove previous consent and re-show
   localStorage.removeItem(COOKIE_KEY)
   const banner = createBanner()
-  // Pre-fill with previous choices if any
+  bindBanner(banner)
   showBanner(banner)
-
-  banner.querySelector('[data-action="accept"]').addEventListener('click', (e) => {
-    spawnCrumbs(e.currentTarget)
-    const choices = {}
-    Object.keys(CATEGORIES).forEach(k => choices[k] = true)
-    setConsent(choices)
-    hideBanner(banner)
-  })
-
-  banner.querySelector('[data-action="reject"]').addEventListener('click', () => {
-    const choices = {}
-    Object.keys(CATEGORIES).forEach(k => choices[k] = CATEGORIES[k].locked)
-    setConsent(choices)
-    hideBanner(banner)
-  })
-
-  banner.querySelector('[data-action="save"]').addEventListener('click', (e) => {
-    spawnCrumbs(e.currentTarget)
-    const choices = {}
-    banner.querySelectorAll('[data-cookie-cat]').forEach(input => {
-      choices[input.dataset.cookieCat] = input.checked
-    })
-    setConsent(choices)
-    hideBanner(banner)
-  })
 }
