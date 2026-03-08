@@ -1,14 +1,15 @@
 /* ============================================
    IRKEEDIA — Seamless Ambient Audio
-   Background music across all pages.
    
-   Strategy:
-   1. Start muted autoplay (ALWAYS allowed by browsers)
-   2. Unmute programmatically after playback begins
-      (Chrome allows changing .muted on playing media)
-   3. Fallback: unmute on first natural interaction
+   Strategy: Web Audio API bypass.
+   1. <audio muted> → autoplay always allowed
+   2. createMediaElementSource() routes sound 
+      through Web Audio graph (ignores .muted)
+   3. audioContext.resume() is the ONLY gate
+      — Chrome often allows it on return visits
+      — fallback: first natural interaction
    
-   Resumes position across pages via sessionStorage.
+   Position persists via sessionStorage.
    ============================================ */
 
 const STORAGE_TIME = 'irkeedia-audio-time'
@@ -21,117 +22,139 @@ export function initAudio() {
   const audio = document.createElement('audio')
   audio.src = '/audio/ambient.mp3'
   audio.loop = true
+  audio.muted = true          // ← Required for guaranteed autoplay
   audio.preload = 'auto'
+  audio.crossOrigin = 'anonymous'
   audio.style.display = 'none'
   document.body.appendChild(audio)
 
-  let isUnmuted = false
+  let soundActive = false
+  let audioCtx = null
+  let gainNode = null
 
-  // ─── Restore position once audio is ready ─────
+  // ─── Web Audio API setup ──────────────────────
+  // Sound goes through GainNode → destination,
+  // completely bypassing the element's .muted property
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext
+    audioCtx = new AC()
+    const source = audioCtx.createMediaElementSource(audio)
+    gainNode = audioCtx.createGain()
+    gainNode.gain.value = 0.4
+    source.connect(gainNode)
+    gainNode.connect(audioCtx.destination)
+    console.log('[Audio] Web Audio API graph ready')
+  } catch (e) {
+    console.log('[Audio] Web Audio API unavailable:', e.message)
+    // Fallback: direct element (will need gesture for unmute)
+    audioCtx = null
+  }
+
+  // ─── Restore position ────────────────────────
   audio.addEventListener('loadedmetadata', () => {
     const saved = parseFloat(sessionStorage.getItem(STORAGE_TIME))
     if (!isNaN(saved) && saved > 0 && saved < audio.duration) {
       audio.currentTime = saved
     }
-    startMuted()
+    beginPlayback()
   }, { once: true })
 
-  // If loadedmetadata already fired (cached), start now
+  // Handle already-loaded (browser cache)
   if (audio.readyState >= 1) {
     const saved = parseFloat(sessionStorage.getItem(STORAGE_TIME))
-    if (!isNaN(saved) && saved > 0) {
-      audio.currentTime = saved
-    }
-    startMuted()
+    if (!isNaN(saved) && saved > 0) audio.currentTime = saved
+    beginPlayback()
   }
 
-  // ─── Phase 1: Start playing muted (guaranteed) ─
-  function startMuted() {
-    if (!audio.paused) return // already playing
-    audio.muted = true
-    audio.volume = 0
+  // ─── Start playback (muted → guaranteed) ─────
+  function beginPlayback() {
+    if (!audio.paused) {
+      tryActivateSound()
+      return
+    }
     audio.play().then(() => {
-      console.log('[Audio] ✓ Playing muted — attempting unmute...')
+      console.log('[Audio] ✓ Element playing (muted)')
       sessionStorage.setItem(STORAGE_PLAYED, 'true')
-      // Phase 2: try to unmute programmatically
-      attemptUnmute()
+      tryActivateSound()
     }).catch(err => {
-      console.log('[Audio] Muted autoplay failed:', err.message)
+      console.log('[Audio] Even muted play failed:', err.message)
     })
   }
 
-  // ─── Phase 2: Unmute (programmatic) ───────────
-  function attemptUnmute() {
-    if (isUnmuted) return
+  // ─── Activate sound via AudioContext.resume() ─
+  function tryActivateSound() {
+    if (soundActive || !audioCtx) return
 
-    // Small delay to let the browser settle
+    audioCtx.resume().then(() => {
+      if (audioCtx.state === 'running') {
+        soundActive = true
+        console.log('[Audio] ✓ Sound active! (Web Audio API)')
+        removeGestureListeners()
+      }
+    }).catch(() => {})
+
+    // Retry a few times — some browsers need a moment
     setTimeout(() => {
-      if (isUnmuted || audio.paused) return
-      audio.muted = false
-      audio.volume = 0.4
-
-      // Check if browser paused it after unmuting
-      setTimeout(() => {
-        if (!audio.paused && !audio.muted) {
-          // Success! Audio is playing with sound
-          isUnmuted = true
-          console.log('[Audio] ✓ Unmuted programmatically at', audio.currentTime.toFixed(1) + 's')
+      if (soundActive || !audioCtx) return
+      audioCtx.resume().then(() => {
+        if (audioCtx.state === 'running') {
+          soundActive = true
+          console.log('[Audio] ✓ Sound active (delayed resume)')
           removeGestureListeners()
-        } else {
-          // Browser blocked the unmute — re-mute and wait for gesture
-          console.log('[Audio] Programmatic unmute blocked, waiting for gesture')
-          audio.muted = true
-          audio.volume = 0
-          // Make sure it's still playing muted
-          if (audio.paused) {
-            audio.play().catch(() => {})
-          }
         }
-      }, 100)
-    }, 150)
+      }).catch(() => {})
+    }, 500)
+
+    setTimeout(() => {
+      if (soundActive || !audioCtx) return
+      audioCtx.resume().catch(() => {})
+      if (audioCtx.state === 'running') {
+        soundActive = true
+        removeGestureListeners()
+      }
+    }, 1500)
   }
 
-  // ─── Phase 3 (fallback): Unmute on user gesture ─
-  function unmute() {
-    if (isUnmuted) return
-    audio.muted = false
-    audio.volume = 0.4
-    isUnmuted = true
-    sessionStorage.setItem(STORAGE_PLAYED, 'true')
+  // ─── Gesture fallback ────────────────────────
+  function onGesture() {
+    if (soundActive) return
 
-    if (audio.paused) {
-      audio.play().then(() => {
-        console.log('[Audio] ✓ Playing (gesture fallback)')
+    if (audioCtx) {
+      audioCtx.resume().then(() => {
+        soundActive = true
+        console.log('[Audio] ✓ Sound via gesture (Web Audio)')
+        removeGestureListeners()
       }).catch(() => {})
     } else {
-      console.log('[Audio] ✓ Unmuted via gesture at', audio.currentTime.toFixed(1) + 's')
+      // No Web Audio: direct unmute
+      audio.muted = false
+      audio.volume = 0.4
+      soundActive = true
+      if (audio.paused) audio.play().catch(() => {})
+      console.log('[Audio] ✓ Sound via gesture (direct)')
+      removeGestureListeners()
     }
-    removeGestureListeners()
-  }
 
-  function onGesture() {
-    if (isUnmuted) return
-    unmute()
+    // Start playback if needed
+    if (audio.paused) audio.play().catch(() => {})
   }
 
   const gestureEvents = ['click', 'mousedown', 'keydown', 'touchstart', 'pointerdown']
 
   function addGestureListeners() {
-    gestureEvents.forEach(evt => {
+    gestureEvents.forEach(evt =>
       document.addEventListener(evt, onGesture, { capture: true, passive: true })
-    })
+    )
   }
-
   function removeGestureListeners() {
-    gestureEvents.forEach(evt => {
+    gestureEvents.forEach(evt =>
       document.removeEventListener(evt, onGesture, { capture: true })
-    })
+    )
   }
 
-  // Always add gesture listeners as safety net
   addGestureListeners()
 
-  // ─── Save position ────────────────────────────
+  // ─── Save position ───────────────────────────
   audio.addEventListener('timeupdate', () => {
     if (audio.currentTime > 0) {
       sessionStorage.setItem(STORAGE_TIME, audio.currentTime.toFixed(2))
@@ -143,16 +166,18 @@ export function initAudio() {
     }
   })
 
-  // ─── Visibility API ───────────────────────────
+  // ─── Visibility API ──────────────────────────
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       audio.pause()
-    } else if (!audio.paused || isUnmuted) {
+      if (audioCtx) audioCtx.suspend().catch(() => {})
+    } else {
       audio.play().catch(() => {})
+      if (audioCtx && soundActive) audioCtx.resume().catch(() => {})
     }
   })
 
-  // ─── Safety nets ──────────────────────────────
+  // ─── Safety nets ─────────────────────────────
   audio.addEventListener('ended', () => {
     audio.currentTime = 0
     audio.play().catch(() => {})
@@ -161,8 +186,6 @@ export function initAudio() {
   audio.addEventListener('error', () => {
     setTimeout(() => {
       audio.load()
-      audio.muted = !isUnmuted
-      audio.volume = isUnmuted ? 0.4 : 0
       audio.play().catch(() => {})
     }, 3000)
   })
