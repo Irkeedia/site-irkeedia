@@ -52,20 +52,19 @@ export function initPreloader() {
     const counter = preloader.querySelector('.preloader-counter')
     const lineInner = preloader.querySelector('.preloader-line-inner')
     const center = preloader.querySelector('.preloader-center')
+    const enterBtn = document.getElementById('preloaderEnter')
+    const countWrap = preloader.querySelector('.preloader-count')
+    const lineWrap = preloader.querySelector('.preloader-line')
 
     document.body.style.overflow = 'hidden'
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        preloader.style.display = 'none'
-        document.body.style.overflow = ''
-        document.body.classList.add('is-loaded')
-        resolve()
-      },
+    // ─── Phase 1: Loading animation ────────────────
+    const loadTl = gsap.timeline({
+      onComplete: showEnterGate,
     })
 
     // 1. Reveal logo text
-    tl.from(logoText, {
+    loadTl.from(logoText, {
       yPercent: 120,
       duration: 0.9,
       ease: 'power3.out',
@@ -88,25 +87,74 @@ export function initPreloader() {
       ease: 'power2.inOut',
     }, 0.3)
 
-    // 4. Center fades out
-    .to(center, {
-      opacity: 0,
-      y: -30,
-      duration: 0.5,
-      ease: 'power2.in',
-    }, '+=0.2')
+    // ─── Phase 2: Show "ENTRER" gate ─────────────
+    function showEnterGate() {
+      // Fade out counter & line
+      gsap.to([countWrap, lineWrap], {
+        opacity: 0,
+        duration: 0.4,
+        ease: 'power2.in',
+        onComplete: () => {
+          if (countWrap) countWrap.style.display = 'none'
+          if (lineWrap) lineWrap.style.display = 'none'
+        }
+      })
 
-    // 5. Background splits open
-    .to(bgTop, {
-      yPercent: -100,
-      duration: 1,
-      ease: 'power4.inOut',
-    })
-    .to(bgBottom, {
-      yPercent: 100,
-      duration: 1,
-      ease: 'power4.inOut',
-    }, '<')
+      // Show enter button
+      setTimeout(() => {
+        if (enterBtn) enterBtn.classList.add('is-visible')
+      }, 300)
+
+      // Listen for click anywhere on preloader
+      preloader.addEventListener('click', onEnterClick, { once: true })
+      preloader.addEventListener('touchstart', onEnterClick, { once: true })
+      // Also keyboard
+      document.addEventListener('keydown', onEnterKey)
+    }
+
+    function onEnterKey(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        onEnterClick()
+      }
+    }
+
+    // ─── Phase 3: User clicked → reveal site ────
+    function onEnterClick() {
+      // Clean up
+      preloader.removeEventListener('click', onEnterClick)
+      preloader.removeEventListener('touchstart', onEnterClick)
+      document.removeEventListener('keydown', onEnterKey)
+
+      // Reveal timeline
+      const revealTl = gsap.timeline({
+        onComplete: () => {
+          preloader.style.display = 'none'
+          document.body.style.overflow = ''
+          document.body.classList.add('is-loaded')
+          resolve()
+        },
+      })
+
+      // Center fades out
+      revealTl.to(center, {
+        opacity: 0,
+        y: -30,
+        duration: 0.5,
+        ease: 'power2.in',
+      })
+
+      // Background splits open
+      .to(bgTop, {
+        yPercent: -100,
+        duration: 1,
+        ease: 'power4.inOut',
+      })
+      .to(bgBottom, {
+        yPercent: 100,
+        duration: 1,
+        ease: 'power4.inOut',
+      }, '<')
+    }
   })
 }
 
