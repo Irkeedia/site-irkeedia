@@ -52,15 +52,11 @@ export function initPreloader() {
     const counter = preloader.querySelector('.preloader-counter')
     const lineInner = preloader.querySelector('.preloader-line-inner')
     const center = preloader.querySelector('.preloader-center')
-    const enterBtn = document.getElementById('preloaderEnter')
-    const countWrap = preloader.querySelector('.preloader-count')
-    const lineWrap = preloader.querySelector('.preloader-line')
-
     document.body.style.overflow = 'hidden'
 
     // ─── Phase 1: Loading animation ────────────────
     const loadTl = gsap.timeline({
-      onComplete: showEnterGate,
+      onComplete: revealSite,
     })
 
     // 1. Reveal logo text
@@ -87,45 +83,8 @@ export function initPreloader() {
       ease: 'power2.inOut',
     }, 0.3)
 
-    // ─── Phase 2: Show "ENTRER" gate ─────────────
-    function showEnterGate() {
-      // Fade out counter & line
-      gsap.to([countWrap, lineWrap], {
-        opacity: 0,
-        duration: 0.4,
-        ease: 'power2.in',
-        onComplete: () => {
-          if (countWrap) countWrap.style.display = 'none'
-          if (lineWrap) lineWrap.style.display = 'none'
-        }
-      })
-
-      // Show enter button
-      setTimeout(() => {
-        if (enterBtn) enterBtn.classList.add('is-visible')
-      }, 300)
-
-      // Listen for click anywhere on preloader
-      preloader.addEventListener('click', onEnterClick, { once: true })
-      preloader.addEventListener('touchstart', onEnterClick, { once: true })
-      // Also keyboard
-      document.addEventListener('keydown', onEnterKey)
-    }
-
-    function onEnterKey(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        onEnterClick()
-      }
-    }
-
-    // ─── Phase 3: User clicked → reveal site ────
-    function onEnterClick() {
-      // Clean up
-      preloader.removeEventListener('click', onEnterClick)
-      preloader.removeEventListener('touchstart', onEnterClick)
-      document.removeEventListener('keydown', onEnterKey)
-
-      // Reveal timeline
+    // ─── Phase 2: Auto-reveal — no click needed ──
+    function revealSite() {
       const revealTl = gsap.timeline({
         onComplete: () => {
           preloader.style.display = 'none'
