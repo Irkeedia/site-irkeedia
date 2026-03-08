@@ -154,7 +154,7 @@ function initContactForm() {
 
       if (data.success) {
         if (status) {
-          status.textContent = 'Message envoyé avec succès !'
+          status.textContent = '✓ C\'est tout bon ! Votre message a bien été envoyé.'
           status.className = 'form-status form-status--success'
         }
         form.reset()
