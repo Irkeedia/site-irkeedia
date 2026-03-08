@@ -8,6 +8,7 @@ import './styles/project.css'
 import './styles/cookies.css'
 import { initCookies } from './js/cookies.js'
 import { initAudio } from './js/audio.js'
+import { initPageTransitions } from './js/page-transitions.js'
 
 // ─── CUSTOM CURSOR (lightweight, no GSAP) ───────
 ;(function initCursor() {
@@ -116,3 +117,6 @@ initCookies()
 
 // Ambient audio (seamless across pages)
 initAudio()
+
+// Page transitions — keep audio alive across navigation
+initPageTransitions()

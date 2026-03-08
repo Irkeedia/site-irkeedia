@@ -1,139 +1,147 @@
 /* ============================================
    IRKEEDIA — Seamless Ambient Audio
-   Background music that persists across pages.
-   No button — auto-plays on first interaction
-   and resumes position when navigating.
+   Background music across all pages.
+   Strategy: start muted (always allowed),
+   unmute on user gesture. Resumes position
+   across page navigations via sessionStorage.
    ============================================ */
 
 const STORAGE_TIME = 'irkeedia-audio-time'
 const STORAGE_PLAYED = 'irkeedia-audio-played'
 
 export function initAudio() {
-  // Prevent double-init
   if (window.__irkeediaAudio) return
   window.__irkeediaAudio = true
 
   const audio = document.createElement('audio')
   audio.src = '/audio/ambient.mp3'
   audio.loop = true
-  audio.volume = 0.4
   audio.preload = 'auto'
-  // Append to DOM — some browsers are more permissive with DOM audio
   audio.style.display = 'none'
   document.body.appendChild(audio)
 
-  let isPlaying = false
-  let hasStarted = false
+  let isUnmuted = false
+  let hasInteracted = false
+
+  const alreadyActivated = sessionStorage.getItem(STORAGE_PLAYED) === 'true'
 
   // ─── Restore position once audio is ready ─────
-  function restorePosition() {
-    const savedTime = parseFloat(sessionStorage.getItem(STORAGE_TIME))
-    if (!isNaN(savedTime) && savedTime > 0 && isFinite(audio.duration) && savedTime < audio.duration) {
-      audio.currentTime = savedTime
+  audio.addEventListener('loadedmetadata', () => {
+    const saved = parseFloat(sessionStorage.getItem(STORAGE_TIME))
+    if (!isNaN(saved) && saved > 0 && saved < audio.duration) {
+      audio.currentTime = saved
     }
-  }
 
-  // Wait for metadata to be loaded before setting currentTime
-  audio.addEventListener('loadedmetadata', restorePosition, { once: true })
+    // If user already entered on a previous page,
+    // start playing muted immediately (always allowed by browsers)
+    if (alreadyActivated) {
+      audio.muted = true
+      audio.volume = 0
+      audio.play().then(() => {
+        console.log('[Audio] Started muted, waiting for gesture to unmute')
+      }).catch(() => {})
+    }
+  }, { once: true })
 
-  // ─── Save position continuously ───────────────
+  // ─── Save position ────────────────────────────
   audio.addEventListener('timeupdate', () => {
     if (audio.currentTime > 0) {
       sessionStorage.setItem(STORAGE_TIME, audio.currentTime.toFixed(2))
     }
   })
-
-  // ─── Save position on page unload ─────────────
   window.addEventListener('beforeunload', () => {
     if (audio.currentTime > 0) {
       sessionStorage.setItem(STORAGE_TIME, audio.currentTime.toFixed(2))
     }
   })
 
-  // ─── Play ─────────────────────────────────────
-  async function play() {
-    if (isPlaying) return
-    try {
-      const p = audio.play()
-      if (p && p.then) {
-        await p
-      }
-      isPlaying = true
-      hasStarted = true
-      sessionStorage.setItem(STORAGE_PLAYED, 'true')
-      console.log('[Audio] Playing at', audio.currentTime.toFixed(1) + 's')
-      // Remove interaction listeners once we're confirmed playing
-      removeListeners()
-    } catch (e) {
-      isPlaying = false
-      console.log('[Audio] Autoplay blocked:', e.message || e)
+  // ─── Unmute (the real "start") ────────────────
+  function unmute() {
+    if (isUnmuted) return
+    audio.muted = false
+    audio.volume = 0.4
+    isUnmuted = true
+    hasInteracted = true
+    sessionStorage.setItem(STORAGE_PLAYED, 'true')
+
+    // If audio wasn't playing yet (first page), start it
+    if (audio.paused) {
+      audio.play().then(() => {
+        console.log('[Audio] ✓ Playing (first gesture)')
+      }).catch(() => {})
+    } else {
+      console.log('[Audio] ✓ Unmuted at', audio.currentTime.toFixed(1) + 's')
     }
+
+    removeGestureListeners()
   }
 
-  // ─── First interaction → start music ──────────
-  function onInteraction() {
-    if (isPlaying) return
-    play()
+  // ─── User gesture handler ────────────────────
+  function onGesture() {
+    if (isUnmuted) return
+    unmute()
   }
 
-  const events = ['click', 'keydown', 'touchstart', 'scroll', 'mousemove', 'pointerdown']
+  // Only genuine user activation events
+  const gestureEvents = ['click', 'mousedown', 'keydown', 'touchstart', 'pointerdown']
 
-  function addListeners() {
-    events.forEach(evt => {
-      document.addEventListener(evt, onInteraction, {
-        passive: true,
-        capture: true,
-      })
+  function addGestureListeners() {
+    gestureEvents.forEach(evt => {
+      document.addEventListener(evt, onGesture, { capture: true, passive: true })
     })
   }
 
-  function removeListeners() {
-    events.forEach(evt => {
-      document.removeEventListener(evt, onInteraction, { capture: true })
+  function removeGestureListeners() {
+    gestureEvents.forEach(evt => {
+      document.removeEventListener(evt, onGesture, { capture: true })
     })
   }
 
-  // ─── Try immediate autoplay ───────────────────
-  const wasPlaying = sessionStorage.getItem(STORAGE_PLAYED) === 'true'
-  if (wasPlaying) {
-    // User already interacted on a previous page — try autoplay
-    play()
-    // Also retry after a short delay (some browsers need the page to settle)
-    setTimeout(() => { if (!isPlaying) play() }, 500)
-    setTimeout(() => { if (!isPlaying) play() }, 2000)
+  // ─── Also try unmuted autoplay (may work if MEI is high) ─
+  if (alreadyActivated) {
+    // Try with sound — some browsers allow after previous engagement
+    const tryUnmuted = () => {
+      if (isUnmuted) return
+      const testAudio = document.createElement('audio')
+      testAudio.src = audio.src
+      testAudio.volume = 0.01
+      const p = testAudio.play()
+      if (p && p.then) {
+        p.then(() => {
+          // Browser allows unmuted autoplay!
+          testAudio.pause()
+          testAudio.remove()
+          unmute()
+        }).catch(() => {
+          testAudio.remove()
+        })
+      }
+    }
+    setTimeout(tryUnmuted, 200)
   }
 
-  // Always add interaction listeners as fallback
-  addListeners()
+  // Register gesture listeners
+  addGestureListeners()
 
-  // ─── Visibility: pause in background, resume on focus ─
+  // ─── Visibility API ───────────────────────────
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-      if (isPlaying) {
-        audio.pause()
-        isPlaying = false
-      }
-    } else if (hasStarted) {
-      // Resume when tab becomes visible again
-      setTimeout(() => play(), 100)
+      audio.pause()
+    } else if (hasInteracted) {
+      audio.play().catch(() => {})
     }
   })
 
-  // ─── Safety: if loop somehow fails, restart ───
+  // ─── Safety nets ──────────────────────────────
   audio.addEventListener('ended', () => {
-    isPlaying = false
     audio.currentTime = 0
-    play()
+    audio.play().catch(() => {})
   })
 
-  // ─── Error recovery ───────────────────────────
-  audio.addEventListener('error', (e) => {
-    console.warn('[Audio] Error:', e)
-    isPlaying = false
-    // Retry after delay
+  audio.addEventListener('error', () => {
     setTimeout(() => {
       audio.load()
-      if (hasStarted) play()
+      if (hasInteracted) audio.play().catch(() => {})
     }, 3000)
   })
 }
