@@ -4,11 +4,13 @@
    Replaces Three.js for massive performance gain
    ============================================ */
 
+import { isLowEnd as isLowEndDevice } from './perf.js'
+
 // ─── CONFIG ─────────────────────────────────────
 const CONFIG = {
   maxParticles: 900,       // desktop
   mobileParticles: 300,    // mobile / low-end
-  lowEndParticles: 150,    // fallback
+  lowEndParticles: 100,    // fallback
   color1: [160, 204, 0],   // #a0cc00
   color2: [110, 138, 0],   // #6e8a00
   mouseRadius: 120,
@@ -63,7 +65,7 @@ export function initWebGL() {
   container.appendChild(canvas)
 
   // Sizing — use lower pixel ratio for perf
-  const dpr = Math.min(window.devicePixelRatio, 1.5)
+  const dpr = Math.min(window.devicePixelRatio, isMobile() || isLowEndDevice() ? 1 : 1.5)
   let w, h
 
   function resize() {

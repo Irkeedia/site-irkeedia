@@ -6,6 +6,7 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
+import { isLowEnd } from './perf.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -85,24 +86,27 @@ export function initTextAnimations() {
   })
 
   // [data-split-words] — word opacity scrub
-  const wordEls = document.querySelectorAll('[data-split-words]')
-  wordEls.forEach((el) => {
-    const split = new SplitType(el, { types: 'words' })
-    split.words.forEach((word) => {
-      gsap.set(word, { opacity: 0.15 })
+  // Skip scrub-based animations on low-end devices — too heavy
+  if (!isLowEnd()) {
+    const wordEls = document.querySelectorAll('[data-split-words]')
+    wordEls.forEach((el) => {
+      const split = new SplitType(el, { types: 'words' })
+      split.words.forEach((word) => {
+        gsap.set(word, { opacity: 0.15 })
+      })
+      gsap.to(split.words, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 80%',
+          end: 'bottom 30%',
+          scrub: 0.5,
+        },
+        opacity: 1,
+        stagger: 0.1,
+        ease: 'none',
+      })
     })
-    gsap.to(split.words, {
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 80%',
-        end: 'bottom 30%',
-        scrub: 0.5,
-      },
-      opacity: 1,
-      stagger: 0.1,
-      ease: 'none',
-    })
-  })
+  }
 
   // .reveal-up elements
   const reveals = document.querySelectorAll('.reveal-up')
@@ -151,45 +155,61 @@ export function initServices3D() {
     const content = card.querySelector('.s3d-card-content')
     const glow = card.querySelector('.s3d-card-glow')
     const isEven = i % 2 === 1
+    const lowEnd = isLowEnd()
 
     // === Scroll-driven 3D transform ===
-    // Cards start rotated/scaled and flatten as they enter viewport
-    gsap.fromTo(card, {
-      rotateX: 12,
-      rotateY: isEven ? -8 : 8,
-      scale: 0.88,
-      opacity: 0,
-      y: 120,
-    }, {
-      rotateX: 0,
-      rotateY: 0,
-      scale: 1,
-      opacity: 1,
-      y: 0,
-      scrollTrigger: {
-        trigger: card,
-        start: 'top 90%',
-        end: 'top 35%',
-        scrub: 0.8,
-      },
-      ease: 'none',
-    })
+    // On low-end: simple fade-in instead of scrub
+    if (lowEnd) {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+        opacity: 0,
+        y: 60,
+        duration: 0.8,
+        ease: 'power3.out',
+      })
+    } else {
+      // Cards start rotated/scaled and flatten as they enter viewport
+      gsap.fromTo(card, {
+        rotateX: 12,
+        rotateY: isEven ? -8 : 8,
+        scale: 0.88,
+        opacity: 0,
+        y: 120,
+      }, {
+        rotateX: 0,
+        rotateY: 0,
+        scale: 1,
+        opacity: 1,
+        y: 0,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 90%',
+          end: 'top 35%',
+          scrub: 0.8,
+        },
+        ease: 'none',
+      })
 
-    // === Exit: card deforms as it leaves top ===
-    gsap.to(card, {
-      rotateX: -8,
-      scale: 0.92,
-      opacity: 0.3,
-      scrollTrigger: {
-        trigger: card,
-        start: 'bottom 30%',
-        end: 'bottom -10%',
-        scrub: 0.5,
-      },
-    })
+      // === Exit: card deforms as it leaves top ===
+      gsap.to(card, {
+        rotateX: -8,
+        scale: 0.92,
+        opacity: 0.3,
+        scrollTrigger: {
+          trigger: card,
+          start: 'bottom 30%',
+          end: 'bottom -10%',
+          scrub: 0.5,
+        },
+      })
+    }
 
-    // === Visual parallax inside card ===
-    if (visual) {
+    // === Visual parallax inside card (skip scrub on low-end) ===
+    if (visual && !lowEnd) {
       gsap.fromTo(visual, {
         scale: 1.15,
       }, {
@@ -221,7 +241,7 @@ export function initServices3D() {
     }
 
     // === Animated glow rotation ===
-    if (glow) {
+    if (glow && !lowEnd) {
       let angle = 0
       ScrollTrigger.create({
         trigger: card,
@@ -234,30 +254,32 @@ export function initServices3D() {
       })
     }
 
-    // === Mouse 3D tilt on hover ===
-    inner.addEventListener('mousemove', (e) => {
-      const rect = inner.getBoundingClientRect()
-      const x = (e.clientX - rect.left) / rect.width - 0.5
-      const y = (e.clientY - rect.top) / rect.height - 0.5
+    // === Mouse 3D tilt on hover (skip on low-end) ===
+    if (!lowEnd) {
+      inner.addEventListener('mousemove', (e) => {
+        const rect = inner.getBoundingClientRect()
+        const x = (e.clientX - rect.left) / rect.width - 0.5
+        const y = (e.clientY - rect.top) / rect.height - 0.5
 
-      gsap.to(card, {
-        rotateY: x * 8,
-        rotateX: -y * 5,
-        duration: 0.5,
-        ease: 'power2.out',
-        overwrite: 'auto',
+        gsap.to(card, {
+          rotateY: x * 8,
+          rotateX: -y * 5,
+          duration: 0.5,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        })
       })
-    })
 
-    inner.addEventListener('mouseleave', () => {
-      gsap.to(card, {
-        rotateY: 0,
-        rotateX: 0,
-        duration: 0.8,
-        ease: 'elastic.out(1, 0.5)',
-        overwrite: 'auto',
+      inner.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          rotateY: 0,
+          rotateX: 0,
+          duration: 0.8,
+          ease: 'elastic.out(1, 0.5)',
+          overwrite: 'auto',
+        })
       })
-    })
+    }
   })
 }
 
@@ -294,17 +316,19 @@ export function initMarquee() {
       )
     })
 
-    // Scroll velocity skew
-    ScrollTrigger.create({
-      onUpdate: (self) => {
-        const skew = self.getVelocity() / 400
-        gsap.to([inner, clone], {
-          skewX: Math.max(-4, Math.min(4, skew)),
-          duration: 0.3,
-          ease: 'power2.out',
-        })
-      },
-    })
+    // Scroll velocity skew (skip on low-end — continuous DOM writes)
+    if (!isLowEnd()) {
+      ScrollTrigger.create({
+        onUpdate: (self) => {
+          const skew = self.getVelocity() / 400
+          gsap.to([inner, clone], {
+            skewX: Math.max(-4, Math.min(4, skew)),
+            duration: 0.3,
+            ease: 'power2.out',
+          })
+        },
+      })
+    }
   })
 }
 
@@ -391,17 +415,19 @@ export function initWorkAnimations() {
     }
   })
 
-  // Scroll velocity skew
-  ScrollTrigger.create({
-    onUpdate: (self) => {
-      const skew = self.getVelocity() / 600
-      gsap.to(items, {
-        skewY: Math.max(-2, Math.min(2, skew)),
-        duration: 0.3,
-        ease: 'power2.out',
-      })
-    },
-  })
+  // Scroll velocity skew (skip on low-end)
+  if (!isLowEnd()) {
+    ScrollTrigger.create({
+      onUpdate: (self) => {
+        const skew = self.getVelocity() / 600
+        gsap.to(items, {
+          skewY: Math.max(-2, Math.min(2, skew)),
+          duration: 0.3,
+          ease: 'power2.out',
+        })
+      },
+    })
+  }
 }
 
 // ─── PROCESS STEPS ANIMATION ────────────────────

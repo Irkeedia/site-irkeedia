@@ -28,6 +28,7 @@ import { initCookies, initEntryGate } from './js/cookies.js'
 import { initScroll3D } from './js/scroll-3d.js'
 import { initAudio } from './js/audio.js'
 import { initPageTransitions } from './js/page-transitions.js'
+import { applyPerfClass } from './js/perf.js'
 
 // ─── 3D SCROLL UI (progress bar, dots, label) ──
 function initScroll3DUI() {
@@ -80,6 +81,9 @@ function initScroll3DUI() {
 
 // ─── BOOT SEQUENCE ──────────────────────────────
 async function init() {
+  // 0. Detect device capability and apply CSS class
+  applyPerfClass()
+
   // 0. Audio FIRST — must be ready to catch the very first user gesture
   initAudio()
 

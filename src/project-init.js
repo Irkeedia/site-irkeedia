@@ -9,6 +9,10 @@ import './styles/cookies.css'
 import { initCookies, initEntryGate } from './js/cookies.js'
 import { initAudio } from './js/audio.js'
 import { initPageTransitions } from './js/page-transitions.js'
+import { applyPerfClass } from './js/perf.js'
+
+// Apply performance tier CSS class
+applyPerfClass()
 
 // ─── CUSTOM CURSOR (lightweight, no GSAP) ───────
 ;(function initCursor() {

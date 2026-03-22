@@ -6,6 +6,8 @@
  * Renders on a <canvas> element positioned as footer edge.
  */
 
+import { isLowEnd, isMidEnd } from './perf.js'
+
 const PHI = (1 + Math.sqrt(5)) / 2; // Golden ratio ≈ 1.618
 const TAU = Math.PI * 2;
 
@@ -67,7 +69,7 @@ export class ProceduralWave {
 
   /* ── Resize handling ── */
   _resize() {
-    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.dpr = isLowEnd() ? 1 : Math.min(window.devicePixelRatio || 1, 2);
     const rect = this.canvas.parentElement.getBoundingClientRect();
     this.width  = rect.width;
     this.height = rect.height;
@@ -179,5 +181,9 @@ export class ProceduralWave {
 export function initWave() {
   const canvas = document.querySelector('[data-wave]');
   if (!canvas) return null;
-  return new ProceduralWave(canvas);
+  // Lower resolution on weaker devices
+  const opts = {};
+  if (isLowEnd()) opts.resolution = 6;
+  else if (isMidEnd()) opts.resolution = 4;
+  return new ProceduralWave(canvas, opts);
 }

@@ -95,11 +95,11 @@ function detectInitialQuality(renderer) {
   if (lowGPU) return 'MEDIUM'
 
   // Desktop with unknown GPU — use core/RAM heuristics
-  if (cores >= 8 && mem >= 8) return 'ULTRA'
-  if (cores >= 6 || mem >= 8) return 'HIGH'
-  if (cores >= 4) return 'MEDIUM'
+  if (cores >= 12 && mem >= 16) return 'ULTRA'
+  if (cores >= 8 && mem >= 8) return 'HIGH'
+  if (cores >= 6) return 'MEDIUM'
 
-  return 'MEDIUM'
+  return 'LOW'
 }
 
 // ─── CUSTOM SHADERS ─────────────────────────────
@@ -401,14 +401,14 @@ class PerfMonitor {
     this.onDowngrade = onDowngrade
     this.createdAt = performance.now()
     this.lastCheck = performance.now()
-    this.checkInterval = 5000       // 5s between checks (more stable)
-    this.warmupTime = 10000         // 10s warmup — ignore perf during preloader + shader compile
+    this.checkInterval = 3000       // 3s between checks — react faster
+    this.warmupTime = 4000          // 4s warmup — just enough for shader compile
     this.degradeCount = 0
-    this.maxDegrades = 2            // max 2 downgrades (never reach hiding)
-    this.targetFPS = 24             // only downgrade on truly bad perf
+    this.maxDegrades = 3            // max 3 downgrades (ULTRA→HIGH→MEDIUM→LOW)
+    this.targetFPS = 30             // downgrade below 30fps
     this.frameCount = 0
-    this.consecutiveBadReadings = 0 // need 2 consecutive bad readings
-    this.requiredBadReadings = 2
+    this.consecutiveBadReadings = 0 // need 1 consecutive bad reading
+    this.requiredBadReadings = 1
   }
 
   tick() {

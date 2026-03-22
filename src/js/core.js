@@ -7,6 +7,7 @@
 import gsap from 'gsap'
 import Lenis from 'lenis'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { isLowEnd } from './perf.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -308,33 +309,39 @@ export function initNav() {
 // ─── HERO PARALLAX ON MOUSE ─────────────────────
 export function initHeroParallax() {
   if ('ontouchstart' in window) return
+  if (isLowEnd()) return // skip entirely on low-end — 3 gsap.to per mousemove is heavy
 
   const heroContent = document.querySelector('.hero-content')
   if (!heroContent) return
 
+  let ticking = false
+  let lastX = 0, lastY = 0
+
   document.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 2
-    const y = (e.clientY / window.innerHeight - 0.5) * 2
-
-    gsap.to('.hero-title', {
-      x: -x * 15,
-      y: -y * 8,
-      duration: 1.2,
-      ease: 'power2.out',
-    })
-
-    gsap.to('.hero-tag', {
-      x: -x * 8,
-      y: -y * 4,
-      duration: 1.2,
-      ease: 'power2.out',
-    })
-
-    gsap.to('.hero-desc', {
-      x: -x * 5,
-      y: -y * 3,
-      duration: 1.2,
-      ease: 'power2.out',
+    lastX = (e.clientX / window.innerWidth - 0.5) * 2
+    lastY = (e.clientY / window.innerHeight - 0.5) * 2
+    if (ticking) return
+    ticking = true
+    requestAnimationFrame(() => {
+      ticking = false
+      gsap.to('.hero-title', {
+        x: -lastX * 15,
+        y: -lastY * 8,
+        duration: 1.2,
+        ease: 'power2.out',
+      })
+      gsap.to('.hero-tag', {
+        x: -lastX * 8,
+        y: -lastY * 4,
+        duration: 1.2,
+        ease: 'power2.out',
+      })
+      gsap.to('.hero-desc', {
+        x: -lastX * 5,
+        y: -lastY * 3,
+        duration: 1.2,
+        ease: 'power2.out',
+      })
     })
   })
 }
