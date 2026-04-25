@@ -28,15 +28,29 @@
 
   <main id="top">
     <section class="hero">
-      <div class="container hero-inner">
-        <p class="badge">Hub de présentation</p>
-        <h1>Un site simple, moderne et rapide pour présenter les projets IRKEEDIA.</h1>
-        <p class="hero-text">
-          Ici, pas de vente. Juste une vitrine claire de nos apps, sites et expérimentations techniques.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#projets">Voir les projets</a>
-          <a class="btn btn-secondary" href="#apropos">Comprendre la vision</a>
+      <div class="container hero-layout">
+        <div class="hero-copy">
+          <p class="badge">Hub de présentation</p>
+          <h1>Un espace visuel pour explorer les projets IRKEEDIA.</h1>
+          <p class="hero-text">
+            Une expérience claire, élégante et fluide. Ici, on présente des apps, des sites et des projets techniques, sans friction.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projets">Explorer le hub</a>
+            <a class="btn btn-secondary" href="#apropos">Notre vision</a>
+          </div>
+        </div>
+        <div class="hero-panel" aria-hidden="true">
+          <div class="hero-panel-main">
+            <span>Focus</span>
+            <strong>Apps, Sites, IA</strong>
+          </div>
+          <div class="hero-panel-grid">
+            <div><span>04</span><small>Projets phares</small></div>
+            <div><span>06</span><small>Catégories</small></div>
+            <div><span>01</span><small>Hub unique</small></div>
+            <div><span>100%</span><small>Vitrine</small></div>
+          </div>
         </div>
       </div>
     </section>
@@ -47,8 +61,8 @@
           <h2>Projets en avant</h2>
           <p>Quelques réalisations à explorer rapidement.</p>
         </div>
-        <div class="grid">
-          <a class="card" href="/orion.html">
+        <div class="project-mosaic">
+          <a class="card card-featured" href="/orion.html">
             <span class="tag">Robotique</span>
             <h3>ORION V5</h3>
             <p>Robot IA autonome, voix, vision, personnalite et execution locale.</p>
@@ -73,12 +87,12 @@
     </section>
 
     <section class="section section-muted" id="categories">
-      <div class="container">
+      <div class="container category-layout">
         <div class="section-head">
           <h2>Catégories du hub</h2>
           <p>Navigation simple par type de projet.</p>
         </div>
-        <div class="chips">
+        <div class="chips chips-large">
           <span>Apps mobiles</span>
           <span>Sites web</span>
           <span>IA et agents</span>
@@ -90,12 +104,17 @@
     </section>
 
     <section class="section" id="apropos">
-      <div class="container about">
-        <h2>À propos d’IRKEEDIA</h2>
-        <p>
-          IRKEEDIA est une organisation de création technique. On construit des projets concrets, on les publie, puis on partage les choix de conception.
-          Ce site sert de point d’entrée unique pour découvrir cet écosystème.
-        </p>
+      <div class="container about-layout">
+        <div class="about">
+          <h2>À propos d’IRKEEDIA</h2>
+          <p>
+            IRKEEDIA est une organisation de création technique. On construit des projets concrets, on les publie, puis on partage les choix de conception.
+            Ce site sert de point d’entrée unique pour découvrir cet écosystème.
+          </p>
+        </div>
+        <div class="about-visual" aria-hidden="true">
+          <div class="about-visual-inner">Simple, visuel, efficace.</div>
+        </div>
       </div>
     </section>
   </main>
