@@ -295,6 +295,37 @@ h1 {
   font-size: 0.94rem;
 }
 
+.ecosystem {
+  padding-top: 2rem;
+}
+
+.ecosystem-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.mini-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.9rem;
+  background: #fff;
+  min-height: 132px;
+}
+
+.mini-card h3 {
+  margin: 0;
+  font-size: 0.96rem;
+  letter-spacing: -0.01em;
+}
+
+.mini-card p {
+  margin: 0.45rem 0 0;
+  font-size: 0.86rem;
+  color: var(--text-soft);
+}
+
 .chips {
   margin-top: 1.2rem;
   display: flex;
@@ -430,11 +461,21 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .ecosystem-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .card-featured,
   .project-mosaic .card:nth-child(2),
   .project-mosaic .card:nth-child(3),
   .project-mosaic .card:nth-child(4) {
     grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .ecosystem-grid {
+    grid-template-columns: 1fr;
   }
 }
 
