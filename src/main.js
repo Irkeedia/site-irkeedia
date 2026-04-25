@@ -1,184 +1,35 @@
-/* ============================================
-   IRKEEDIA — Main Entry Point
-   Orchestrates all modules initialization
-   ============================================ */
-
 import './styles/main.css'
-import './styles/cookies.css'
 
-import {
-  initSmoothScroll,
-  initPreloader,
-  initCursor,
-  initMagnetic,
-  initNav,
-  initHeroParallax,
-} from './js/core.js'
+function initMobileMenu() {
+  const button = document.getElementById('menuBtn')
+  const menu = document.getElementById('menuLinks')
+  if (!button || !menu) return
 
-import {
-  heroEntrance,
-  initAllAnimations,
-} from './js/animations.js'
+  button.addEventListener('click', () => {
+    const open = menu.classList.toggle('is-open')
+    button.setAttribute('aria-expanded', String(open))
+  })
 
-import { initWebGL } from './js/webgl.js'
-import { initLiquidButtons } from './js/liquid-button.js'
-import { initI18n } from './js/i18n.js'
-import { initWave } from './js/wave.js'
-import { initCookies, initEntryGate } from './js/cookies.js'
-import { initScroll3D } from './js/scroll-3d.js'
-import { initAudio } from './js/audio.js'
-import { initPageTransitions } from './js/page-transitions.js'
-import { applyPerfClass } from './js/perf.js'
-
-// ─── 3D SCROLL UI (progress bar, dots, label) ──
-function initScroll3DUI() {
-  const progressBar = document.getElementById('scroll3dProgress')
-  const progressFill = document.getElementById('scroll3dProgressFill')
-  const dotsContainer = document.getElementById('scroll3dDots')
-  const label = document.getElementById('scroll3dLabel')
-  if (!progressBar || !progressFill) return
-
-  const dots = dotsContainer ? dotsContainer.querySelectorAll('.scroll-3d-depth-dot') : []
-  const sectionNames = ['HERO', 'SERVICES', 'PROJETS', 'PROCESSUS', 'À PROPOS', 'CONTACT']
-  const sectionIds = ['hero', 'services', 'work', 'process', 'about', 'contact']
-
-  let hasScrolled = false
-
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight
-    const progress = Math.min(scrollTop / docHeight, 1)
-
-    // Show/hide progress bar
-    if (scrollTop > 100 && !hasScrolled) {
-      hasScrolled = true
-      progressBar.classList.add('is-visible')
-      if (label) label.classList.add('is-visible')
-    } else if (scrollTop <= 100 && hasScrolled) {
-      hasScrolled = false
-      progressBar.classList.remove('is-visible')
-      if (label) label.classList.remove('is-visible')
-    }
-
-    // Update progress fill
-    progressFill.style.height = (progress * 100) + '%'
-
-    // Update dots
-    const currentSectionIndex = Math.min(
-      Math.floor(progress * sectionIds.length),
-      sectionIds.length - 1
-    )
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('is-active', i <= currentSectionIndex)
+  menu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('is-open')
+      button.setAttribute('aria-expanded', 'false')
     })
-
-    // Update label
-    if (label) {
-      label.textContent = sectionNames[currentSectionIndex] || 'ESPACE 3D'
-    }
-  }, { passive: true })
-}
-
-// ─── BOOT SEQUENCE ──────────────────────────────
-async function init() {
-  // 0. Detect device capability and apply CSS class
-  applyPerfClass()
-
-  // 0. Audio FIRST — must be ready to catch the very first user gesture
-  initAudio()
-
-  // 0.05 Fullscreen entry interface (with cookie choice)
-  initEntryGate()
-
-  // 0.1 Page transitions — intercept internal links to keep audio alive
-  initPageTransitions()
-
-  // 1. Start WebGL immediately (renders behind preloader)
-  initWebGL()
-
-  // 1.5 Start 3D scroll experience
-  initScroll3D()
-  initScroll3DUI()
-
-  // 2. Run preloader and wait for it to complete
-  await initPreloader()
-
-  // 3. Initialize smooth scroll
-  initSmoothScroll()
-
-  // 4. Hero entrance animation (after preloader)
-  heroEntrance()
-
-  // 5. Initialize interactive systems
-  initCursor()
-  initNav()
-  initMagnetic()
-  initHeroParallax()
-  initLiquidButtons()
-  initI18n()
-
-  // 6. Initialize all scroll-based animations
-  initAllAnimations()
-
-  // 7. Procedural wave footer edge
-  initWave()
-
-  // 8. Cookie consent
-  initCookies()
-
-  // 9. Contact form (Web3Forms)
-  initContactForm()
-}
-
-// ─── CONTACT FORM ───────────────────────────────
-function initContactForm() {
-  const form = document.getElementById('contactForm')
-  if (!form) return
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault()
-
-    const btn = form.querySelector('#contactSubmit')
-    const btnText = btn?.querySelector('.btn-liquid-text')
-    const status = document.getElementById('formStatus')
-    const originalText = btnText?.textContent || 'Envoyer'
-
-    // Disable & show loading
-    btn.disabled = true
-    if (btnText) btnText.textContent = 'Envoi en cours...'
-    if (status) { status.textContent = ''; status.className = 'form-status' }
-
-    try {
-      const formData = new FormData(form)
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData,
-      })
-      const data = await res.json()
-
-      if (data.success) {
-        if (status) {
-          status.textContent = '✓ C\'est tout bon ! Votre message a bien été envoyé.'
-          status.className = 'form-status form-status--success'
-        }
-        form.reset()
-      } else {
-        throw new Error(data.message || 'Erreur inconnue')
-      }
-    } catch (err) {
-      if (status) {
-        status.textContent = 'Erreur lors de l\'envoi. Réessayez.'
-        status.className = 'form-status form-status--error'
-      }
-      console.error('[Form]', err)
-    } finally {
-      btn.disabled = false
-      if (btnText) btnText.textContent = originalText
-    }
   })
 }
 
-// ─── START ──────────────────────────────────────
+function setCurrentYear() {
+  const yearEl = document.getElementById('year')
+  if (yearEl) {
+    yearEl.textContent = String(new Date().getFullYear())
+  }
+}
+
+function init() {
+  initMobileMenu()
+  setCurrentYear()
+}
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init)
 } else {
