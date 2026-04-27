@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRKEEDIA — Hub de projets</title>
-  <meta name="description" content="IRKEEDIA est un hub de présentation d'applications, de sites web et de projets techniques." />
+  <title>IRKEEDIA LABS — Hub de projets</title>
+  <meta name="description" content="Irkeedia Labs est un hub de présentation d'applications, de sites web et de projets techniques." />
   <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,11 +13,14 @@
 <body>
   <header class="header">
     <div class="container nav">
-      <a class="brand" href="#top">IRKEEDIA</a>
+      <a class="brand" href="#top">IRKEEDIA LABS</a>
       <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuLinks">
         Menu
       </button>
       <nav class="links" id="menuLinks">
+        <a href="#charlie-codex">Charlie Codex</a>
+        <a href="/silence-of-celeste.html">Silence of Céleste</a>
+        <a href="#sites-vitrine">Sites</a>
         <a href="#projets">Projets</a>
         <a href="#categories">Catégories</a>
         <a href="#apropos">À propos</a>
@@ -31,13 +34,13 @@
       <div class="container hero-layout">
         <div class="hero-copy">
           <p class="badge">Hub de présentation</p>
-          <h1>Un espace visuel pour explorer les projets IRKEEDIA.</h1>
+          <h1>Un espace visuel pour explorer les projets Irkeedia Labs.</h1>
           <p class="hero-text">
             Une expérience claire, élégante et fluide. Ici, on présente des apps, des sites et des projets techniques, sans friction.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#projets">Explorer le hub</a>
-            <a class="btn btn-secondary" href="#apropos">Notre vision</a>
+            <a class="btn btn-primary" href="https://www.codexbycharlie.com" target="_blank" rel="noopener noreferrer">Site Charlie Codex</a>
+            <a class="btn btn-secondary" href="/survival-codex.html">Fiche Survival Codex</a>
           </div>
         </div>
         <div class="hero-panel" aria-hidden="true">
@@ -46,31 +49,108 @@
             <strong>Apps, Sites, IA</strong>
           </div>
           <div class="hero-panel-grid">
-            <div><span>04</span><small>Projets phares</small></div>
-            <div><span>06</span><small>Catégories</small></div>
+            <div><span>08</span><small>Réalisations phares</small></div>
+            <div><span>06</span><small>Expertises</small></div>
             <div><span>01</span><small>Hub unique</small></div>
-            <div><span>100%</span><small>Vitrine</small></div>
+            <div><span>100%</span><small>Passion</small></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="projets">
+    <section class="section section-screen showcase showcase--codex" id="charlie-codex">
+      <div class="container">
+        <div class="codex-split">
+          <div class="codex-split-brand">
+            <span class="codex-split-kicker">Univers produit</span>
+            <h2 class="codex-split-title">Charlie Codex</h2>
+            <p class="codex-split-lead">L’app Survival Codex et le site marchand — deux entrées, une même lignée.</p>
+          </div>
+          <div class="codex-split-list">
+            <a class="codex-link" href="/survival-codex.html">
+              <span class="codex-link-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+              </span>
+              <span class="codex-link-body">
+                <span class="codex-link-label">Application</span>
+                <span class="codex-link-title">Survival Codex</span>
+                <span class="codex-link-desc">Offline-first, IA Charlie, P2P Bluetooth</span>
+              </span>
+              <span class="codex-link-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="codex-link codex-link--accent" href="https://www.codexbycharlie.com" target="_blank" rel="noopener noreferrer">
+              <span class="codex-link-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>
+              </span>
+              <span class="codex-link-body">
+                <span class="codex-link-label">Site web</span>
+                <span class="codex-link-title">codexbycharlie.com</span>
+                <span class="codex-link-desc">Gemini, comptes, Stripe, multilingue</span>
+              </span>
+              <span class="codex-link-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-screen showcase showcase--sites" id="sites-vitrine">
+      <div class="container">
+        <header class="sites-section-head">
+          <h2>Sites vitrine</h2>
+          <p>Deux parcours visuels : image d’ambiance, texte et CTA — le contraire d’une double grille de cartes.</p>
+        </header>
+        <div class="sites-zigzag">
+          <article class="sites-feature">
+            <div class="sites-feature-visual sites-feature-visual--drone" aria-hidden="true"></div>
+            <div class="sites-feature-copy">
+              <span class="sites-feature-tag">Drone · DGAC · Occitanie</span>
+              <h3 class="sites-feature-title">Stellaris Drone</h3>
+              <p class="sites-feature-text">Vitrine Astro + React : pilote certifié, book, simulateur de tarifs, prises de vue pro.</p>
+              <a class="btn btn-primary" href="https://stellarisdrone.com" target="_blank" rel="noopener noreferrer">stellarisdrone.com</a>
+            </div>
+          </article>
+          <article class="sites-feature sites-feature--reverse">
+            <div class="sites-feature-visual sites-feature-visual--archives" aria-hidden="true"></div>
+            <div class="sites-feature-copy">
+              <span class="sites-feature-tag">Archives · lecture immersive</span>
+              <h3 class="sites-feature-title">Le Seuil — André Jacques</h3>
+              <p class="sites-feature-text">Next.js &amp; Framer Motion : œuvres, carousel, parcours éditorial.</p>
+              <a class="btn btn-primary" href="https://seuildeloeuvre.fr" target="_blank" rel="noopener noreferrer">seuildeloeuvre.fr</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-screen showcase showcase--soc" id="silence-of-celeste">
+      <div class="soc-stage">
+        <div class="container soc-stage-inner">
+          <p class="soc-stage-kicker">Plateforme phare</p>
+          <h2 class="soc-stage-title">Silence of Céleste</h2>
+          <p class="soc-stage-desc">
+            Apps, site marchand, IA conversationnelle, suivi fin et marketplace — le détail technique reste propriétaire ;
+            l’aperçu fonctionnel est public.
+          </p>
+          <div class="soc-stage-actions">
+            <a class="btn btn-primary soc-stage-btn" href="https://www.silenceofceleste.com" target="_blank" rel="noopener noreferrer">silenceofceleste.com</a>
+            <a class="btn btn-secondary soc-stage-btn" href="/silence-of-celeste.html">Aperçu fonctionnel</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-screen" id="projets">
       <div class="container">
         <div class="section-head">
           <h2>Projets en avant</h2>
-          <p>Quelques réalisations à explorer rapidement.</p>
+          <p>Autres réalisations du hub à explorer.</p>
         </div>
-        <div class="project-mosaic">
+        <div class="project-mosaic project-mosaic-three">
           <a class="card card-featured" href="/orion.html">
             <span class="tag">Robotique</span>
             <h3>ORION V5</h3>
             <p>Robot IA autonome, voix, vision, personnalite et execution locale.</p>
-          </a>
-          <a class="card" href="/survival-codex.html">
-            <span class="tag">Application</span>
-            <h3>Survival Codex</h3>
-            <p>Encyclopedie offline-first avec assistant IA et communication P2P.</p>
           </a>
           <a class="card" href="/nexusnas.html">
             <span class="tag">Infrastructure</span>
@@ -86,66 +166,38 @@
       </div>
     </section>
 
-    <section class="section ecosystem">
+    <section class="section ecosystem section-screen-muted">
       <div class="container">
         <div class="section-head">
           <h2>Autres projets de l’écosystème</h2>
-          <p>Sélection issue de ton dossier Projets pour représenter toute l’organisation IRKEEDIA.</p>
+          <p>Projets complémentaires non déjà détaillés plus haut sur cette page.</p>
         </div>
-        <div class="ecosystem-grid">
+        <div class="ecosystem-grid ecosystem-grid--compact">
           <article class="mini-card">
             <h3>app-ia-local</h3>
-            <p>Application IA locale orientée usage quotidien.</p>
+            <p><strong>Orion Control</strong> — Electron, chat Ollama streamé, proxy robot vers <code>orion.local:5000</code>, Piper TTS, SQLite mémoire.</p>
           </article>
           <article class="mini-card">
             <h3>agent-studio</h3>
-            <p>Espace de prototypage d’agents et d’outils IA.</p>
+            <p>Base <strong>Next.js</strong> (create-next-app) pour itérer sur des interfaces d’agents.</p>
           </article>
           <article class="mini-card">
-            <h3>Jeux multi ia</h3>
-            <p>Expérimentations de gameplay assisté par IA.</p>
+            <h3>Jeux multi IA</h3>
+            <p><strong>ChaosChat</strong> — Flask + Socket.IO + Flutter : orchestrateur LLM, bots aux personnalités marquées, temps réel.</p>
           </article>
           <article class="mini-card">
-            <h3>Projets ia trading</h3>
-            <p>Explorations IA appliquées au trading et à l’analyse.</p>
+            <h3>Projets IA trading</h3>
+            <p>Workspace <strong>FastAPI</strong> (<code>trading_ia</code>) + dashboard <strong>Next.js</strong> ; Docker Compose Postgres + API.</p>
           </article>
           <article class="mini-card">
-            <h3>Projets ia loading</h3>
-            <p>Sandbox de concepts IA en phase d’itération.</p>
-          </article>
-          <article class="mini-card">
-            <h3>Projets charliecodex</h3>
-            <p>Univers d’apps et d’outils autour de CharlieCodex.</p>
-          </article>
-          <article class="mini-card">
-            <h3>sitecharliecodex</h3>
-            <p>Site de présentation dédié à l’écosystème CharlieCodex.</p>
-          </article>
-          <article class="mini-card">
-            <h3>Site André</h3>
-            <p>Projet web vitrine orienté identité et contenu.</p>
-          </article>
-          <article class="mini-card">
-            <h3>stellarisdrone</h3>
-            <p>Projet drone et systèmes embarqués.</p>
-          </article>
-          <article class="mini-card">
-            <h3>suno_player</h3>
-            <p>Version/itération du player dédié aux créations Suno.</p>
-          </article>
-          <article class="mini-card">
-            <h3>projets Silence of celeste</h3>
-            <p>Projet créatif/jeu en cours de structuration.</p>
-          </article>
-          <article class="mini-card">
-            <h3>App soc / Ancien projets soc</h3>
-            <p>Historique de prototypes et bases applicatives.</p>
+            <h3>Projets IA loading</h3>
+            <p>Sandbox d’idées IA en mouvement — expérimentations en cours.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section-muted" id="categories">
+    <section class="section section-muted section-screen" id="categories">
       <div class="container category-layout">
         <div class="section-head">
           <h2>Catégories du hub</h2>
@@ -162,17 +214,77 @@
       </div>
     </section>
 
-    <section class="section" id="apropos">
-      <div class="container about-layout">
-        <div class="about">
-          <h2>À propos d’IRKEEDIA</h2>
-          <p>
-            IRKEEDIA est une organisation de création technique. On construit des projets concrets, on les publie, puis on partage les choix de conception.
-            Ce site sert de point d’entrée unique pour découvrir cet écosystème.
+    <section class="about-story" id="apropos" aria-labelledby="story-heading">
+      <div class="about-story-bg" aria-hidden="true"></div>
+      <div class="container about-story-inner">
+        <header class="story-hero">
+          <p class="story-eyebrow">Identité · France</p>
+          <h2 id="story-heading" class="story-title">
+            <span class="story-title-line">Irkeedia Labs,</span>
+            <span class="story-title-accent">création utile par passion.</span>
+          </h2>
+          <p class="story-deck">
+            Laboratoire indépendant : nous imaginons, construisons et publions des apps, sites et services numériques — du prototype jusqu’à ce que ce soit réel pour les gens.
           </p>
+        </header>
+
+        <div class="story-panels">
+          <article class="story-panel">
+            <span class="story-num">01</span>
+            <div class="story-panel-visual" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity=".35"/><path d="M12 20l6 6 10-14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Ce qu’on fait</h3>
+            <p>Des outils qu’on veut utiliser au quotidien : interfaces lisibles, parcours simples, qualité d’exécution avant le bling-bling.</p>
+          </article>
+          <article class="story-panel">
+            <span class="story-num">02</span>
+            <div class="story-panel-visual story-panel-visual--pulse" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 8l2.8 9.6H33l-7 5.6 2.8 9.6L20 26.8l-8.8 6.4 2.8-9.6-7-5.6h10.2L20 8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Pourquoi</h3>
+            <p><strong>Utile au plus grand nombre.</strong> La passion pour construire et apprendre passe avant tout ; on choisit des projets qui répondent à de vrais besoins.</p>
+          </article>
+          <article class="story-panel">
+            <span class="story-num">03</span>
+            <div class="story-panel-visual" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="14" r="6" stroke="currentColor" stroke-width="1.6"/><path d="M10 34c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Qui pilote</h3>
+            <p><strong>Mathieu Toffolon</strong>, dirigeant · <strong>France</strong>. Auto-entrepreneur : vision produit et choix techniques portés de bout en bout.</p>
+          </article>
         </div>
-        <div class="about-visual" aria-hidden="true">
-          <div class="about-visual-inner">Simple, visuel, efficace.</div>
+
+        <blockquote class="story-quote">
+          <p class="story-quote-text">« Ce qui nous anime, ce n’est pas la vitrine — c’est l’impact réel pour celles et ceux qui utilisent ce qu’on fabrique. »</p>
+        </blockquote>
+
+        <div class="story-bottom">
+          <div class="story-founder-card">
+            <div class="story-avatar" aria-hidden="true">MT</div>
+            <div class="story-founder-text">
+              <p class="story-founder-name">Mathieu Toffolon</p>
+              <p class="story-founder-role">Dirigeant · Irkeedia Labs · France</p>
+            </div>
+          </div>
+          <div class="story-tech-board" aria-labelledby="tech-title">
+            <p id="tech-title" class="story-tech-label">Technologies maîtrisées</p>
+            <p class="story-tech-hint">Une stack moderne, adaptée à chaque projet.</p>
+            <div class="tech-chips tech-chips--story">
+              <span>Python</span>
+              <span>IA &amp; agents</span>
+              <span>Flutter &amp; Dart</span>
+              <span>Node.js &amp; TypeScript</span>
+              <span>React &amp; Astro</span>
+              <span>Next.js</span>
+              <span>NestJS &amp; APIs</span>
+              <span>PostgreSQL &amp; Prisma</span>
+              <span>Docker &amp; self-host</span>
+              <span>Electron</span>
+              <span>Capacitor</span>
+              <span>Cloud &amp; edge</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -183,10 +295,10 @@
       <div>
         <h2>Contact</h2>
         <p>Une question, un feedback, une collaboration ?</p>
-        <a class="mail" href="mailto:hello@irkeedia.com">hello@irkeedia.com</a>
+        <a class="mail" href="mailto:irkeedia.com@gmail.com">irkeedia.com@gmail.com</a>
       </div>
       <div class="footer-meta">
-        <span id="year"></span> IRKEEDIA
+        <span id="year"></span> IRKEEDIA LABS
         <a href="/mentions-legales.html">Mentions légales</a>
       </div>
     </div>

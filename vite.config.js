@@ -16,6 +16,7 @@ export default defineConfig({
         nexusnas: resolve(__dirname, 'nexusnas.html'),
         sunoPlayer: resolve(__dirname, 'suno-player.html'),
         mentionsLegales: resolve(__dirname, 'mentions-legales.html'),
+        silenceOfCeleste: resolve(__dirname, 'silence-of-celeste.html'),
         serviceIaLocale: resolve(__dirname, 'service-ia-locale.html'),
         serviceRobotique: resolve(__dirname, 'service-robotique.html'),
         serviceLogicielsIa: resolve(__dirname, 'service-logiciels-ia.html'),

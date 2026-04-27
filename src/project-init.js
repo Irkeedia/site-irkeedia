@@ -5,53 +5,11 @@
 
 import './styles/main.css'
 import './styles/project.css'
-import './styles/cookies.css'
-import { initCookies, initEntryGate } from './js/cookies.js'
-import { initAudio } from './js/audio.js'
-import { initPageTransitions } from './js/page-transitions.js'
+import { initCookies } from './js/cookies.js'
 import { applyPerfClass } from './js/perf.js'
 
 // Apply performance tier CSS class
 applyPerfClass()
-
-// ─── CUSTOM CURSOR (lightweight, no GSAP) ───────
-;(function initCursor() {
-  const cursor = document.querySelector('.cursor')
-  const follower = document.querySelector('.cursor-follower')
-  if (!cursor || !follower) return
-  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return
-
-  let mouseX = window.innerWidth / 2
-  let mouseY = window.innerHeight / 2
-  let followerX = mouseX
-  let followerY = mouseY
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX
-    mouseY = e.clientY
-    cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`
-  })
-
-  function tick() {
-    followerX += (mouseX - followerX) * 0.12
-    followerY += (mouseY - followerY) * 0.12
-    follower.style.transform = `translate(${followerX}px, ${followerY}px) translate(-50%, -50%)`
-    requestAnimationFrame(tick)
-  }
-  requestAnimationFrame(tick)
-
-  // Hover states on interactive elements
-  document.querySelectorAll('a, button, [data-cursor]').forEach((el) => {
-    el.addEventListener('mouseenter', () => {
-      cursor.classList.add('is-active')
-      follower.classList.add('is-active')
-    })
-    el.addEventListener('mouseleave', () => {
-      cursor.classList.remove('is-active')
-      follower.classList.remove('is-active')
-    })
-  })
-})()
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -116,14 +74,7 @@ document.querySelectorAll('.info-row').forEach((row) => {
   })
 })
 
-// Cookie consent
 initCookies()
 
-// Fullscreen entry interface (with cookie choice)
-initEntryGate()
-
-// Ambient audio (seamless across pages)
-initAudio()
-
-// Page transitions — keep audio alive across navigation
-initPageTransitions()
+// Navigation classique (rechargement complet) : la SPA injectait le HTML sans
+// transition fluide et provoquait un flash désagréable entre pages projet.

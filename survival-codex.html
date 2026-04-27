@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Survival Codex — Projet Charlie | IRKEEDIA</title>
+  <title>Survival Codex — Projet Charlie | IRKEEDIA LABS</title>
   <meta name="description" content="Application encyclopédie offline-first dédiée à la survie et la reconstruction de la civilisation. Assistant IA Charlie + Chat P2P Bluetooth." />
-  <meta name="theme-color" content="#050505" />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body class="project-page">
 
@@ -29,7 +29,7 @@
     </div>
     <a href="/" class="project-nav-logo">
       <span class="logo-mark">◈</span>
-      <span class="logo-text">IRKEEDIA</span>
+      <span class="logo-text">IRKEEDIA LABS</span>
     </a>
   </nav>
 
@@ -61,6 +61,33 @@
 
   <!-- ===== CONTENT ===== -->
   <div class="project-content">
+
+    <!-- Démonstration — README survival-codex + écosystème codexbycharlie.com -->
+    <section class="project-section">
+      <span class="project-section-tag">Démonstration</span>
+      <h2 class="project-section-title">Ce que l'app montre aujourd'hui</h2>
+      <div class="project-text" style="max-width:48rem; margin-bottom:2rem;">
+        <p>Au <strong>premier lancement</strong>, le catalogue est chargé depuis les bundles JSON embarqués vers <strong>SQLite</strong> : navigation par catégories (Santé, Survie, DIY…) <strong>sans réseau</strong>. <strong>Charlie AI</strong> propose un mode en ligne (Gemini via le proxy <a href="https://www.codexbycharlie.com" target="_blank" rel="noopener noreferrer">codexbycharlie.com</a>) avec streaming et quotas, et un <strong>mode offline</strong> basé sur l'index des fiches locales. Le <strong>générateur</strong> produit des fiches Markdown côté serveur ; le <strong>walkie-talkie BLE</strong> permet scan, connexion GATT et messages chiffrés, avec options radar, canaux d'équipe et Morse (son / flash LED).</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">Hors ligne total</h3>
+          <p class="feature-card-desc">Fiches sauvegardées et catalogue seedé par langue : avion, rando ou zone blanche — le Codex reste lisible ; l'IA locale répond depuis SQLite sans cloud.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Charlie ID & crédits</h3>
+          <p class="feature-card-desc">Connexion OTP email (style magic link), crédits IA et générateur visibles dans le profil, rachat via le magasin web ouvert in-app — aligné sur la plateforme Next.js officielle du projet.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Proximité</h3>
+          <p class="feature-card-desc">Deux téléphones Android en BLE : advertising, scan mutuel, messages sur canaux ; morse et lampe torche quand le module est débloqué — démonstration du volet « communication d'urgence ».</p>
+        </div>
+      </div>
+      <div class="project-demo-links">
+        <a href="https://www.codexbycharlie.com" target="_blank" rel="noopener noreferrer">codexbycharlie.com — backend & boutique</a>
+        <a href="https://github.com/Irkeedia/sitecharliecodex" target="_blank" rel="noopener noreferrer">GitHub — site vitrine Charlie</a>
+      </div>
+    </section>
 
     <!-- Concept -->
     <section class="project-section">
@@ -246,7 +273,7 @@
   <!-- ===== FOOTER ===== -->
   <footer class="project-footer">
     <div class="project-footer-left">
-      <span>© 2026 IRKEEDIA</span>
+      <span>© 2026 IRKEEDIA LABS</span>
       <span>·</span>
       <span>Tous droits réservés</span>
     </div>

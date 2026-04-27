@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ORION V5 — Robot IA Autonome | IRKEEDIA</title>
+  <title>ORION V5 — Robot IA Autonome | IRKEEDIA LABS</title>
   <meta name="description" content="Robot IA autonome construit sur Raspberry Pi 5 + Hailo 8L. Vision, voix, personnalité, navigation autonome." />
-  <meta name="theme-color" content="#050505" />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body class="project-page">
 
@@ -29,7 +29,7 @@
     </div>
     <a href="/" class="project-nav-logo">
       <span class="logo-mark">◈</span>
-      <span class="logo-text">IRKEEDIA</span>
+      <span class="logo-text">IRKEEDIA LABS</span>
     </a>
   </nav>
 
@@ -63,6 +63,32 @@
 
   <!-- ===== CONTENT ===== -->
   <div class="project-content">
+
+    <!-- Démonstration — synthèse README Orion Control (app-ia-local) + usage robot -->
+    <section class="project-section">
+      <span class="project-section-tag">Démonstration</span>
+      <h2 class="project-section-title">Parcours concrets sur banc d'essai</h2>
+      <div class="project-text" style="max-width:48rem; margin-bottom:2rem;">
+        <p>Le <strong>Pi 5</strong> embarque la vision Hailo, Flask et l'écran portrait ; le <strong>PC local</strong> héberge Ollama, Piper TTS et la mémoire SQLite. <strong>Orion Control</strong> (Electron + React, dépôt <em>app-ia-local</em>) sert de poste de pilotage : chat en streaming, vision multimodale sur pièces jointes, joystick Wi-Fi vers <code>orion.local:5000</code> avec watchdog 500&nbsp;ms, et synchronisation des expressions avec le visage rendu sur le robot via polling <code>/face/status</code>.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">Kiosk salon</h3>
+          <p class="feature-card-desc">Chromium plein écran sur <code>/face</code> et <code>/dashboard</code> : jauges CPU / charge / RAM, waveform audio, changement de voix Piper et de modèle Ollama pendant que le visage SVG V3 suit les balises <code>[EMO:…]</code> extraites des réponses.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Bureau — Orion Control</h3>
+          <p class="feature-card-desc">Proxy <code>:11435</code> : chat Ollama, interception des tokens pour détecter les émotions, routes <code>/control/*</code> vers le Flask du Pi, TTS HTTP pour faire parler le robot sans passer par le cloud.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Preuve sécurité moteurs</h3>
+          <p class="feature-card-desc">Scénario « liaison coupée » : relâcher les touches dans l'app, laisser expirer le watchdog Flask (~600&nbsp;ms) puis le firmware Arduino (500&nbsp;ms) — idéal pour valider la pile avant navigation réelle.</p>
+        </div>
+      </div>
+      <div class="project-demo-links">
+        <a href="https://github.com/Irkeedia/app-ia-local" target="_blank" rel="noopener noreferrer">GitHub — Orion Control (app-ia-local)</a>
+      </div>
+    </section>
 
     <!-- Architecture -->
     <section class="project-section">
@@ -478,7 +504,7 @@
   <!-- ===== FOOTER ===== -->
   <footer class="project-footer">
     <div class="project-footer-left">
-      <span>© 2026 IRKEEDIA</span>
+      <span>© 2026 IRKEEDIA LABS</span>
       <span>·</span>
       <span>Tous droits réservés</span>
     </div>

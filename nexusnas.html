@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NexusNAS — Serveur de Stockage Réseau | IRKEEDIA</title>
+  <title>NexusNAS — Serveur de Stockage Réseau | IRKEEDIA LABS</title>
   <meta name="description" content="Serveur de stockage réseau privé, moderne et auto-hébergé. Interface rouge/blanc/noir, multi-utilisateurs, PWA installable." />
-  <meta name="theme-color" content="#050505" />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body class="project-page">
 
@@ -29,7 +29,7 @@
     </div>
     <a href="/" class="project-nav-logo">
       <span class="logo-mark">◈</span>
-      <span class="logo-text">IRKEEDIA</span>
+      <span class="logo-text">IRKEEDIA LABS</span>
     </a>
   </nav>
 
@@ -60,6 +60,32 @@
 
   <!-- ===== CONTENT ===== -->
   <div class="project-content">
+
+    <!-- Démonstration — scénario aligné sur la doc install du dépôt NAS -->
+    <section class="project-section">
+      <span class="project-section-tag">Démonstration</span>
+      <h2 class="project-section-title">Scénario self-host à la maison</h2>
+      <div class="project-text" style="max-width:48rem; margin-bottom:2rem;">
+        <p>Sur une machine <strong>Linux</strong> (Ubuntu / Debian typique), <code>./install.sh</code> prépare le venv Python, les dossiers de stockage et le service systemd. Le serveur <strong>FastAPI</strong> écoute sur le port <strong>8888</strong> ; <strong>Avahi</strong> expose <code>nexusnas.local</code> pour éviter de chercher l'IP. Depuis un téléphone, on ouvre l'URL, on <strong>ajoute à l'écran d'accueil</strong> pour obtenir la PWA, on crée les comptes famille (admin + utilisateurs avec quota), puis on teste glisser-déposer, prévisualisation PDF / média, corbeille et favoris — le tout sans fournisseur cloud.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">Onboarding</h3>
+          <p class="feature-card-desc">Premier utilisateur = admin ; JWT 24&nbsp;h ; isolation des répertoires par compte — parfait pour montrer le modèle multi-utilisateurs sur un seul disque.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Journal & monitoring</h3>
+          <p class="feature-card-desc">Panneau CPU / RAM / disque et journal d'activité : utile pour une démo « infra maison » devant un NAS branché sur le LAN.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Hors-ligne partiel</h3>
+          <p class="feature-card-desc">Service worker : reprise de l'interface et du cache après une coupure courte — illustre l'approche PWA documentée dans le projet.</p>
+        </div>
+      </div>
+      <div class="project-demo-links">
+        <a href="https://github.com/Irkeedia/nas-nipogi" target="_blank" rel="noopener noreferrer">GitHub — nas-nipogi (NexusNAS)</a>
+      </div>
+    </section>
 
     <!-- Fonctionnalités -->
     <section class="project-section">
@@ -289,7 +315,7 @@ chmod +x install.sh
   <!-- ===== FOOTER ===== -->
   <footer class="project-footer">
     <div class="project-footer-left">
-      <span>© 2026 IRKEEDIA</span>
+      <span>© 2026 IRKEEDIA LABS</span>
       <span>·</span>
       <span>Tous droits réservés</span>
     </div>
