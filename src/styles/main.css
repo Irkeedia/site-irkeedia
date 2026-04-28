@@ -437,6 +437,13 @@ h1 {
     linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
 }
 
+.sites-feature-visual--celeste {
+  background-image:
+    linear-gradient(145deg, rgba(227, 15, 52, 0.58), rgba(93, 56, 168, 0.3)),
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.32), transparent 48%),
+    linear-gradient(150deg, #ffe4ef 0%, #f8b7d9 38%, #b476ff 100%);
+}
+
 .sites-feature-copy {
   padding: clamp(1.35rem, 3vw, 2rem);
   display: flex;
@@ -470,6 +477,13 @@ h1 {
 .sites-feature-copy .btn {
   align-self: flex-start;
   margin-top: 0.35rem;
+}
+
+.sites-feature-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.4rem;
 }
 
 .section.section-screen.showcase.showcase--soc {
