@@ -444,6 +444,13 @@ h1 {
     linear-gradient(150deg, #ffe4ef 0%, #f8b7d9 38%, #b476ff 100%);
 }
 
+.sites-feature-visual--jojo {
+  background-image:
+    linear-gradient(140deg, rgba(255, 183, 77, 0.45), rgba(129, 199, 132, 0.35)),
+    radial-gradient(circle at 75% 30%, rgba(255, 255, 255, 0.35), transparent 50%),
+    linear-gradient(155deg, #fff8e7 0%, #ffe0b2 35%, #81c784 100%);
+}
+
 .sites-feature-copy {
   padding: clamp(1.35rem, 3vw, 2rem);
   display: flex;
