@@ -133,6 +133,7 @@ Au démarrage, le système analyse :
 ├── survival-codex.html             # Projet — Encyclopédie offline-first
 ├── nexusnas.html                   # Projet — Serveur NAS privé
 ├── suno-player.html                # Projet — Lecteur musical Suno AI
+├── the-hunt.html                   # Projet — Jeu arcade THE HUNT (esquive)
 ├── service-ia-locale.html          # Service — IA Locale & On-Premise
 ├── service-robotique.html          # Service — Robotique & IA Embarquée
 ├── service-logiciels-ia.html       # Service — Logiciels IA Sur Mesure

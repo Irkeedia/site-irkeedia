@@ -701,6 +701,78 @@ h1 {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.section.section-screen.showcase.showcase--hunt {
+  padding-block: 0;
+}
+
+.hunt-stage {
+  width: 100%;
+  padding: clamp(3rem, 8vw, 5rem) 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(124, 58, 237, 0.35), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 20% 0%, rgba(34, 211, 238, 0.2), transparent 50%),
+    linear-gradient(175deg, #0a0612 0%, #1a0a2e 40%, #0a0612 100%);
+  color: #e9d5ff;
+}
+
+.hunt-stage-inner {
+  text-align: center;
+  max-width: 38rem;
+  margin-inline: auto;
+}
+
+.hunt-stage-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #a78bfa;
+}
+
+.hunt-stage-title {
+  margin: 0.75rem 0 0;
+  font-size: clamp(1.85rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #fff;
+}
+
+.hunt-stage-desc {
+  margin: 1rem 0 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #c4b5fd;
+}
+
+.hunt-stage-actions {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.hunt-stage .btn-primary {
+  background: linear-gradient(135deg, #7c3aed, #22d3ee);
+  color: #fff;
+  border: none;
+}
+
+.hunt-stage .btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.hunt-stage .btn-secondary {
+  border-color: rgba(167, 139, 250, 0.45);
+  color: #ede9fe;
+  background: transparent;
+}
+
+.hunt-stage .btn-secondary:hover {
+  background: rgba(124, 58, 237, 0.2);
+}
+
 .section-muted {
   background: var(--bg-muted);
   border-top: 1px solid var(--line);
@@ -764,6 +836,23 @@ h1 {
 .project-mosaic.project-mosaic-three .card:nth-child(2),
 .project-mosaic.project-mosaic-three .card:nth-child(3) {
   grid-column: span 3;
+}
+
+.project-mosaic.project-mosaic-four {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.project-mosaic.project-mosaic-four .card-featured {
+  grid-column: span 6;
+}
+
+.project-mosaic.project-mosaic-four .card:nth-child(2),
+.project-mosaic.project-mosaic-four .card:nth-child(3) {
+  grid-column: span 3;
+}
+
+.project-mosaic.project-mosaic-four .card:nth-child(4) {
+  grid-column: 4 / span 6;
 }
 
 .card:hover {
@@ -1225,7 +1314,11 @@ h1 {
 
   .project-mosaic.project-mosaic-three .card-featured,
   .project-mosaic.project-mosaic-three .card:nth-child(2),
-  .project-mosaic.project-mosaic-three .card:nth-child(3) {
+  .project-mosaic.project-mosaic-three .card:nth-child(3),
+  .project-mosaic.project-mosaic-four .card-featured,
+  .project-mosaic.project-mosaic-four .card:nth-child(2),
+  .project-mosaic.project-mosaic-four .card:nth-child(3),
+  .project-mosaic.project-mosaic-four .card:nth-child(4) {
     grid-column: span 12;
   }
 
