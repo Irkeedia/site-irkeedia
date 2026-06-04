@@ -134,6 +134,7 @@ Au démarrage, le système analyse :
 ├── nexusnas.html                   # Projet — Serveur NAS privé
 ├── suno-player.html                # Projet — Lecteur musical Suno AI
 ├── the-hunt.html                   # Projet — Jeu arcade THE HUNT (esquive)
+├── dead-grid.html                  # Projet — Jeu horreur DEAD GRID (zombies)
 ├── service-ia-locale.html          # Service — IA Locale & On-Premise
 ├── service-robotique.html          # Service — Robotique & IA Embarquée
 ├── service-logiciels-ia.html       # Service — Logiciels IA Sur Mesure

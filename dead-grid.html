@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEAD GRID — Survie horreur zombie | IRKEEDIA LABS</title>
+  <meta name="description" content="DEAD GRID : jeu de survie horreur top-down en navigateur. Vagues de zombies, 4 cartes, armes, améliorations et mode extraction." />
+  <meta name="theme-color" content="#040406" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="project-page">
+
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" aria-hidden="true">
+    <span class="cursor-text"></span>
+  </div>
+
+  <nav class="project-nav">
+    <div class="project-nav-left">
+      <a href="/" class="project-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Retour
+      </a>
+    </div>
+    <a href="/" class="project-nav-logo">
+      <span class="logo-mark">◈</span>
+      <span class="logo-text">IRKEEDIA LABS</span>
+    </a>
+  </nav>
+
+  <header class="project-hero">
+    <div class="project-hero-tag">
+      <span class="status-dot"></span>
+      Jeu Web · Horreur & survie top-down — HTML5 Canvas
+    </div>
+    <h1 class="project-hero-title">
+      DEAD <span class="text-accent">GRID</span>
+    </h1>
+    <p class="project-hero-subtitle">
+      <strong>Tiens face aux vagues.</strong> Top-down en mode paysage : vise, bouge, esquive, récupère des armes au sol,
+      améliore ton build entre les manches et tente l'évasion — ou survive sans fin.
+    </p>
+    <div class="project-hero-meta">
+      <span class="project-meta-pill project-meta-pill--accent">Jouer en ligne</span>
+      <span class="project-meta-pill">Zombies</span>
+      <span class="project-meta-pill">4 cartes</span>
+      <span class="project-meta-pill">Sans fin / Extraction</span>
+      <span class="project-meta-pill">Mobile & clavier</span>
+    </div>
+    <div class="project-hero-visual">
+      <div class="project-hero-visual-bg" style="background: linear-gradient(145deg, #040406 0%, #1a0a0a 30%, #3d1515 55%, #5c1010 80%, #9fe3c0 100%)"></div>
+      <div class="project-hero-visual-grid"></div>
+    </div>
+  </header>
+
+  <div class="project-content">
+
+    <section class="project-section">
+      <span class="project-section-tag">Jouer</span>
+      <h2 class="project-section-title">Lancer une partie</h2>
+      <div class="project-text" style="max-width:48rem; margin-bottom:2rem;">
+        <p>Choisis ton terrain, le mode <strong>Sans fin</strong> ou <strong>Extraction</strong> (atteindre la manche 12 puis la sortie), règle la lumière et le son — puis enchaîne les manches. Idéal en paysage sur mobile ; clavier et souris supportés sur desktop.</p>
+      </div>
+      <div class="project-demo-links">
+        <a href="https://jeux-zombie.vercel.app" target="_blank" rel="noopener noreferrer">jeux-zombie.vercel.app — jouer maintenant</a>
+        <a href="/#dead-grid">Retour à la section sur le hub</a>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <span class="project-section-tag">Contrôles</span>
+      <h2 class="project-section-title">Viser, bouger, esquiver</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">Mobile (paysage)</h3>
+          <p class="feature-card-desc">Stick gauche pour viser (tir au relâché), stick droit pour se déplacer, bouton central <strong>DASH</strong> pour l'esquive.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Clavier & souris</h3>
+          <p class="feature-card-desc">Souris pour viser, clic pour tirer, ZQSD ou flèches pour bouger, <strong>Espace</strong> pour esquiver.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Ambiance</h3>
+          <p class="feature-card-desc">Curseur de luminosité et son procédural (Web Audio API) — grain cinématique et scores en localStorage par carte et par mode.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <span class="project-section-tag">Modes</span>
+      <h2 class="project-section-title">Sans fin ou extraction</h2>
+      <div class="project-cols">
+        <div class="project-text">
+          <p><strong>Sans fin</strong> — survive manche après manche, bats ton record d'éliminations. Boss toutes les 5 manches.</p>
+        </div>
+        <div class="project-text">
+          <p><strong>Extraction</strong> — atteins la manche 12 puis rejoins la sortie pour déclencher l'écran <em>ÉVADÉ</em> et gagner la partie.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <span class="project-section-tag">Cartes</span>
+      <h2 class="project-section-title">Quatre terrains</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">Le Manoir</h3>
+          <p class="feature-card-desc">Grande demeure, pièces et meubles — verrouille les angles. Morts-vivants.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">L'Entrepôt</h3>
+          <p class="feature-card-desc">Hangar ouvert, caisses en grille — longues lignes de tir. Morts-vivants.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">La Cabane</h3>
+          <p class="feature-card-desc">Refuge compact, peu de couverture — rythme nerveux. Morts-vivants.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">La Forêt</h3>
+          <p class="feature-card-desc">Bois sombre : loups, ours et <strong>wendigo</strong> à la place des zombies.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <span class="project-section-tag">Arsenal</span>
+      <h2 class="project-section-title">Armes & progression</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">Laser de départ</h3>
+          <p class="feature-card-desc">Tir au relâché dès le spawn — base avant de ramasser du matériel au sol.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">M · S · F · B · H</h3>
+          <p class="feature-card-desc">Mitraillette, Sniper, Lance-flammes, Bombes, Hache (∞ en mêlée). Recharge via caisses <strong>AMMO</strong> en restant immobile.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Améliorations</h3>
+          <p class="feature-card-desc">Fin de chaque manche : choix d'upgrades pour tenir plus longtemps face aux vagues qui s'intensifient.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="project-cta-banner">
+    <h3>Prêt pour la manche 1 ?</h3>
+    <p>DEAD GRID dans le navigateur — gratuit, sans installation.</p>
+    <a href="https://jeux-zombie.vercel.app" class="btn-liquid btn-liquid--dark" target="_blank" rel="noopener noreferrer">
+      <span class="btn-liquid-fill"></span>
+      <span class="btn-liquid-text">Jouer — DEAD GRID</span>
+      <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+  </div>
+
+  <footer class="project-footer">
+    <div class="project-footer-left">
+      <span>© 2026 IRKEEDIA LABS</span>
+      <span>·</span>
+      <span>Tous droits réservés</span>
+    </div>
+    <div class="project-footer-right">
+      <a href="/#dead-grid">← Retour au hub</a>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/project-init.js"></script>
+</body>
+</html>

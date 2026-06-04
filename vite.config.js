@@ -18,6 +18,7 @@ export default defineConfig({
         mentionsLegales: resolve(__dirname, 'mentions-legales.html'),
         silenceOfCeleste: resolve(__dirname, 'silence-of-celeste.html'),
         theHunt: resolve(__dirname, 'the-hunt.html'),
+        deadGrid: resolve(__dirname, 'dead-grid.html'),
         serviceIaLocale: resolve(__dirname, 'service-ia-locale.html'),
         serviceRobotique: resolve(__dirname, 'service-robotique.html'),
         serviceLogicielsIa: resolve(__dirname, 'service-logiciels-ia.html'),
