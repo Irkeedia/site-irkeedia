@@ -16,19 +16,54 @@
   <header class="header">
     <div class="container nav">
       <a class="brand" href="#top">IRKEEDIA LABS</a>
-      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuLinks">
-        Menu
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuLinks" aria-label="Ouvrir le menu">
+        <svg class="menu-btn-icon menu-btn-icon--open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="menu-btn-icon menu-btn-icon--close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span class="menu-btn-label">Menu</span>
       </button>
       <nav class="links" id="menuLinks">
-        <a href="#charlie-codex">Charlie Codex</a>
+        <div class="nav-group" id="navGroupProjets">
+          <button class="nav-group-btn" type="button" aria-expanded="false" aria-controls="dropdownProjets">
+            Projets
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="nav-dropdown" id="dropdownProjets" role="menu">
+            <a href="#charlie-codex" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+              Charlie Codex
+            </a>
+            <a href="#sites-vitrine" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20"/></svg>
+              Sites vitrine
+            </a>
+            <div class="nav-dropdown-divider" role="separator"></div>
+            <a href="#projets" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              Autres projets
+            </a>
+          </div>
+        </div>
+
+        <div class="nav-group" id="navGroupJeux">
+          <button class="nav-group-btn" type="button" aria-expanded="false" aria-controls="dropdownJeux">
+            Jeux
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="nav-dropdown" id="dropdownJeux" role="menu">
+            <a href="#the-hunt" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              THE HUNT
+            </a>
+            <a href="#dead-grid" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              DEAD GRID
+            </a>
+          </div>
+        </div>
+
         <a href="/silence-of-celeste.html">Silence of Céleste</a>
-        <a href="#the-hunt">THE HUNT</a>
-        <a href="#dead-grid">DEAD GRID</a>
-        <a href="#sites-vitrine">Sites</a>
-        <a href="#projets">Projets</a>
-        <a href="#categories">Catégories</a>
         <a href="#apropos">À propos</a>
-        <a href="#contact">Contact</a>
+        <a href="#contact" class="nav-cta">Contact</a>
       </nav>
     </div>
   </header>
@@ -60,7 +95,7 @@
             </div>
             <div class="hero-visual-metrics">
               <div class="hero-metric">
-                <span class="hero-metric-value">08</span>
+                <span class="hero-metric-value">09</span>
                 <span class="hero-metric-label">Réalisations phares</span>
               </div>
               <div class="hero-metric">
@@ -121,7 +156,7 @@
       <div class="container">
         <header class="sites-section-head">
           <h2>Sites vitrine</h2>
-          <p>Quatre parcours visuels : image d’ambiance, texte et CTA — le contraire d’une double grille de cartes.</p>
+          <p>Cinq parcours visuels : image d’ambiance, texte et CTA — chaque site raconté avec sa propre identité.</p>
         </header>
         <div class="sites-zigzag">
           <article class="sites-feature">
@@ -161,6 +196,15 @@
               <h3 class="sites-feature-title">Le Sourire de Jojo</h3>
               <p class="sites-feature-text">Vitrine Astro : offre d’accompagnement bienveillant à domicile, carnet de sourires, tarifs indicatifs et formulaire de contact.</p>
               <a class="btn btn-primary" href="https://le-sourire-de-jojo.vercel.app" target="_blank" rel="noopener noreferrer">le-sourire-de-jojo.vercel.app</a>
+            </div>
+          </article>
+          <article class="sites-feature">
+            <div class="sites-feature-visual sites-feature-visual--repit" aria-hidden="true"></div>
+            <div class="sites-feature-copy">
+              <span class="sites-feature-tag">Répit parental · Handicap · Narbonne–Béziers</span>
+              <h3 class="sites-feature-title">Parentèse Répit</h3>
+              <p class="sites-feature-text">Vitrine sobre et chaleureuse pour une accompagnatrice éducative et sociale diplômée : répit parental, accompagnement TSA, interventions à domicile. Paiement CESU.</p>
+              <a class="btn btn-primary" href="https://parenthese-repit.vercel.app" target="_blank" rel="noopener noreferrer">parenthese-repit.vercel.app</a>
             </div>
           </article>
         </div>
