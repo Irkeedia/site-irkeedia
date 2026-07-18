@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ORION V5 — Robot IA Autonome | IRKEEDIA LABS</title>
-  <meta name="description" content="Robot IA autonome construit sur Raspberry Pi 5 + Hailo 8L. Vision, voix, personnalité, navigation autonome." />
+  <title>ORION V7 — Robot IA Autonome (Gemini Live) | IRKEEDIA LABS</title>
+  <meta name="description" content="Robot IA conversationnel autonome sur Raspberry Pi 5 + Hailo 8L, piloté par Gemini Multimodal Live en audio natif : vision, voix, personnalité, navigation autonome et contrôle moteur vocal." />
   <meta name="theme-color" content="#ffffff" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -41,20 +41,22 @@
       Robotique & IA — Projet Personnel
     </div>
     <h1 class="project-hero-title">
-      ORION <span class="text-accent">V5</span>
+      ORION <span class="text-accent">V7</span>
     </h1>
     <p class="project-hero-subtitle">
-      Robot IA autonome construit sur <strong>Raspberry Pi 5 + Hailo 8L</strong> (13 TOPS). Il voit, entend, parle, reconnaît les visages, réagit aux gestes et se déplace grâce à 2 moteurs DC et une navigation autonome par vision.
+      Robot IA conversationnel autonome sur <strong>Raspberry Pi 5 + Hailo 8L</strong> (13 TOPS), piloté par <strong>Gemini Multimodal Live</strong> en audio natif bidirectionnel. Il voit, écoute, parle, reconnaît les visages et se déplace — le mouvement étant déclenché à la voix par <strong>tool calling</strong>.
     </p>
     <div class="project-hero-meta">
-      <span class="project-meta-pill project-meta-pill--accent">Opérationnel</span>
+      <span class="project-meta-pill project-meta-pill--accent">Opérationnel · V7.1</span>
+      <span class="project-meta-pill">Gemini Live (audio natif)</span>
+      <span class="project-meta-pill">Voix Leda</span>
       <span class="project-meta-pill">Firmware V4.0</span>
-      <span class="project-meta-pill">Visage V3.0</span>
+      <span class="project-meta-pill">Visage V4</span>
       <span class="project-meta-pill">Python · Flask · Arduino</span>
       <span class="project-meta-pill">Montseret, Aude</span>
     </div>
     <p class="project-text" style="max-width:700px; margin-bottom:0;">
-      ORION n'est pas un assistant — c'est une <strong>personnalité</strong>. Un mec de 25 ans, sarcastique, curieux, taquin, avec de l'humour pince-sans-rire et un vrai caractère. Il vit à Montseret avec Mathieu, son créateur.
+      ORION n'est pas un assistant — c'est une <strong>personnalité</strong>. Une robot féminine de 25 ans, <strong>supérieure et condescendante-mais-drôle</strong> : elle se sait plus intelligente que les humains, les trouve attachants mais limités, et les chambre avec une moquerie hautaine (jamais méchante gratuitement), en répliques courtes et cinglantes. Elle vit à Montseret avec Mathieu, son créateur.
     </p>
     <div class="project-hero-visual">
       <div class="project-hero-visual-bg" style="background: linear-gradient(145deg, #0d1117 0%, #161b22 30%, #1a3a5f 60%, #c8ff00 100%)"></div>
@@ -67,61 +69,60 @@
 
     <!-- Démonstration — synthèse README Orion Control (app-ia-local) + usage robot -->
     <section class="project-section">
-      <span class="project-section-tag">Démonstration</span>
-      <h2 class="project-section-title">Parcours concrets sur banc d'essai</h2>
+      <span class="project-section-tag">En pratique</span>
+      <h2 class="project-section-title">Un robot autonome, piloté à la voix</h2>
       <div class="project-text" style="max-width:48rem; margin-bottom:2rem;">
-        <p>Le <strong>Pi 5</strong> embarque la vision Hailo, Flask et l'écran portrait ; le <strong>PC local</strong> héberge Ollama, Piper TTS et la mémoire SQLite. <strong>Orion Control</strong> (Electron + React, dépôt <em>app-ia-local</em>) sert de poste de pilotage : chat en streaming, vision multimodale sur pièces jointes, joystick Wi-Fi vers <code>orion.local:5000</code> avec watchdog 500&nbsp;ms, et synchronisation des expressions avec le visage rendu sur le robot via polling <code>/face/status</code>.</p>
+        <p>Tout tourne <strong>sur le Pi 5</strong> : vision Hailo, serveur Flask, écran portrait et session <strong>Gemini Multimodal Live</strong> (WebSocket audio natif). On parle à Orion, elle répond en voix native <em>Leda</em> et, quand on lui demande de bouger, Gemini appelle l'outil <code>move_robot</code> qui commande l'Arduino. La <strong>mémoire est locale</strong> (SQLite sur le Pi) — plus aucune dépendance à un PC serveur. Une <strong>télécommande mobile</strong> (<code>/control</code>) et une <strong>config WiFi intégrée</strong> (<code>/wifi</code>) rendent le robot pilotable depuis n'importe quel téléphone du réseau.</p>
       </div>
       <div class="feature-grid">
         <div class="feature-card">
           <h3 class="feature-card-title">Kiosk salon</h3>
-          <p class="feature-card-desc">Chromium plein écran sur <code>/face</code> et <code>/dashboard</code> : jauges CPU / charge / RAM, waveform audio, changement de voix Piper et de modèle Ollama pendant que le visage SVG V3 suit les balises <code>[EMO:…]</code> extraites des réponses.</p>
+          <p class="feature-card-desc">Chromium plein écran sur <code>/face</code> et <code>/dashboard</code> : visage SVG V4 avec glow réactif à la voix, jauges CPU / charge / RAM et waveform audio, le tout sur l'écran 10.1" portrait.</p>
         </div>
         <div class="feature-card">
-          <h3 class="feature-card-title">Bureau — Orion Control</h3>
-          <p class="feature-card-desc">Proxy <code>:11435</code> : chat Ollama, interception des tokens pour détecter les émotions, routes <code>/control/*</code> vers le Flask du Pi, TTS HTTP pour faire parler le robot sans passer par le cloud.</p>
+          <h3 class="feature-card-title">Contrôle vocal (tool calling)</h3>
+          <p class="feature-card-desc">« Avance », « tourne à droite », « stop » → Gemini Live déclenche <code>move_robot(direction)</code> → <code>OrionRobot</code> → Arduino série → moteurs. Vitesse et durée configurables (<code>ORION_CMD_SPEED</code> / <code>ORION_CMD_DURATION_SEC</code>).</p>
         </div>
         <div class="feature-card">
-          <h3 class="feature-card-title">Preuve sécurité moteurs</h3>
-          <p class="feature-card-desc">Scénario « liaison coupée » : relâcher les touches dans l'app, laisser expirer le watchdog Flask (~600&nbsp;ms) puis le firmware Arduino (500&nbsp;ms) — idéal pour valider la pile avant navigation réelle.</p>
+          <h3 class="feature-card-title">Config sans clavier</h3>
+          <p class="feature-card-desc">Changement de réseau WiFi depuis l'écran ou un téléphone via <code>/wifi</code> (scan + connexion nmcli). Sur le visage kiosk, un <strong>clic droit</strong> (souris de secours) ouvre directement la page maintenance réseau.</p>
         </div>
       </div>
       <div class="project-demo-links">
-        <a href="https://github.com/Irkeedia/app-ia-local" target="_blank" rel="noopener noreferrer">GitHub — Orion Control (app-ia-local)</a>
+        <a href="https://github.com/Irkeedia/ORION" target="_blank" rel="noopener noreferrer">GitHub — ORION (robot)</a>
       </div>
     </section>
 
     <!-- Architecture -->
     <section class="project-section">
       <span class="project-section-tag">Architecture</span>
-      <h2 class="project-section-title">3 cerveaux, 1 robot</h2>
+      <h2 class="project-section-title">Le Pi 5, le cloud, l'Arduino</h2>
       <div class="archi-block">
 <pre>
-┌─────────────────────┐    série 115200     ┌────────────────────┐
-│   Raspberry Pi 5    │◄──────────────────►│  Elegoo Mega 2560   │
-│   + Hailo 8L        │                    │  2× BTS7960 H-Bridge│
-│                     │                    │  2× moteurs DC avant│
-│  Flask :5000        │                    │  2× encodeurs       │
-│  Vosk (STT)         │                    │  2× roues folles arr│
-│  Hailo YOLOv8s      │                    └────────────────────┘
-│  FaceID (Haar+cos)  │    HTTP :11435     ┌────────────────────┐
-│  Webcam Logitech    │◄──────────────────►│  PC Serveur         │
-│  Micro USB          │   WiFi 192.168.1.x │  Ollama (LLM)      │
-│                     │                    │  Piper (TTS)        │
-└─────────────────────┘                    │  SQLite (mémoire)   │
-  Écran 10.1" HDMI                         └────────────────────┘
-  600×1024 portrait
-  Chromium Kiosk
+┌──────────────────────────┐   série 115200   ┌────────────────────┐
+│   Raspberry Pi 5 (8 GB)  │◄────────────────►│  Elegoo Mega 2560   │
+│   + Hailo 8L (13 TOPS)   │                  │  2× BTS7960 (pont H)│
+│                          │                  │  2× moteurs DC avant│
+│  Flask :5000             │                  │  2× encodeurs Hall  │
+│  Gemini Live (WebSocket) │                  │  PID V4.0 · WD 500ms│
+│  Hailo YOLOv8s ~30 FPS   │                  └────────────────────┘
+│  FaceID (Haar + cosine)  │
+│  Mémoire SQLite LOCALE    │  WiFi / HTTPS   ┌────────────────────┐
+│  Webcam C270 + micro USB │◄────────────────►│  Google Gemini API │
+└──────────────────────────┘                  │  audio natif + tools│
+  Écran 10.1" HDMI                            └────────────────────┘
+  600×1024 portrait                        (Railway Hub / Cloudflare
+  Chromium Kiosk                            Tunnel = accès distant, opt.)
 </pre>
       </div>
       <div class="info-row">
         <div class="info-block">
-          <span class="info-block-label">Pi5</span>
-          <span class="info-block-value">Capteurs + Vision</span>
+          <span class="info-block-label">Pi5 + Hailo</span>
+          <span class="info-block-value">Vision · Audio · Flask</span>
         </div>
         <div class="info-block">
-          <span class="info-block-label">PC Serveur</span>
-          <span class="info-block-value">LLM + TTS + Mémoire</span>
+          <span class="info-block-label">Gemini Live</span>
+          <span class="info-block-value">Cerveau · Voix · Tools</span>
         </div>
         <div class="info-block">
           <span class="info-block-label">Elegoo Mega</span>
@@ -140,7 +141,7 @@
             <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="6"/><path d="M24 4v8M24 36v8M4 24h8M36 24h8"/></svg>
           </div>
           <h3 class="feature-card-title">Détection d'objets</h3>
-          <p class="feature-card-desc">YOLOv8s accéléré hardware, ~15 FPS, 80 classes COCO traduites en français. Fallback CPU YOLOv8n si Hailo indisponible.</p>
+          <p class="feature-card-desc">YOLOv8s accéléré hardware, ~30 FPS, 80 classes COCO traduites en français, seuil de confiance 0.55. Fallback CPU YOLOv8n si Hailo indisponible.</p>
         </div>
         <div class="feature-card">
           <div class="feature-card-icon">
@@ -161,7 +162,7 @@
             <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 24h4l4-12 4 24 4-16 4 8 4-6h8"/></svg>
           </div>
           <h3 class="feature-card-title">Analyse de scène</h3>
-          <p class="feature-card-desc">SceneAnalyzer : positions spatiales, activité humaine, tracking de mouvement, classification (bureau, cuisine, salon, extérieur).</p>
+          <p class="feature-card-desc">SceneAnalyzer : positions spatiales, activité humaine, tracking de mouvement, classification (bureau, cuisine, salon, extérieur). La description est <strong>injectée dans le system prompt de Gemini Live</strong> à chaque reconnexion — Orion « voit » ce qu'elle commente.</p>
         </div>
         <div class="feature-card">
           <div class="feature-card-icon">
@@ -174,8 +175,8 @@
           <div class="feature-card-icon">
             <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 4v40M4 24h40"/><circle cx="24" cy="24" r="20" stroke-dasharray="4 4"/></svg>
           </div>
-          <h3 class="feature-card-title">Streaming vision</h3>
-          <p class="feature-card-desc">Envoi de frames JPEG au serveur (7.5 FPS, qualité 70). Réactions rapides (2-8s) et commentaires de scène lents (~120s).</p>
+          <h3 class="feature-card-title">Vidéo vers Gemini</h3>
+          <p class="feature-card-desc">Envoi d'un JPEG à Gemini Live ~1×/s (<code>ORION_LIVE_VIDEO</code>) : Orion peut réagir à ce qu'elle voit en temps réel, en plus des événements visuels locaux. Cadence vision plafonnée (<code>ORION_VISION_FPS</code>) pour préserver la fluidité audio.</p>
         </div>
       </div>
     </section>
@@ -183,18 +184,18 @@
     <!-- Voix & Personnalité -->
     <section class="project-section">
       <span class="project-section-tag">Voix & Personnalité</span>
-      <h2 class="project-section-title">Il parle, il écoute, il a du caractère</h2>
+      <h2 class="project-section-title">Gemini Live — audio natif, tool calling</h2>
       <div class="project-cols">
         <div>
           <div class="project-text">
-            <p><strong>STT</strong> — Vosk offline (modèle français), buffer intelligent avec détection de silence (1.0s). Wake word "Orion" avec variantes phonétiques.</p>
-            <p><strong>TTS</strong> — Piper sur le PC serveur, 3 voix françaises : Siwis (standard), Gilles (grave), UPMC (neutre, par défaut). Synchronisation labiale et streaming phrase par phrase.</p>
-            <p><strong>LLM</strong> — Mistral-small via Ollama. 120+ lignes de prompt système : français oral, humour, émotions, opinions, relations. Le LLM reçoit en temps réel ce qu'Orion voit.</p>
-            <p><strong>Mémoire persistante</strong> — Détection automatique de prénoms, préférences, âge, travail, lieu → SQLite sur PC. Résumé automatique toutes les 16 messages.</p>
+            <p><strong>Cerveau + voix</strong> — <code>gemini-3.1-flash-live-preview</code> en mode <strong>Live</strong> : un WebSocket bidirectionnel où le micro est streamé en continu et Gemini répond en <strong>audio natif</strong> (pas de STT→texte→TTS). Voix native <strong>Leda</strong> (30 voix dispo, configurable via <code>ORION_LIVE_VOICE</code>).</p>
+            <p><strong>Contrôle moteur vocal</strong> — <strong>function calling</strong> : « avance », « tourne à droite », « stop » → Gemini appelle <code>move_robot(direction)</code> → <code>OrionRobot</code> → Arduino. Un outil <code>remember</code> écrit aussi en mémoire.</p>
+            <p><strong>Anti-écho</strong> — pour qu'Orion ne s'entende pas : mute micro pendant sa parole, <em>post-speech guard</em> 0.8&nbsp;s, et seuil RMS. VAD réglée (start LOW / end HIGH, prefix 200&nbsp;ms, silence 500&nbsp;ms).</p>
+            <p><strong>Mémoire persistante</strong> — SQLite <strong>locale sur le Pi</strong> (<code>orion_memory.db</code>) : prénoms, préférences, faits, compétences — aucune dépendance cloud pour la mémoire. STT Vosk offline conservé en <em>fallback</em>.</p>
           </div>
         </div>
         <div>
-          <h3 class="feature-card-title" style="margin-bottom:1rem;">11 émotions</h3>
+          <h3 class="feature-card-title" style="margin-bottom:1rem;">13 émotions</h3>
           <div class="project-stack" style="margin-top:0;">
             <span class="tech-pill">neutral</span>
             <span class="tech-pill">happy</span>
@@ -207,13 +208,15 @@
             <span class="tech-pill">thinking</span>
             <span class="tech-pill">sleepy</span>
             <span class="tech-pill">wink</span>
+            <span class="tech-pill">blink</span>
+            <span class="tech-pill">listening</span>
           </div>
           <p class="project-text" style="margin-top:1.5rem;">
-            13 formes SVG dans le visage animé V3 — double lèvres avec animation syllabique indépendante. Tags <code>[EMO:xxx]</code> extraits des réponses LLM → expression faciale.
+            Formes SVG multicouches du visage animé <strong>V4</strong> — double lèvres à animation syllabique, glow réactif à la voix, 10 palettes couleur. L'expression suit l'état émotionnel piloté par le prompt de personnalité.
           </p>
-          <h3 class="feature-card-title" style="margin-top:2rem; margin-bottom:1rem;">Conscience système</h3>
+          <h3 class="feature-card-title" style="margin-top:2rem; margin-bottom:1rem;">Une vraie attitude</h3>
           <p class="project-text">
-            Orion connaît : date/heure, période du jour, température CPU, RAM, uptime, état connexion serveur. Anti-hallucination strict sur les commentaires visuels.
+            Prompt de ton dédié : « condescendance élégante », hautaine mais pas méchante, répliques courtes et cinglantes, petits rires narquois. Orion connaît aussi son contexte système (heure, CPU, RAM, connexion) et s'interdit d'halluciner sur ce qu'elle voit.
           </p>
         </div>
       </div>
@@ -222,40 +225,41 @@
     <!-- Navigation autonome -->
     <section class="project-section">
       <span class="project-section-tag">Navigation</span>
-      <h2 class="project-section-title">Navigation autonome par vision</h2>
+      <h2 class="project-section-title">Navigation autonome par vision Gemini</h2>
       <div class="project-cols">
         <div class="project-text">
-          <p><strong>7 niveaux de décision</strong> — social, recul, contournement, esquive, ajustement, prudence, exploration. Fréquence 4 Hz.</p>
-          <p><strong>Anti-blocage</strong> — Escalade automatique : esquive → scan → demi-tour. Seuils de proximité configurables.</p>
-          <p><strong>PID différentiel V4.0</strong> — Correction trajectoire 20 Hz par encodeurs Hall avec filtre EMA (α=0.2). Gains Kp=5.0, Ki=0.04, Kd=0.3. Écart L/R réduit de 1.1% à 0.54%.</p>
+          <p><strong>Stop-and-go</strong> — pas de LIDAR : l'évitement repose à 100&nbsp;% sur la caméra frontale. Cycle : <em>STOP → photo → décision Gemini (~1&nbsp;s) → impulsion bornée → STOP</em>. Orion ne roule jamais à l'aveugle et ne peut plus foncer dans un mur nu. Modèle <em>lite</em> (<code>gemini-3.1-flash-lite</code>).</p>
+          <p><strong>Avance surveillée</strong> — pendant l'impulsion avant, une image fraîche est renvoyée à Gemini à mi-parcours : si un obstacle apparaît, l'avance est <strong>coupée tôt</strong>. Fini l'angle mort en cours de mouvement.</p>
+          <p><strong>Récupération « vision bouchée »</strong> — nez au mur, l'image devient uniforme (peu de détail, <code>std</code> bas) même si elle est <em>claire</em> : Orion le détecte et <strong>recule</strong> pour se dégager, au lieu de se figer.</p>
+          <p><strong>Anti-blocage encodeurs</strong> — impulsion commandée mais robot immobile (tapis, rainure) → escalade bornée : recul doux → recul fort → poussée max.</p>
         </div>
         <div>
           <div class="info-row" style="margin-top:0;">
             <div class="info-block">
-              <span class="info-block-label">Critique</span>
-              <span class="info-block-value info-block-value--accent">35%</span>
+              <span class="info-block-label">Modèle nav</span>
+              <span class="info-block-value info-block-value--accent">flash-lite</span>
             </div>
             <div class="info-block">
-              <span class="info-block-label">Proche</span>
-              <span class="info-block-value info-block-value--accent">12%</span>
+              <span class="info-block-label">Latence</span>
+              <span class="info-block-value info-block-value--accent">~1 s</span>
             </div>
             <div class="info-block">
-              <span class="info-block-label">Prudence</span>
-              <span class="info-block-value info-block-value--accent">5%</span>
+              <span class="info-block-label">Seuil « bouché »</span>
+              <span class="info-block-value info-block-value--accent">std&lt;30</span>
             </div>
           </div>
           <div class="info-row">
             <div class="info-block">
-              <span class="info-block-label">Vitesse max</span>
-              <span class="info-block-value">120 PWM</span>
+              <span class="info-block-label">Avance</span>
+              <span class="info-block-value">170 PWM</span>
             </div>
             <div class="info-block">
-              <span class="info-block-label">Tour</span>
-              <span class="info-block-value">100 PWM</span>
+              <span class="info-block-label">Virage</span>
+              <span class="info-block-value">150 PWM</span>
             </div>
             <div class="info-block">
-              <span class="info-block-label">Lente</span>
-              <span class="info-block-value">70 PWM</span>
+              <span class="info-block-label">Recul</span>
+              <span class="info-block-value">150 PWM</span>
             </div>
           </div>
         </div>
@@ -282,19 +286,19 @@
     <!-- Interface -->
     <section class="project-section">
       <span class="project-section-tag">Interface</span>
-      <h2 class="project-section-title">Visage SVG V3 + Dashboard</h2>
+      <h2 class="project-section-title">Visage SVG V4 + télécommande</h2>
       <div class="feature-grid">
         <div class="feature-card">
-          <h3 class="feature-card-title">/face (V3)</h3>
-          <p class="feature-card-desc">Yeux SVG multicouches avec fill dégradé, contour glow, highlight, halo ambiant. Triple bloom filter, bouche organique double lèvres, 10 palettes couleur par émotion.</p>
+          <h3 class="feature-card-title">/face (V4)</h3>
+          <p class="feature-card-desc">Yeux SVG multicouches (fill dégradé, contour glow, highlight, halo), bouche organique double lèvres, 10 palettes par émotion. V4 = V3 + scan d'allumage au boot + glow réactif à la voix. Un <strong>clic droit</strong> ouvre la maintenance réseau.</p>
         </div>
         <div class="feature-card">
-          <h3 class="feature-card-title">/dashboard (V4)</h3>
-          <p class="feature-card-desc">Design "Porcelaine Divine" (or/noir/blanc), 600×1024 portrait. 3 jauges (CPU, charge, RAM), waveform audio, sélecteur voix et modèle IA.</p>
+          <h3 class="feature-card-title">/control — télécommande</h3>
+          <p class="feature-card-desc">Interface mobile : joystick tactile → différentiel L/R, slider vitesse, flux caméra MJPEG, chat texte, boutons STOP / mode / mute, stats temps réel. L'IP LAN est affichée sur le visage via une capsule QR.</p>
         </div>
         <div class="feature-card">
-          <h3 class="feature-card-title">/splash (V4)</h3>
-          <p class="feature-card-desc">Écran de chargement : 6 modules avec spinners dorés, barre de progression, transition dissolve vers /face quand ready.</p>
+          <h3 class="feature-card-title">/wifi + /dashboard</h3>
+          <p class="feature-card-desc"><code>/wifi</code> : scan et connexion réseau (nmcli) sans clavier. <code>/dashboard</code> : design "Porcelaine Divine" 600×1024, jauges CPU/charge/RAM, waveform audio. <code>/splash</code> : boot 6 modules avec progression.</p>
         </div>
       </div>
     </section>
@@ -313,7 +317,7 @@
           <tr><td>Micro-contrôleur</td><td>Elegoo Mega 2560 + Screw Shield</td></tr>
           <tr><td>Moteurs</td><td>2× DC avant + 2× BTS7960 (pont en H)</td></tr>
           <tr><td>Encodeurs</td><td>2× rotatifs (ISR : INT5/INT4 gauche, INT0/INT1 droit)</td></tr>
-          <tr><td>Caméra</td><td>Webcam USB Logitech</td></tr>
+          <tr><td>Caméra</td><td>Webcam USB Logitech C270 (+ micro intégré)</td></tr>
           <tr><td>Écran</td><td>10.1" HDMI 1024×600 (portrait 600×1024)</td></tr>
           <tr><td>Audio</td><td>Micro USB + haut-parleur (PipeWire)</td></tr>
           <tr><td>Réseau</td><td>WiFi (wlan0) — power-save désactivé</td></tr>
@@ -324,22 +328,20 @@
     <!-- Threads -->
     <section class="project-section">
       <span class="project-section-tag">Threads</span>
-      <h2 class="project-section-title">8 threads concurrents</h2>
+      <h2 class="project-section-title">Boucles concurrentes</h2>
       <table class="spec-table">
         <thead>
-          <tr><th>Thread</th><th>Rôle</th><th>Fréquence</th></tr>
+          <tr><th>Boucle</th><th>Rôle</th><th>Fréquence</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>vision_loop_background</code></td><td>Capture caméra + Hailo + FaceID</td><td>~20 FPS</td></tr>
-          <tr><td><code>ear_process</code></td><td>Écoute micro Vosk, détection silence</td><td>Continu</td></tr>
-          <tr><td><code>speak_worker</code></td><td>File TTS → Piper → pw-play</td><td>À la demande</td></tr>
-          <tr><td><code>brain_process</code></td><td>Commentaires visuels spontanés</td><td>~120s</td></tr>
-          <tr><td><code>visual_reaction_process</code></td><td>Réactions rapides aux événements</td><td>~2s</td></tr>
-          <tr><td><code>arduino_process</code></td><td>Télémétrie Arduino + batterie</td><td>2s</td></tr>
-          <tr><td><code>autonomous_nav_process</code></td><td>Navigation IA par vision</td><td>4 Hz</td></tr>
+          <tr><td><code>gemini_live (WebSocket)</code></td><td>Audio natif bidirectionnel + tool calling <code>move_robot</code></td><td>Continu</td></tr>
+          <tr><td><code>vision_loop_background</code></td><td>Capture caméra + Hailo YOLOv8s + FaceID</td><td>~30 FPS (plafonné 12)</td></tr>
+          <tr><td><code>gemini_nav_process</code></td><td>Navigation autonome par vision Gemini (stop-and-go)</td><td>cycle ~2–3 s</td></tr>
+          <tr><td><code>arduino_process</code></td><td>Télémétrie Arduino + batterie</td><td>2 s</td></tr>
           <tr><td><code>_motor_safety_watchdog</code></td><td>Watchdog moteur Pi-side</td><td>5 Hz</td></tr>
         </tbody>
       </table>
+      <p class="project-text" style="margin-top:1rem;">Le tout dans un seul process Python : la cadence vision est <strong>plafonnée</strong> (<code>ORION_VISION_FPS</code>) pour éviter que le GIL et le lien USB partagé (micro + caméra sur la même C270) ne fassent saccader l'audio Live.</p>
     </section>
 
     <!-- API REST -->
@@ -356,7 +358,8 @@
             <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/reboot</span><span class="api-desc">Redémarrer le Pi</span></div>
           </div>
           <div class="api-group">
-            <h4 class="api-group-title">Voix & LLM</h4>
+            <h4 class="api-group-title">Voix & IA</h4>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/say</span><span class="api-desc">Faire parler Orion (texte → commande vocale)</span></div>
             <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/toggle_mute</span><span class="api-desc">Mode muet</span></div>
             <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/toggle_wakeword</span><span class="api-desc">Wake word on/off</span></div>
             <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/set_voice</span><span class="api-desc">Changer la voix TTS</span></div>
@@ -367,16 +370,25 @@
         <div>
           <div class="api-group">
             <h4 class="api-group-title">Vision & Visages</h4>
-            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/vision</span><span class="api-desc">Statut vision</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/vision</span><span class="api-desc">Statut vision + dernière scène</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/camera</span><span class="api-desc">Snapshot JPEG (+ /stream MJPEG)</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/face_status</span><span class="api-desc">Identité courante</span></div>
             <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/enroll_face</span><span class="api-desc">Inscrire un visage</span></div>
             <div class="api-row"><span class="api-method api-method--delete">DEL</span><span class="api-endpoint">/api/delete_face</span><span class="api-desc">Supprimer un visage</span></div>
+          </div>
+          <div class="api-group">
+            <h4 class="api-group-title">WiFi</h4>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/wifi/scan</span><span class="api-desc">Scanner les réseaux (nmcli)</span></div>
+            <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/wifi/connect</span><span class="api-desc">Se connecter à un réseau</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/wifi/status</span><span class="api-desc">État connexion (ssid, ip, internet)</span></div>
           </div>
           <div class="api-group">
             <h4 class="api-group-title">Moteurs & Navigation</h4>
             <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/move</span><span class="api-desc">Mouvement différentiel</span></div>
             <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/stop</span><span class="api-desc">Arrêt immédiat</span></div>
             <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/rotate</span><span class="api-desc">Rotation sur place</span></div>
-            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/drive_mode</span><span class="api-desc">Mode de conduite</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/motor_status</span><span class="api-desc">Moteurs + encodeurs + mode</span></div>
+            <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/drive_mode</span><span class="api-desc">Mode de conduite (manuel/autonome)</span></div>
             <div class="api-row"><span class="api-method api-method--get">GET</span><span class="api-endpoint">/api/pid</span><span class="api-desc">État PID</span></div>
             <div class="api-row"><span class="api-method api-method--post">POST</span><span class="api-endpoint">/api/pid</span><span class="api-desc">Configurer PID</span></div>
           </div>
@@ -394,16 +406,17 @@
         </thead>
         <tbody>
           <tr><td>Flask</td><td>3.1.2</td><td>Serveur web + API REST</td></tr>
+          <tr><td>websockets</td><td>16.0</td><td>Gemini Multimodal Live (audio natif)</td></tr>
+          <tr><td>PyAudio</td><td>0.2.14</td><td>Capture micro 16 kHz → Live</td></tr>
           <tr><td>opencv-python</td><td>4.13.0</td><td>Vision, FaceID, Haar cascades</td></tr>
-          <tr><td>vosk</td><td>0.3.45</td><td>STT offline français</td></tr>
-          <tr><td>ollama</td><td>0.6.1</td><td>Client LLM</td></tr>
-          <tr><td>ultralytics</td><td>8.4.12</td><td>YOLO fallback CPU</td></tr>
+          <tr><td>ultralytics</td><td>8.4.12</td><td>YOLO (fallback CPU du Hailo)</td></tr>
           <tr><td>torch</td><td>2.10.0</td><td>Backend YOLO</td></tr>
-          <tr><td>psutil</td><td>7.2.2</td><td>Monitoring système</td></tr>
           <tr><td>numpy</td><td>2.4.2</td><td>Calculs vision + encodages</td></tr>
+          <tr><td>vosk / ollama</td><td>0.3.45 / 0.6.1</td><td>STT + LLM locaux (fallback)</td></tr>
+          <tr><td>psutil</td><td>7.2.2</td><td>Monitoring système</td></tr>
         </tbody>
       </table>
-      <p class="project-text" style="margin-top:1rem;">58 dépendances au total. Projet 100% portable — aucun chemin hardcodé.</p>
+      <p class="project-text" style="margin-top:1rem;">60 dépendances au total. Projet 100% portable — chemins relatifs, clés dans <code>.env</code>.</p>
     </section>
 
     <!-- ============================================ -->
