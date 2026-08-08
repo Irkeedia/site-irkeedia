@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phantom Social — qui est l’agent ? | Irkeedia Labs</title>
+  <meta name="description" content="Phantom Social : jeu mobile Flutter, 100 % local et sans IA cloud. Un faux réseau social où l’un des profils est un agent adversarial — enquête, élimine des suspects, accuse." />
+  <meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#070a11" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    // Reprend le thème choisi sur le hub, avant le premier rendu.
+    (function () {
+      var saved = null
+      try { saved = localStorage.getItem('ik-theme') } catch (e) {}
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
+    })()
+  </script>
+</head>
+<body class="project-page">
+
+  <nav class="project-nav">
+    <div class="project-nav-left">
+      <a href="/" class="project-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Retour au hub
+      </a>
+    </div>
+    <div class="project-nav-right">
+      <a href="/" class="project-nav-logo">
+        <span class="logo-mark">ik</span>
+        <span class="logo-text">Irkeedia Labs</span>
+      </a>
+      <button class="project-theme-toggle" id="themeToggle" type="button" aria-label="Changer de thème">
+        <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></svg>
+        <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <header class="project-hero">
+    <div class="project-hero-tag">
+      <span class="status-dot"></span>
+      Jeu mobile · IA locale
+    </div>
+    <h1 class="project-hero-title">Phantom <span class="text-accent">Social</span></h1>
+    <p class="project-hero-subtitle"><strong>Qui est l’agent ?</strong> Tu navigues dans un faux réseau social — feed, explore, messages privés. L’un des profils est un agent. Enquête, élimine des suspects, accuse. Comme « Qui est-ce ? », en interactif.</p>
+    <div class="project-hero-meta">
+      <span class="project-meta-pill project-meta-pill--accent">Prototype</span>
+      <span class="project-meta-pill">Flutter</span>
+      <span class="project-meta-pill">Android · iOS · Web</span>
+      <span class="project-meta-pill">Hors ligne</span>
+      <span class="project-meta-pill">Sans backend</span>
+    </div>
+    <div class="project-hero-visual">
+      <div class="project-hero-visual-bg" style="background: linear-gradient(140deg, #0a0718 0%, #2a1650 32%, #1d3f6e 66%, #12836f 100%)"></div>
+      <div class="project-hero-visual-grid"></div>
+    </div>
+  </header>
+
+  <div class="project-content">
+
+    <section class="project-section">
+      <span class="project-section-tag">Boucle</span>
+      <h2 class="project-section-title">Une partie</h2>
+      <div class="archi-block">
+        <pre>1.  Choisis un réseau        Campus · Ville · Gaming · Pro
+2.  Explore                  Feed / Explorer / Messages privés
+3.  Chaque action coûte      1 coup — 2 coups par tour
+4.  L&#x27;agent réagit           bios modifiées, leurres, DM, provocations
+5.  Accuse                   bon profil = victoire
+                             3 erreurs ou fin du chrono = défaite</pre>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <span class="project-section-tag">Le pari</span>
+      <h2 class="project-section-title">Aucune IA cloud</h2>
+      <div class="project-cols">
+        <div class="project-text">
+          <p>Le réseau social est généré par un algorithme local : profils, publications, relations, historiques. Rien n’est prégénéré à la main, rien n’est appelé sur un serveur.</p>
+          <p>L’adversaire aussi est local. Il ne s’agit pas d’un modèle de langage mais d’une logique de dissimulation : il modifie ses traces, sème des leurres et pousse le joueur vers de faux suspects.</p>
+        </div>
+        <div class="project-text">
+          <p>Conséquence directe : aucune clé d’API, aucun backend, aucun coût par partie, et un jeu qui fonctionne dans l’avion.</p>
+          <p>C’est aussi ce qui rend la publication simple — rien à héberger, rien à surveiller, rien à facturer.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <span class="project-section-tag">Réseaux</span>
+      <h2 class="project-section-title">Quatre terrains d’enquête</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">Campus</h3>
+          <p class="feature-card-desc">Petites promotions, relations denses, rumeurs qui circulent vite. Le bon terrain pour apprendre à lire un graphe social.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Ville</h3>
+          <p class="feature-card-desc">Plus de profils, moins de liens évidents. Il faut croiser les publications plutôt que suivre les amitiés.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Gaming</h3>
+          <p class="feature-card-desc">Pseudos, avatars, activité en rafale. Les habitudes de publication deviennent l’indice principal.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Pro</h3>
+          <p class="feature-card-desc">Profils policés, formulations proches. Distinguer l’agent demande d’attraper les incohérences de parcours.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <span class="project-section-tag">Technique</span>
+      <h2 class="project-section-title">Sous le capot</h2>
+      <table class="spec-table">
+        <tbody>
+          <tr><th>Framework</th><td>Flutter — Android, iOS et Web depuis une seule base</td></tr>
+          <tr><th>État</th><td>Provider</td></tr>
+          <tr><th>Génération</th><td>Algorithme local : réseau, profils et agent adversarial</td></tr>
+          <tr><th>Réseau requis</th><td>Aucun</td></tr>
+          <tr><th>Clés d’API</th><td>Aucune</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+
+  <div class="project-cta-banner">
+    <h3>Un jeu, un prototype, une idée ?</h3>
+    <p>Mécanique locale, publication simple, pas de coût récurrent.</p>
+    <a href="mailto:irkeedia.com@gmail.com" class="btn-liquid btn-liquid--dark">
+      <span class="btn-liquid-fill"></span>
+      <span class="btn-liquid-text">Me contacter</span>
+      <span class="btn-liquid-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+  </div>
+
+  <footer class="project-footer">
+    <div class="project-footer-left">
+      <span>© <span id="year"></span> Irkeedia Labs</span>
+      <span>·</span>
+      <span>Tous droits réservés</span>
+    </div>
+    <div class="project-footer-right">
+      <a href="/mentions-legales.html">Mentions légales</a>
+      <a href="/#board">← Retour au hub</a>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/project-init.js"></script>
+</body>
+</html>

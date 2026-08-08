@@ -76,5 +76,23 @@ document.querySelectorAll('.info-row').forEach((row) => {
 
 initCookies()
 
+// Bascule clair / sombre — même clé de stockage que le hub.
+const themeToggle = document.getElementById('themeToggle')
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+    document.documentElement.setAttribute('data-theme', next)
+    try {
+      localStorage.setItem('ik-theme', next)
+    } catch (e) {
+      /* stockage indisponible : le thème reste valable pour la session */
+    }
+  })
+}
+
+// Année courante dans le pied de page.
+const yearEl = document.getElementById('year')
+if (yearEl) yearEl.textContent = String(new Date().getFullYear())
+
 // Navigation classique (rechargement complet) : la SPA injectait le HTML sans
 // transition fluide et provoquait un flash désagréable entre pages projet.

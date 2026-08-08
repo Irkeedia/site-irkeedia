@@ -3,152 +3,170 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mentions légales | IRKEEDIA LABS</title>
-  <meta name="description" content="Mentions légales du site Irkeedia Labs." />
-  <meta name="theme-color" content="#ffffff" />
+  <title>Mentions légales | Irkeedia Labs</title>
+  <meta name="description" content="Mentions légales du site Irkeedia Labs : éditeur, hébergeur, propriété intellectuelle, protection des données personnelles et droit applicable." />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#070a11" media="(prefers-color-scheme: dark)" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    // Reprend le thème choisi sur le hub, avant le premier rendu.
+    (function () {
+      var saved = null
+      try { saved = localStorage.getItem('ik-theme') } catch (e) {}
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
+    })()
+  </script>
 </head>
-<body>
-  <header class="header">
-    <div class="container nav">
-      <a class="brand" href="/">IRKEEDIA LABS</a>
-      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuLinks">
-        Menu
-      </button>
-      <nav class="links" id="menuLinks">
-        <a href="/#charlie-codex">Charlie Codex</a>
-        <a href="/silence-of-celeste.html">Silence of Céleste</a>
-        <a href="/#the-hunt">THE HUNT</a>
-        <a href="/#dead-grid">DEAD GRID</a>
-        <a href="/#sites-vitrine">Sites</a>
-        <a href="/#projets">Projets</a>
-        <a href="/#categories">Catégories</a>
-        <a href="/#apropos">À propos</a>
-        <a href="/#contact">Contact</a>
-      </nav>
+<body class="project-page">
+
+  <nav class="project-nav">
+    <div class="project-nav-left">
+      <a href="/" class="project-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Retour au hub
+      </a>
     </div>
+    <div class="project-nav-right">
+      <a href="/" class="project-nav-logo">
+        <span class="logo-mark">ik</span>
+        <span class="logo-text">Irkeedia Labs</span>
+      </a>
+      <button class="project-theme-toggle" id="themeToggle" type="button" aria-label="Changer de thème">
+        <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></svg>
+        <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <header class="project-hero">
+    <div class="project-hero-tag">
+      <span class="status-dot"></span>
+      Informations légales
+    </div>
+    <h1 class="project-hero-title">Mentions <span class="text-accent">légales</span></h1>
+    <p class="project-hero-subtitle">
+      Conformément aux articles 6-III et 19 de la loi n° 2004-575 du 21 juin 2004 pour la confiance
+      dans l’économie numérique (LCEN).
+    </p>
   </header>
 
-  <main class="hub-subpage" id="top">
-    <article class="section legal-doc">
-      <div class="container container-narrow">
-        <header class="legal-doc-header">
-          <h1>Mentions légales</h1>
-          <p class="legal-doc-intro">
-            Conformément aux articles 6-III et 19 de la loi n°2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique (LCEN).
-          </p>
-        </header>
+  <div class="project-content">
 
-        <section class="legal-block" aria-labelledby="legal-1">
-          <h2 id="legal-1">1. Éditeur du site</h2>
-          <table class="legal-table">
-            <tbody>
-              <tr><td>Raison sociale</td><td>Irkeedia Labs — Mathieu Toffolon</td></tr>
-              <tr><td>Statut</td><td>Auto-entrepreneur (micro-entreprise)</td></tr>
-              <tr><td>Responsable de publication</td><td>Mathieu Toffolon</td></tr>
-              <tr><td>Adresse</td><td>Narbonne, Aude (11), France</td></tr>
-              <tr><td>Email</td><td><a href="mailto:irkeedia.com@gmail.com">irkeedia.com@gmail.com</a></td></tr>
-              <tr><td>Téléphone</td><td><a href="tel:+33781730114">07 81 73 01 14</a></td></tr>
-            </tbody>
-          </table>
-        </section>
+    <section class="project-section">
+      <span class="project-section-tag">01</span>
+      <h2 class="project-section-title">Éditeur du site</h2>
+      <table class="spec-table">
+        <tbody>
+          <tr><th>Raison sociale</th><td>Irkeedia Labs — Mathieu Toffolon</td></tr>
+          <tr><th>Statut</th><td>Auto-entrepreneur (micro-entreprise)</td></tr>
+          <tr><th>Responsable de publication</th><td>Mathieu Toffolon</td></tr>
+          <tr><th>Adresse</th><td>Narbonne, Aude (11), France</td></tr>
+          <tr><th>Email</th><td><a href="mailto:irkeedia.com@gmail.com">irkeedia.com@gmail.com</a></td></tr>
+          <tr><th>Téléphone</th><td><a href="tel:+33781730114">07 81 73 01 14</a></td></tr>
+        </tbody>
+      </table>
+    </section>
 
-        <section class="legal-block" aria-labelledby="legal-2">
-          <h2 id="legal-2">2. Hébergeur</h2>
-          <table class="legal-table">
-            <tbody>
-              <tr><td>Nom</td><td>Vercel Inc.</td></tr>
-              <tr><td>Adresse</td><td>440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</td></tr>
-              <tr><td>Site web</td><td><a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a></td></tr>
-            </tbody>
-          </table>
-        </section>
+    <section class="project-section">
+      <span class="project-section-tag">02</span>
+      <h2 class="project-section-title">Hébergeur</h2>
+      <table class="spec-table">
+        <tbody>
+          <tr><th>Nom</th><td>Vercel Inc.</td></tr>
+          <tr><th>Adresse</th><td>440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</td></tr>
+          <tr><th>Site web</th><td><a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a></td></tr>
+        </tbody>
+      </table>
+    </section>
 
-        <section class="legal-block" aria-labelledby="legal-3">
-          <h2 id="legal-3">3. Propriété intellectuelle</h2>
-          <p>
-            L’ensemble du contenu de ce site (textes, images, graphismes, logo, icônes, code source, animations, vidéos) est la propriété exclusive de Mathieu Toffolon / Irkeedia Labs, sauf mention contraire.
-          </p>
-          <p>
-            Toute reproduction, distribution, modification, adaptation, retransmission ou publication de ces éléments est strictement interdite sans l’accord écrit préalable de Mathieu Toffolon. Conformément aux articles L.335-2 et suivants du Code de la propriété intellectuelle, toute contrefaçon est passible de sanctions pénales.
-          </p>
-        </section>
-
-        <section class="legal-block" aria-labelledby="legal-4">
-          <h2 id="legal-4">4. Protection des données personnelles</h2>
-          <p>
-            Conformément au RGPD (UE 2016/679) et à la loi « Informatique et Libertés » du 6 janvier 1978 modifiée, vous disposez des droits d’accès, de rectification, de suppression, de portabilité et d’opposition concernant vos données personnelles.
-          </p>
-          <div class="legal-cards">
-            <div class="legal-mini-card">
-              <h3>Données collectées</h3>
-              <p>Via le contact par email : adresse et contenu de votre message. Utilisation limitée à la réponse à votre demande.</p>
-            </div>
-            <div class="legal-mini-card">
-              <h3>Conservation</h3>
-              <p>Durée nécessaire au traitement de la demande, puis suppression dans un délai maximum de 12 mois.</p>
-            </div>
-            <div class="legal-mini-card">
-              <h3>Exercer vos droits</h3>
-              <p>Écrire à <a href="mailto:irkeedia.com@gmail.com">irkeedia.com@gmail.com</a>.</p>
-            </div>
-            <div class="legal-mini-card">
-              <h3>Pas de revente</h3>
-              <p>Aucune cession à des tiers à titre commercial. Hébergement pouvant impliquer un transfert technique hors UE (Vercel).</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="legal-block" aria-labelledby="legal-5">
-          <h2 id="legal-5">5. Cookies & stockage local</h2>
-          <p>
-            Le hub peut enregistrer des préférences (par ex. consentement) dans le stockage local du navigateur. Aucun traceur publicitaire ni mesure d’audience type Google Analytics n’est intégré sur cette vitrine.
-          </p>
-        </section>
-
-        <section class="legal-block" aria-labelledby="legal-6">
-          <h2 id="legal-6">6. Limitation de responsabilité</h2>
-          <p>
-            Mathieu Toffolon / Irkeedia Labs s’efforce de fournir des informations exactes. Il ne saurait être tenu responsable des omissions, inexactitudes ou carences de mise à jour, ni des dommages liés à l’usage du site ou à l’impossibilité d’y accéder.
-          </p>
-        </section>
-
-        <section class="legal-block" aria-labelledby="legal-7">
-          <h2 id="legal-7">7. Liens hypertextes</h2>
-          <p>
-            Les liens vers des sites tiers n’engagent pas la responsabilité d’Irkeedia Labs quant à leur contenu.
-          </p>
-        </section>
-
-        <section class="legal-block" aria-labelledby="legal-8">
-          <h2 id="legal-8">8. Droit applicable</h2>
-          <p>
-            Droit français. Litiges : tribunaux français compétents après tentative amiable.
-          </p>
-          <p class="legal-date">Dernière mise à jour : avril 2026</p>
-        </section>
+    <section class="project-section">
+      <span class="project-section-tag">03</span>
+      <h2 class="project-section-title">Propriété intellectuelle</h2>
+      <div class="project-text" style="max-width:52rem;">
+        <p>L’ensemble du contenu de ce site (textes, images, graphismes, logo, icônes, code source, animations, vidéos) est la propriété exclusive de Mathieu Toffolon / Irkeedia Labs, sauf mention contraire.</p>
+        <p>Toute reproduction, distribution, modification, adaptation, retransmission ou publication de ces éléments est strictement interdite sans l’accord écrit préalable de Mathieu Toffolon. Conformément aux articles L.335-2 et suivants du Code de la propriété intellectuelle, toute contrefaçon est passible de sanctions pénales.</p>
       </div>
-    </article>
-  </main>
+    </section>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div>
-        <h2>Contact</h2>
-        <p>Une question ?</p>
-        <a class="mail" href="mailto:irkeedia.com@gmail.com">irkeedia.com@gmail.com</a>
+    <section class="project-section">
+      <span class="project-section-tag">04</span>
+      <h2 class="project-section-title">Protection des données personnelles</h2>
+      <div class="project-text" style="max-width:52rem; margin-bottom:2rem;">
+        <p>Conformément au RGPD (UE 2016/679) et à la loi « Informatique et Libertés » du 6 janvier 1978 modifiée, vous disposez des droits d’accès, de rectification, de suppression, de portabilité et d’opposition concernant vos données personnelles.</p>
       </div>
-      <div class="footer-meta">
-        <span id="year"></span> IRKEEDIA LABS
-        <a href="/">Retour à l’accueil</a>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 class="feature-card-title">Données collectées</h3>
+          <p class="feature-card-desc">Via le contact par email : adresse et contenu de votre message. Utilisation limitée à la réponse à votre demande.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Conservation</h3>
+          <p class="feature-card-desc">Durée nécessaire au traitement de la demande, puis suppression dans un délai maximum de 12 mois.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Exercer vos droits</h3>
+          <p class="feature-card-desc">Écrire à <a href="mailto:irkeedia.com@gmail.com">irkeedia.com@gmail.com</a>.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-card-title">Pas de revente</h3>
+          <p class="feature-card-desc">Aucune cession à des tiers à titre commercial. L’hébergement peut impliquer un transfert technique hors UE (Vercel).</p>
+        </div>
       </div>
+    </section>
+
+    <section class="project-section">
+      <span class="project-section-tag">05</span>
+      <h2 class="project-section-title">Cookies &amp; stockage local</h2>
+      <div class="project-text" style="max-width:52rem;">
+        <p>Le hub enregistre une seule préférence dans le stockage local du navigateur : le thème clair ou sombre choisi. Aucun traceur publicitaire ni mesure d’audience type Google Analytics n’est intégré sur cette vitrine.</p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <span class="project-section-tag">06</span>
+      <h2 class="project-section-title">Limitation de responsabilité</h2>
+      <div class="project-text" style="max-width:52rem;">
+        <p>Mathieu Toffolon / Irkeedia Labs s’efforce de fournir des informations exactes. Il ne saurait être tenu responsable des omissions, inexactitudes ou carences de mise à jour, ni des dommages liés à l’usage du site ou à l’impossibilité d’y accéder.</p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <span class="project-section-tag">07</span>
+      <h2 class="project-section-title">Liens hypertextes</h2>
+      <div class="project-text" style="max-width:52rem;">
+        <p>Les liens vers des sites tiers n’engagent pas la responsabilité d’Irkeedia Labs quant à leur contenu.</p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <span class="project-section-tag">08</span>
+      <h2 class="project-section-title">Droit applicable</h2>
+      <div class="project-text" style="max-width:52rem;">
+        <p>Droit français. Litiges : tribunaux français compétents après tentative amiable.</p>
+        <p><em>Dernière mise à jour : août 2026.</em></p>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="project-footer">
+    <div class="project-footer-left">
+      <span>© <span id="year"></span> Irkeedia Labs</span>
+      <span>·</span>
+      <span>Tous droits réservés</span>
+    </div>
+    <div class="project-footer-right">
+      <a href="mailto:irkeedia.com@gmail.com">irkeedia.com@gmail.com</a>
+      <a href="/">← Retour à l’accueil</a>
     </div>
   </footer>
 
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/project-init.js"></script>
 </body>
 </html>
