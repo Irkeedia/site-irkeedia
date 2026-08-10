@@ -1301,6 +1301,28 @@ p {
   }
 }
 
+/* Cibles tactiles : 44 px minimum sur écran tactile, sans grossir
+   le visuel — on joue sur la zone, pas sur la taille apparente. */
+@media (pointer: coarse) {
+  .brand,
+  .nav-links a,
+  .footer-links a,
+  .filter {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .icon-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .pin-body h3 {
+    padding-block: 0.15rem;
+  }
+}
+
 @media (max-width: 560px) {
   .board {
     columns: 1;
