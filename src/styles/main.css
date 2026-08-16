@@ -362,18 +362,20 @@ p {
 }
 
 .brand-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  background: var(--gradient);
-  color: #fff;
-  font-family: var(--font-display);
-  font-size: 1.06rem;
-  line-height: 1;
-  padding-bottom: 2px;
-  box-shadow: 0 6px 18px rgba(31, 79, 216, 0.3);
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 9px;
+  object-fit: contain;
+}
+
+/* Le monogramme est bleu nuit : sur fond sombre ou sur une photo, une
+   plaque claire lui rend son contraste. */
+[data-theme="dark"] .brand-mark,
+.header.is-over-media .brand-mark {
+  background: rgba(255, 255, 255, 0.94);
+  padding: 3px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
 
 .brand-name {
