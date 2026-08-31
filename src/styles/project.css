@@ -690,6 +690,84 @@
   margin-top: 2rem;
 }
 
+/* ===== CAPTURES D'ÉCRAN =====
+   Les fiches projet étaient jusqu'ici sans visuel. Ces classes servent à
+   présenter de vraies captures : cadre discret, légende sous l'image. */
+.shot {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-card);
+  box-shadow: var(--card-shadow);
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  /* indispensable : sans lui, l'attribut height du HTML s'applique comme
+     hauteur de présentation et fausse le calcul du ratio */
+  height: auto;
+}
+
+.shot--hero {
+  margin-top: 3rem;
+}
+
+.shot-caption {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.shot-caption b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Deux colonnes fixes plutôt qu'auto-fit : avec quatre captures, un auto-fit
+   passe à trois colonnes sur grand écran et laisse la dernière orpheline. */
+.shot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 760px) {
+  .shot-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Capture verticale du téléphone, posée à côté du texte explicatif. */
+.shot-duo {
+  display: grid;
+  grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.shot--phone {
+  border-radius: 22px;
+}
+
+.shot-duo .project-text p + p {
+  margin-top: 1rem;
+}
+
+@media (max-width: 700px) {
+  .shot-duo {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .shot--phone {
+    max-width: 240px;
+  }
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .project-cols {

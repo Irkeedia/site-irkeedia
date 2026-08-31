@@ -17,6 +17,7 @@ export default defineConfig({
         sunoPlayer: resolve(__dirname, 'suno-player.html'),
         mentionsLegales: resolve(__dirname, 'mentions-legales.html'),
         silenceOfCeleste: resolve(__dirname, 'silence-of-celeste.html'),
+        celesteFard: resolve(__dirname, 'celeste-fard.html'),
         theHunt: resolve(__dirname, 'the-hunt.html'),
         theHunt3d: resolve(__dirname, 'the-hunt-3d.html'),
         deadGrid: resolve(__dirname, 'dead-grid.html'),

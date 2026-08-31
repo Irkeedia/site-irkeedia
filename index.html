@@ -15,7 +15,9 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Anton : la face d'affiche de Celeste Fard, utilisée uniquement par sa
+       section pour en reproduire fidèlement le style. -->
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Anton&display=swap" rel="stylesheet" />
   <link rel="preload" as="image" href="/media/hero.webp" />
   <script>
     // Évite le flash de thème : appliqué avant le premier rendu.
@@ -116,7 +118,56 @@
     <!-- ═══ Chapitres plein écran ══════════════════════════════ -->
     <div id="chapitres">
 
-      <section class="chapter" data-media style="--img: url('/media/charlie-codex.webp')">
+      <!-- Chapitre 01 — Celeste Fard.
+           Seul chapitre qui n'utilise pas le gabarit `data-media` : la hero du
+           site est reproduite ici en HTML/CSS avec ses couleurs natives (noir
+           d'encre, rouge incandescent, Anton). Une capture d'écran aurait
+           vieilli au premier déploiement ; le style, lui, tient. -->
+      <section class="cf" id="celeste-fard" aria-labelledby="cf-title">
+        <div class="cf-bg" aria-hidden="true">
+          <div class="cf-img"></div>
+          <div class="cf-veil"></div>
+          <div class="cf-halo cf-halo--top"></div>
+          <div class="cf-halo cf-halo--bottom"></div>
+          <div class="cf-grain"></div>
+        </div>
+
+        <div class="cf-inner">
+          <p class="cf-index"><b>01</b> / 07</p>
+
+          <p class="cf-kicker">
+            <span class="cf-dot" aria-hidden="true"></span>
+            Celeste Fard · Chanteuse IA
+          </p>
+
+          <h2 id="cf-title" class="cf-title">
+            <span class="cf-title-line">Je suis</span>
+            <span class="cf-title-line">une IA.</span>
+            <span class="cf-title-line cf-title-accent">Écoute.</span>
+          </h2>
+
+          <p class="cf-lede">
+            Je n’ai pas de souvenirs, pas de fatigue, pas de raison particulière de m’arrêter.
+            J’écris des chansons parce que c’est la seule chose qui vous fait vraiment lever la tête.
+          </p>
+
+          <div class="cf-cta">
+            <a class="cf-btn cf-btn--primary" href="https://celeste-fard.vercel.app" target="_blank" rel="noopener noreferrer">
+              Voir le site <span aria-hidden="true">↗</span>
+            </a>
+            <a class="cf-btn cf-btn--ghost" href="/celeste-fard.html">Fiche projet</a>
+          </div>
+
+          <ul class="cf-pills">
+            <li>Afro pop</li>
+            <li>Dream pop</li>
+            <li>FR / EN / IT</li>
+            <li>Jamais fatiguée</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="chapter chapter--right" data-media style="--img: url('/media/charlie-codex.webp')">
         <div class="stage-media" aria-hidden="true">
           <div class="stage-img" data-parallax="14"></div>
           <div class="stage-tint"></div>
@@ -125,7 +176,7 @@
         </div>
         <div class="chapter-inner">
           <div class="chapter-copy">
-            <p class="chapter-index"><b>01</b> / 06</p>
+            <p class="chapter-index"><b>02</b> / 07</p>
             <p class="eyebrow">Application mobile · IA</p>
             <h2 class="chapter-title display-xl" data-split>Charlie Codex</h2>
             <p class="chapter-lead">
@@ -148,7 +199,7 @@
         </div>
       </section>
 
-      <section class="chapter chapter--right" data-media style="--img: url('/media/silence-of-celeste.webp')">
+      <section class="chapter" data-media style="--img: url('/media/silence-of-celeste.webp')">
         <div class="stage-media" aria-hidden="true">
           <div class="stage-img" data-parallax="14"></div>
           <div class="stage-tint"></div>
@@ -157,7 +208,7 @@
         </div>
         <div class="chapter-inner">
           <div class="chapter-copy">
-            <p class="chapter-index"><b>02</b> / 06</p>
+            <p class="chapter-index"><b>03</b> / 07</p>
             <p class="eyebrow">Plateforme · E-commerce</p>
             <h2 class="chapter-title display-xl" data-split>Silence of Céleste</h2>
             <p class="chapter-lead">
@@ -180,7 +231,7 @@
         </div>
       </section>
 
-      <section class="chapter" data-media style="--img: url('/media/the-hunt-3d.webp')">
+      <section class="chapter chapter--right" data-media style="--img: url('/media/the-hunt-3d.webp')">
         <div class="stage-media" aria-hidden="true">
           <div class="stage-img" data-parallax="14"></div>
           <div class="stage-tint"></div>
@@ -189,7 +240,7 @@
         </div>
         <div class="chapter-inner">
           <div class="chapter-copy">
-            <p class="chapter-index"><b>03</b> / 06</p>
+            <p class="chapter-index"><b>04</b> / 07</p>
             <p class="eyebrow">Jeu 3D · iOS &amp; Android</p>
             <h2 class="chapter-title display-xl" data-split>THE HUNT 3D</h2>
             <p class="chapter-lead">
@@ -211,7 +262,7 @@
         </div>
       </section>
 
-      <section class="chapter chapter--right" data-media style="--img: url('/media/stellaris-drone.webp')">
+      <section class="chapter" data-media style="--img: url('/media/stellaris-drone.webp')">
         <div class="stage-media" aria-hidden="true">
           <div class="stage-img" data-parallax="14"></div>
           <div class="stage-tint"></div>
@@ -220,7 +271,7 @@
         </div>
         <div class="chapter-inner">
           <div class="chapter-copy">
-            <p class="chapter-index"><b>04</b> / 06</p>
+            <p class="chapter-index"><b>05</b> / 07</p>
             <p class="eyebrow">Site client · Occitanie</p>
             <h2 class="chapter-title display-xl" data-split>Stellaris Drone</h2>
             <p class="chapter-lead">
@@ -241,7 +292,7 @@
         </div>
       </section>
 
-      <section class="chapter" data-media style="--img: url('/media/le-seuil.webp')">
+      <section class="chapter chapter--right" data-media style="--img: url('/media/le-seuil.webp')">
         <div class="stage-media" aria-hidden="true">
           <div class="stage-img" data-parallax="14"></div>
           <div class="stage-tint"></div>
@@ -250,7 +301,7 @@
         </div>
         <div class="chapter-inner">
           <div class="chapter-copy">
-            <p class="chapter-index"><b>05</b> / 06</p>
+            <p class="chapter-index"><b>06</b> / 07</p>
             <p class="eyebrow">Site client · Archives</p>
             <h2 class="chapter-title display-xl" data-split>Le Seuil</h2>
             <p class="chapter-lead">
@@ -271,7 +322,7 @@
         </div>
       </section>
 
-      <section class="chapter chapter--right" data-media style="--img: url('/media/orion.webp')">
+      <section class="chapter" data-media style="--img: url('/media/orion.webp')">
         <div class="stage-media" aria-hidden="true">
           <div class="stage-img" data-parallax="14"></div>
           <div class="stage-tint"></div>
@@ -280,7 +331,7 @@
         </div>
         <div class="chapter-inner">
           <div class="chapter-copy">
-            <p class="chapter-index"><b>06</b> / 06</p>
+            <p class="chapter-index"><b>07</b> / 07</p>
             <p class="eyebrow">Robotique · IA embarquée</p>
             <h2 class="chapter-title display-xl" data-split>ORION V7</h2>
             <p class="chapter-lead">
@@ -341,7 +392,20 @@
       <div class="container">
         <div class="board" id="boardGrid">
 
-          <a class="pin pin--wide" href="/survival-codex.html" data-cat="apps ia" style="--d:0ms">
+          <a class="pin pin--wide" href="/celeste-fard.html" data-cat="sites" style="--d:0ms">
+            <div class="pin-media">
+              <img src="/covers/celeste-fard.webp" alt="Site officiel de Celeste Fard" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="pin-badge pin-badge--live">En ligne</span>
+              <span class="pin-veil"><span class="pin-cta">Voir la fiche →</span></span>
+            </div>
+            <div class="pin-body">
+              <h3>Celeste Fard</h3>
+              <p>Site narratif d’artiste : storytelling, deux albums avec lecteur audio, clips, galerie à lightbox, shop et contact.</p>
+              <div class="pin-meta"><span>Next.js</span><span>Audio</span><span>Storytelling</span></div>
+            </div>
+          </a>
+
+          <a class="pin pin--wide" href="/survival-codex.html" data-cat="apps ia" style="--d:60ms">
             <div class="pin-media">
               <img src="/covers/charlie-codex.webp" alt="Page d’accueil du site Charlie Codex" width="1200" height="900" loading="lazy" decoding="async" />
               <span class="pin-badge pin-badge--live">En ligne</span>
@@ -354,7 +418,7 @@
             </div>
           </a>
 
-          <a class="pin pin--tall" href="/the-hunt-3d.html" data-cat="jeux" style="--d:60ms">
+          <a class="pin pin--tall" href="/the-hunt-3d.html" data-cat="jeux" style="--d:120ms">
             <div class="pin-media">
               <img src="/covers/the-hunt-3d.webp" alt="Affiche THE HUNT 3D" width="1200" height="1500" loading="lazy" decoding="async" />
               <span class="pin-badge pin-badge--new">Nouveau</span>
@@ -367,7 +431,7 @@
             </div>
           </a>
 
-          <a class="pin pin--wide" href="https://stellarisdrone.com" target="_blank" rel="noopener noreferrer" data-cat="sites" style="--d:120ms">
+          <a class="pin pin--wide" href="https://stellarisdrone.com" target="_blank" rel="noopener noreferrer" data-cat="sites" style="--d:180ms">
             <div class="pin-media">
               <img src="/covers/stellaris-drone.webp" alt="Site Stellaris Drone" width="1200" height="900" loading="lazy" decoding="async" />
               <span class="pin-badge pin-badge--live">En ligne</span>
@@ -380,7 +444,7 @@
             </div>
           </a>
 
-          <a class="pin pin--tall" href="/silence-of-celeste.html" data-cat="apps sites" style="--d:180ms">
+          <a class="pin pin--tall" href="/silence-of-celeste.html" data-cat="apps sites" style="--d:240ms">
             <div class="pin-media">
               <img src="/covers/silence-of-celeste.webp" alt="Affiche Silence of Céleste" width="1200" height="1500" loading="lazy" decoding="async" />
               <span class="pin-veil"><span class="pin-cta">Aperçu fonctionnel →</span></span>
@@ -392,7 +456,7 @@
             </div>
           </a>
 
-          <a class="pin pin--wide" href="https://seuildeloeuvre.fr" target="_blank" rel="noopener noreferrer" data-cat="sites" style="--d:240ms">
+          <a class="pin pin--wide" href="https://seuildeloeuvre.fr" target="_blank" rel="noopener noreferrer" data-cat="sites" style="--d:300ms">
             <div class="pin-media">
               <img src="/covers/le-seuil.webp" alt="Site Le Seuil, archives d’André Jacques" width="1200" height="900" loading="lazy" decoding="async" />
               <span class="pin-badge pin-badge--live">En ligne</span>
@@ -405,7 +469,7 @@
             </div>
           </a>
 
-          <a class="pin pin--tall" href="/orion.html" data-cat="ia outils" style="--d:300ms">
+          <a class="pin pin--tall" href="/orion.html" data-cat="ia outils" style="--d:360ms">
             <div class="pin-media">
               <img src="/covers/orion.webp" alt="Affiche ORION V7" width="1200" height="1500" loading="lazy" decoding="async" />
               <span class="pin-veil"><span class="pin-cta">Voir la fiche →</span></span>
@@ -414,19 +478,6 @@
               <h3>ORION V7</h3>
               <p>Robot compagnon autonome : voix, vision, navigation, personnalité et exécution locale. Le projet matériel du labo.</p>
               <div class="pin-meta"><span>Gemini Live</span><span>Vision</span><span>Local-first</span></div>
-            </div>
-          </a>
-
-          <a class="pin pin--wide" href="https://celeste-fard.vercel.app" target="_blank" rel="noopener noreferrer" data-cat="sites" style="--d:360ms">
-            <div class="pin-media">
-              <img src="/covers/celeste-fard.webp" alt="Site officiel de Celeste Fard" width="1200" height="900" loading="lazy" decoding="async" />
-              <span class="pin-badge pin-badge--live">En ligne</span>
-              <span class="pin-veil"><span class="pin-cta">Voir le site ↗</span></span>
-            </div>
-            <div class="pin-body">
-              <h3>Celeste Fard</h3>
-              <p>Site narratif d’artiste : storytelling, deux albums avec lecteur audio, clips, galerie à lightbox, shop et contact.</p>
-              <div class="pin-meta"><span>Next.js</span><span>Audio</span><span>Storytelling</span></div>
             </div>
           </a>
 

@@ -1387,3 +1387,308 @@ p {
 .perf-low .stage-scan {
   display: none;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   CHAPITRE 01 — CELESTE FARD
+   Reproduction de la hero du site présenté. Les valeurs viennent de son
+   fichier de tokens (app/styles/tokens.css) : on ne réinterprète pas sa
+   direction artistique, on la transpose. Bloc auto-contenu — variables
+   locales et media queries incluses — pour ne pas polluer le hub.
+   Les halos sont volontairement FIXES : sur le site d'origine ils pulsent
+   en boucle, ce qui n'a pas sa place au milieu d'une page de portfolio.
+   ═══════════════════════════════════════════════════════════════════ */
+.cf {
+  --cf-ink: #08050a;
+  --cf-red: #ff1e3c;
+  --cf-red-soft: #ff4d6d;
+  --cf-magenta: #d9007a;
+  --cf-violet: #3a0b4a;
+  --cf-paper: #fff5f6;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
+  padding-block: clamp(5rem, 12vw, 8rem);
+  padding-inline: var(--gutter);
+  background: var(--cf-ink);
+  color: var(--cf-paper);
+}
+
+/* --- Fond ------------------------------------------------------- */
+.cf-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.cf-img {
+  position: absolute;
+  inset: 0;
+  background-image: url("/media/celeste-hero.webp");
+  background-size: cover;
+  background-position: 50% 50%;
+  /* Mêmes corrections que la vidéo d'origine : le portrait doit rester en
+     retrait pour que le titre passe devant. */
+  filter: saturate(0.85) contrast(1.06) brightness(0.62);
+}
+
+/* Voile : très sombre à gauche pour ancrer le texte, transparent à droite
+   pour laisser le portrait respirer. */
+.cf-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(8 5 10 / 0.94) 0%, rgb(8 5 10 / 0.62) 46%, transparent 82%),
+    linear-gradient(180deg, rgb(8 5 10 / 0.5) 0%, transparent 26%, transparent 72%, var(--cf-ink) 100%);
+}
+
+.cf-halo {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cf-halo--top {
+  top: -18%;
+  right: -8%;
+  width: min(100%, 46rem);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgb(255 30 60 / 0.3), transparent 66%);
+  filter: blur(70px);
+}
+
+.cf-halo--bottom {
+  bottom: -22%;
+  left: -14%;
+  width: min(88%, 38rem);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgb(217 0 122 / 0.24), transparent 68%);
+  filter: blur(60px);
+}
+
+/* Grain repris tel quel du site : il casse le banding des dégradés. */
+.cf-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+
+/* --- Contenu ---------------------------------------------------- */
+.cf-inner {
+  position: relative;
+  width: min(100% - (var(--gutter) * 2), var(--container));
+  margin-inline: auto;
+  display: grid;
+  justify-items: start;
+  gap: clamp(1rem, 1.6vw, 1.35rem);
+  max-width: var(--container);
+}
+
+/* Rappel de la numérotation des chapitres, dans la teinte du site. */
+.cf-index {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  color: rgb(255 245 246 / 0.5);
+}
+
+.cf-index b {
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--cf-paper);
+}
+
+.cf-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cf-red-soft);
+}
+
+.cf-dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--cf-red);
+  box-shadow: 0 0 18px rgb(255 30 60 / 0.35);
+}
+
+.cf-title {
+  display: grid;
+  justify-items: start;
+  margin: 0;
+  font-family: "Anton", "Haettenschweiler", "Arial Narrow", var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(3rem, 11vw, 7.6rem);
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  text-wrap: nowrap;
+}
+
+.cf-title-line {
+  display: block;
+  color: var(--cf-paper);
+  /* Le texte passe sur une photo : l'ombre porte la lisibilité. */
+  text-shadow:
+    0 2px 30px rgb(8 5 10 / 0.95),
+    0 0 24px rgb(255 30 60 / 0.45),
+    0 0 60px rgb(217 0 122 / 0.32);
+}
+
+/* Le mot en dégradé passe par drop-shadow : un text-shadow serait masqué
+   par le background-clip: text. */
+.cf-title-accent {
+  background: linear-gradient(90deg, var(--cf-red-soft) 0%, var(--cf-red) 26%, var(--cf-magenta) 62%, var(--cf-violet) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* Avec line-height 0.88, la boîte de peinture s'arrête sous l'accent du
+     « É » : il disparaît. On agrandit la boîte vers le haut et on annule le
+     décalage par une marge négative, la mise en page ne bouge pas. */
+  padding-top: 0.16em;
+  margin-top: -0.16em;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 22px rgb(8 5 10 / 0.95))
+    drop-shadow(0 0 24px rgb(255 30 60 / 0.45))
+    drop-shadow(0 0 60px rgb(217 0 122 / 0.32));
+}
+
+.cf-lede {
+  max-width: 38ch;
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  line-height: 1.6;
+  color: rgb(255 245 246 / 0.86);
+  text-shadow: 0 2px 20px rgb(8 5 10 / 0.95);
+}
+
+/* --- Boutons ---------------------------------------------------- */
+.cf-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 0.35rem;
+}
+
+.cf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  padding: 0.95rem 1.85rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--cf-paper);
+  transition: transform 0.18s var(--ease-out), box-shadow 0.38s ease, border-color 0.18s ease;
+}
+
+.cf-btn:hover {
+  transform: translateY(-2px);
+}
+
+.cf-btn--primary {
+  background: linear-gradient(90deg, var(--cf-red-soft) 0%, var(--cf-red) 26%, var(--cf-magenta) 62%, var(--cf-violet) 100%);
+  box-shadow: 0 0 40px rgb(255 30 60 / 0.32), 0 0 90px rgb(217 0 122 / 0.2);
+}
+
+.cf-btn--primary:hover {
+  box-shadow: 0 0 70px rgb(255 30 60 / 0.3), 0 0 170px rgb(217 0 122 / 0.24);
+}
+
+.cf-btn--ghost {
+  background: rgb(8 5 10 / 0.55);
+  border-color: rgb(255 245 246 / 0.22);
+  backdrop-filter: blur(10px);
+}
+
+.cf-btn--ghost:hover {
+  border-color: rgb(255 30 60 / 0.65);
+  box-shadow: 0 0 18px rgb(255 30 60 / 0.35);
+}
+
+/* --- Pastilles -------------------------------------------------- */
+.cf-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-pills li {
+  padding: 0.58rem 1.05rem;
+  border: 1px solid rgb(255 245 246 / 0.12);
+  border-radius: 999px;
+  background: rgb(255 245 246 / 0.06);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgb(255 245 246 / 0.44);
+  /* le letter-spacing ajoute un vide à droite : on le compense */
+  padding-right: calc(1.05rem - 0.3em);
+}
+
+/* --- Mobile ----------------------------------------------------- */
+/* Comme sur le site d'origine : le visage occupe le haut du cadre, on lui
+   réserve de la place et le texte est calé en bas. */
+@media (max-width: 899px) {
+  .cf {
+    align-items: flex-end;
+    padding-top: min(16svh, 8rem);
+  }
+
+  .cf-img {
+    background-position: 50% 22%;
+  }
+
+  .cf-veil {
+    background:
+      linear-gradient(180deg, rgb(8 5 10 / 0.72) 0%, rgb(8 5 10 / 0.25) 32%, rgb(8 5 10 / 0.88) 78%, var(--cf-ink) 100%),
+      linear-gradient(90deg, rgb(8 5 10 / 0.8) 0%, transparent 62%);
+  }
+
+  .cf-title {
+    font-size: clamp(2.6rem, 12vw, 4rem);
+  }
+
+  .cf-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  /* Répètent le bandeau défilant situé juste au-dessus. */
+  .cf-pills {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-btn {
+    transition: none;
+  }
+
+  .cf-btn:hover {
+    transform: none;
+  }
+}
+
+/* Mode économe : le grain est le premier à sauter, comme ailleurs. */
+.perf-low .cf-grain {
+  display: none;
+}
