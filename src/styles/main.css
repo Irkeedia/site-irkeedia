@@ -1653,8 +1653,12 @@ p {
     padding-top: min(16svh, 8rem);
   }
 
+  /* Le montage 16:9 place le sujet à droite : en portrait, `cover` ne laisse
+     voir qu'un quart de la largeur et le visage sort du cadre. On bascule sur
+     le montage 9:16, exactement comme le site d'origine le fait pour sa vidéo. */
   .cf-img {
-    background-position: 50% 22%;
+    background-image: url("/media/celeste-hero-mobile.webp");
+    background-position: 50% 50%;
   }
 
   .cf-veil {
